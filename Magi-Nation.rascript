@@ -14,12 +14,12 @@ wScript_Scroll = 0xC70D
 wScript_System = 0xC714
 wScript_Text = 0xC71B
 
+// String buffer for text input
+wText_StringBuffer = 0xC949
 // Battle action source and targets
-//wText_StringBuffer = 0xC949 TODO change the next two labels
-wText_StringBuffer_BattleSource = 0xC949
-wText_StringBuffer_BattleTarget = 0xC954
-
-
+Battle_Source = wText_StringBuffer + 0
+Battle_Target = wText_StringBuffer + 11
+Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the item icon for simplicity
 //////////////////////
 // Helper Functions //
 //////////////////////
@@ -44,7 +44,10 @@ function leaf_cut() =>
 function energy_band() =>
     bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
 
+function geyser1() =>
+    bank_address(wScript_Master) == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
 
+// Battle actions
 function _tony_summon() =>
     bank_address(wScript_Text) == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
     
@@ -54,27 +57,39 @@ function _magi_summon() =>
 function _wild_appear() =>
     bank_address(wScript_Text) == 0x130B19 // battle_txt.mgi Line 974, TextClose()
 
+// From chests
+function _get_treasure() =>
+    bank_address(wScript_System) == 0x08805A // system.mgi Line 41, TextClose()
+
+
+///////////////////
+// String Buffer //
+///////////////////
+
+function battle_source(source) => ascii_string_equals(Battle_Source, source)
+function battle_target(target) => ascii_string_equals(Battle_Target, target)
+function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
 
 ////////////
 // Battle //
 ////////////
 
-function battle_source(source) => ascii_string_equals(wText_StringBuffer_BattleSource, source)
-function battle_target(target) => ascii_string_equals(wText_StringBuffer_BattleTarget, target)
 
 function tony_summon(creature) => _tony_summon() && battle_target(creature)
 function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature)
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 
-///////////
-// Logic //
-///////////
+//////////
+// Misc //
+//////////
 
 // Prevents achievements trigger before game init
 // TODO SKIP GAME INIT CHECK FOR DEBUGGING PURPOSES
 function game_init() => always_true() //i2_logo_displayed()
 
+function get_treasure(name) =>
+    _get_treasure() && treasure_name(name)
 
 //////////////////
 // Achievements //
@@ -82,6 +97,15 @@ function game_init() => always_true() //i2_logo_displayed()
 
 
 // Progression //
+
+// Geysers //
+achievement(
+    title = "Hero of Naroom", points = 5,
+    description = "Beat the first Shadow Geyser",
+    id = 0, badge = "000000",
+    trigger = game_init() && geyser1()
+)
+
 
 // Missable/Sidequests //
 achievement(
@@ -105,6 +129,13 @@ achievement(
     description = "Obtain Leaf Cut.",
     id = 0, badge = "000000",
     trigger = game_init() && leaf_cut()
+)
+
+achievement(
+    title = "Throw Healing at Friends", points = 1,
+    description = "Obtain Grow.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Grow        ")
 )
 
 // Hero Abilities //
