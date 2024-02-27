@@ -8,7 +8,7 @@
 // so we cannot use this memory reliably
 // Therefore the only useable memory for achievements is WRAM0, along with the MusyX data at $DF00
 
-// The game has 4 different bytecode scripts run in lockstep:
+// The game has 4 different bytecode scripts running simultaneously:
 wScript_Master = 0xC706
 wScript_Scroll = 0xC70D
 wScript_System = 0xC714
@@ -44,8 +44,14 @@ function leaf_cut() =>
 function energy_band() =>
     bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
 
+function crystal_gloves() =>
+    bank_address(wScript_Text) == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
+   
 function geyser1() =>
     bank_address(wScript_Master) == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
+
+function poop_gag() =>
+    bank_address(wScript_System) == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
 
 // Battle actions
 function _tony_summon() =>
@@ -146,7 +152,20 @@ achievement(
     trigger = game_init() && energy_band()
 )
 
-// Other //
+achievement(
+    title = "But Where Do My Pinkies Go?", points = 1,
+    description = "Obtain the Crystal Gloves.",
+    id = 0, badge = "000000",
+    trigger = game_init() && energy_band()
+)
+
+// Fun //
+achievement(
+    title = "Outhouse", points = 1,
+    description = "Look inside Gia's 'storage shed'.",
+    id = 0, badge = "000000",
+    trigger = game_init() && poop_gag()
+)
 
 // The Third Door - Unlock the third door.
 // Step into the Dark Side - Visit the Core Ringsmith.
@@ -155,7 +174,6 @@ achievement(
 // His Job is Done - 100% the game.
 // Second Largest Screwdriver - Find the giant screwdriver.
 // Truly a Wise Man - Listen to Oflardt's stories.
-// Throw Healing at Friends - Obtain Grow.
 // Rock and Roll - Obtain Cave In.
 // Ready to Rumble - Obtain Thunderquake.
 // Have Some Flame - Obtain Fireball.
@@ -168,9 +186,6 @@ achievement(
 // Beast of the Deep - Obtain Megathan.
 // Beast of the Sky - Obtain Orothan F.
 // Guardian of the Region - Obtain any Hyren.
-// Welcome to the Moonlands - Obtain the Translation Bracelet.
-// You're the Best Around - Obtain the Energy Band.
-// But Where Do My Pinkies Go? - Obtain the Digging Gloves.
 // Fancy Footwear - Obtain Agadon's Boots.
 // Under the Sea - Obtain the Orothean Belt.
 // Highway to Heaven - Obtain the Eye of the Storm.
