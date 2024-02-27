@@ -85,14 +85,14 @@ function game_init() => always_true() //i2_logo_displayed()
 
 // Missable/Sidequests //
 achievement(
-    title = "Great Furok[m]", points = 1,
+    title = "Great Furok[m]", points = 5,
     description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
     id = 0, badge = "000000",
     trigger = game_init() && great_furok()
 )
 
 achievement(
-    title = "Now THAT is a BIG Mushroom", points = 1,
+    title = "Now THAT is a BIG Mushroom", points = 50,
     description = "Encounter Ormagon.",
     id = 0, badge = "000000",
     trigger = game_init() && wild_appear("Ormagon   ")
