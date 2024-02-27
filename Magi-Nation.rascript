@@ -8,11 +8,22 @@
 // so we cannot use this memory reliably
 // Therefore the only useable memory for achievements is WRAM0, along with the MusyX data at $DF00
 
-// The game has 4 different bytecode scripts running simultaneously:
+// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts
 wScript_Master = 0xC706
 wScript_Scroll = 0xC70D
 wScript_System = 0xC714
 wScript_Text = 0xC71B
+
+// Build the wActor array
+//wActorScriptA = []
+//wActorScriptB = []
+//wActor_00 = 0xC1BF
+//wActor_Offset_ScriptA = 10
+//wActor_Offset_ScriptB = 17
+//for i in range(0, 0x2F) {
+//    array_push(wActorScriptA, wActor_00 + wActor_Offset_ScriptA*i)
+//    array_push(wActorScriptB, wActor_00 + wActor_Offset_ScriptB*i)
+//}
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
@@ -156,7 +167,7 @@ achievement(
     title = "But Where Do My Pinkies Go?", points = 1,
     description = "Obtain the Crystal Gloves.",
     id = 0, badge = "000000",
-    trigger = game_init() && energy_band()
+    trigger = game_init() && crystal_gloves()
 )
 
 // Fun //
