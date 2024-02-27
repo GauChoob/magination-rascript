@@ -3,7 +3,7 @@
 // md5: 1624f857098ca278b15629914f48352b
 
 // At the moment, it seems like SRAM is perpetually mapped to Bank 0, and WRAM mapped to Bank 1
-// Unfortunately the save file can be stored in either bank 0 or 1 so we can't reliably read SRAM
+// Unfortunately the save file swaps between bank 0 or 2 so we can't reliably read SRAM
 // Unfortunately the mGBA core doesn't mirror WRAM2-7 into address 0x10000-0x16000 
 // so we cannot use this memory reliably
 // Therefore the only useable memory for achievements is WRAM0, along with the MusyX data at $DF00
