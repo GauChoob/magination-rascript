@@ -27,10 +27,11 @@ wScript_Text = 0xC71B
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
-// Battle action source and targets
-Battle_Source = wText_StringBuffer + 0
+Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
-Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the item icon for simplicity
+Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) item icon for simplicity
+
+
 //////////////////////
 // Helper Functions //
 //////////////////////
@@ -38,11 +39,17 @@ Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the item icon fo
 // Only valid for ROM banks >= 1
 function bank_address(address) => byte(address)*0x4000 - 0x4000 + word(address + 1)
 
+// Convert 3-digit ascii to number
+function number() =>
+    (byte(wText_StringBuffer) - 0x30)*100 +
+    (byte(wText_StringBuffer + 1) - 0x30)*10 +
+    (byte(wText_StringBuffer + 2) - 0x30)
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
 ////////////////////////////////
 
+// Unique actions
 function i2_logo_displayed() =>
     repeated(89,bank_address(wScript_Master) == 0x0AB260) // hdnload01.mgi Line 19, Delay(90)
 
@@ -51,6 +58,9 @@ function great_furok() =>
 
 function leaf_cut() =>
     bank_address(wScript_Text) == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
+
+function blurry_scroll() =>
+    bank_address(wScript_Text) == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
 
 function energy_band() =>
     bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
@@ -64,7 +74,12 @@ function geyser1() =>
 function poop_gag() =>
     bank_address(wScript_System) == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
 
-// Battle actions
+function mushroom_gag() =>
+    bank_address(wScript_Text) == 0x0727E3 // undtown06.mgi Line 103, End()
+
+// Repeatable actions
+
+// Battle
 function _tony_summon() =>
     bank_address(wScript_Text) == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
     
@@ -74,11 +89,15 @@ function _magi_summon() =>
 function _wild_appear() =>
     bank_address(wScript_Text) == 0x130B19 // battle_txt.mgi Line 974, TextClose()
 
-// From chests
+// Chests
 function _get_treasure() =>
     bank_address(wScript_System) == 0x08805A // system.mgi Line 41, TextClose()
 
-
+function _brub_points() =>
+    bank_address(wScript_Text) == 0x0738E8 // undtown08.mgi Line 78, TextClose()
+    // TODO undtown08_sct.mgi and also archery game
+    // Need to differentiate between the two because same dialogue potentially
+   
 ///////////////////
 // String Buffer //
 ///////////////////
@@ -105,8 +124,7 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // TODO SKIP GAME INIT CHECK FOR DEBUGGING PURPOSES
 function game_init() => always_true() //i2_logo_displayed()
 
-function get_treasure(name) =>
-    _get_treasure() && treasure_name(name)
+function get_treasure(name) => _get_treasure() && treasure_name(name)
 
 //////////////////
 // Achievements //
@@ -147,12 +165,65 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && leaf_cut()
 )
-
 achievement(
     title = "Throw Healing at Friends", points = 1,
     description = "Obtain Grow.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Grow        ")
+)
+achievement(
+    title = "Rock and Roll[m]", points = 3,
+    description = "Obtain Cave In.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Cave In     ")
+)
+achievement(
+    title = "Ready to Rumble[m]", points = 3,
+    description = "Obtain Thunderquake.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Thunderquake")
+)
+achievement(
+    title = "Have Some Flame", points = 5,
+    description = "Obtain Fireball.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Fireball    ")
+)
+achievement(
+    title = "After the Flame, Only Ashes Remain[m]", points = 3,
+    description = "Obtain Flame Geyser.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Flame Geyser")
+)
+achievement(
+    title = "Abracadableeeerrrgh!", points = 3,
+    description = "Obtain Entangle.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Entangle    ")
+)
+achievement(
+    title = "Not What You Expect", points = 1,
+    description = "Obtain the Blurry Scroll.",
+    id = 0, badge = "000000",
+    trigger = game_init() && blurry_scroll()
+)
+achievement(
+    title = "Bend Water to Your Will[m]", points = 3,
+    description = "Obtain Tidal Wave.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Tidal Wave  ")
+)
+achievement(
+    title = "Zaptacular[m]", points = 3,
+    description = "Obtain Lightning.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Lightning   ")
+)
+achievement(
+    title = "Winds of Protection[m]", points = 3,
+    description = "Obtain Updraft.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("Updraft     ")
 )
 
 // Hero Abilities //
@@ -170,12 +241,27 @@ achievement(
     trigger = game_init() && crystal_gloves()
 )
 
+// MiniGames //
+achievement(
+    title = "Brub Scrub", points = 10,
+    description = "Score at least 50 points in Scrub the Brub.",
+    id = 0, badge = "000000",
+    trigger = game_init() && _brub_points() && (number() >= 50)
+)
+
 // Fun //
 achievement(
     title = "Outhouse", points = 1,
     description = "Look inside Gia's 'storage shed'.",
     id = 0, badge = "000000",
     trigger = game_init() && poop_gag()
+)
+
+achievement(
+    title = "Acquired Taste", points = 1,
+    description = "Eat 20 mushrooms.",
+    id = 0, badge = "000000",
+    trigger = game_init() && mushroom_gag()
 )
 
 // The Third Door - Unlock the third door.
@@ -185,15 +271,7 @@ achievement(
 // His Job is Done - 100% the game.
 // Second Largest Screwdriver - Find the giant screwdriver.
 // Truly a Wise Man - Listen to Oflardt's stories.
-// Rock and Roll - Obtain Cave In.
-// Ready to Rumble - Obtain Thunderquake.
-// Have Some Flame - Obtain Fireball.
-// After the Flame, Only Ashes Remain - Obtain Flame Geyser.
-// Abracadableeeerrrgh! - Obtain Entangle.
-// Not What You Expect - Obtain Dispel X.
-// Bend Water to Your Will - Obtain Tidal Wave.
-// Zaptacular - Obtain Lightning.
-// Winds of Protection - Obtain Updraft.
+
 // Beast of the Deep - Obtain Megathan.
 // Beast of the Sky - Obtain Orothan F.
 // Guardian of the Region - Obtain any Hyren.
@@ -209,7 +287,6 @@ achievement(
 // Scrub the Brub
 // Avoid the Agovos
 // Archery
-// Mushroom intox
 // Haggle the ferryman
 // Talk to every cat photo
 // Craft first Hyren
