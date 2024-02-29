@@ -39,11 +39,6 @@ Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) i
 // Only valid for ROM banks >= 1
 function bank_address(address) => byte(address)*0x4000 - 0x4000 + word(address + 1)
 
-// Convert 3-digit ascii to number
-function number() =>
-    (byte(wText_StringBuffer) - 0x30)*100 +
-    (byte(wText_StringBuffer + 1) - 0x30)*10 +
-    (byte(wText_StringBuffer + 2) - 0x30)
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
@@ -58,46 +53,56 @@ function great_furok() =>
 
 function leaf_cut() =>
     bank_address(wScript_Text) == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
-
 function blurry_scroll() =>
     bank_address(wScript_Text) == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
 
+function maelstrom() =>
+    bank_address(wScript_Text) == 0x06B4D5 // cldlavatown14_txt.mgi Line 86, TextClose()
+
 function energy_band() =>
     bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
-
 function crystal_gloves() =>
     bank_address(wScript_Text) == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
    
 function geyser1() =>
     bank_address(wScript_Master) == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
+function geyser2() =>
+    bank_address(wScript_Master) == 0x04ED51 // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
 
 function poop_gag() =>
     bank_address(wScript_System) == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
 
-function mushroom_gag() =>
-    bank_address(wScript_Text) == 0x0727E3 // undtown06.mgi Line 103, End()
+function morag_underneath_start() =>
+    bank_address(wScript_Text) == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
+function morag_underneath_end() =>
+    bank_address(wScript_Text) == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
 
 // Repeatable actions
 
 // Battle
 function _tony_summon() =>
     bank_address(wScript_Text) == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
-    
 function _magi_summon() =>
     bank_address(wScript_Text) == 0x130B09 // battle_txt.mgi Line 964, TextClose()
-
 function _wild_appear() =>
     bank_address(wScript_Text) == 0x130B19 // battle_txt.mgi Line 974, TextClose()
+function tony_wins() =>
+    bank_address(wScript_Text) == 0x130B69 // battle_txt.mgi Line 1016, TextClose()
 
 // Chests
 function _get_treasure() =>
     bank_address(wScript_System) == 0x08805A // system.mgi Line 41, TextClose()
 
+// Minigames
 function _brub_points() =>
     bank_address(wScript_Text) == 0x0738E8 // undtown08.mgi Line 78, TextClose()
     // TODO undtown08_sct.mgi and also archery game
     // Need to differentiate between the two because same dialogue potentially
-   
+
+function mushroom_gag() =>
+    bank_address(wScript_Text) == 0x0727E3 // undtown06.mgi Line 103, End()
+
+
 ///////////////////
 // String Buffer //
 ///////////////////
@@ -105,6 +110,12 @@ function _brub_points() =>
 function battle_source(source) => ascii_string_equals(Battle_Source, source)
 function battle_target(target) => ascii_string_equals(Battle_Target, target)
 function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
+
+// Convert 3-digit ascii to number
+function number() =>
+    (byte(wText_StringBuffer) - 0x30)*100 +
+    (byte(wText_StringBuffer + 1) - 0x30)*10 +
+    (byte(wText_StringBuffer + 2) - 0x30)
 
 ////////////
 // Battle //
@@ -130,31 +141,40 @@ function get_treasure(name) => _get_treasure() && treasure_name(name)
 // Achievements //
 //////////////////
 
-
-// Progression //
-
 // Geysers //
 achievement(
     title = "Hero of Naroom", points = 5,
-    description = "Beat the first Shadow Geyser",
+    description = "Complete the first Shadow Geyser",
     id = 0, badge = "000000",
     trigger = game_init() && geyser1()
 )
-
-
-// Missable/Sidequests //
 achievement(
-    title = "Great Furok[m]", points = 5,
-    description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
+    title = "Hero of the Underneath", points = 5,
+    description = "Complete the second Shadow Geyser",
     id = 0, badge = "000000",
-    trigger = game_init() && great_furok()
+    trigger = game_init() && geyser2()
 )
 
+// Hero Abilities //
 achievement(
-    title = "Now THAT is a BIG Mushroom", points = 50,
-    description = "Encounter Ormagon.",
+    title = "You're the Best Around", points = 1,
+    description = "Obtain the Energy Band.",
     id = 0, badge = "000000",
-    trigger = game_init() && wild_appear("Ormagon   ")
+    trigger = game_init() && energy_band()
+)
+achievement(
+    title = "But Where Do My Pinkies Go?", points = 1,
+    description = "Obtain the Crystal Gloves.",
+    id = 0, badge = "000000",
+    trigger = game_init() && crystal_gloves()
+)
+
+// MiniGames //
+achievement(
+    title = "Brub Scrub", points = 10,
+    description = "Score at least 50 points in Scrub the Brub.",
+    id = 0, badge = "000000",
+    trigger = game_init() && _brub_points() && (number() >= 50)
 )
 
 
@@ -226,42 +246,48 @@ achievement(
     trigger = game_init() && get_treasure("Updraft     ")
 )
 
-// Hero Abilities //
+// Completionist //
 achievement(
-    title = "You're the Best Around", points = 1,
-    description = "Obtain the Energy Band.",
+    title = "Great Furok[m]", points = 5,
+    description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
     id = 0, badge = "000000",
-    trigger = game_init() && energy_band()
+    trigger = game_init() && great_furok()
+)
+achievement(
+    title = "Solo Operative[m]", points = 10,
+    description = "Obtain Maelstrom by defeating all the ShadowMagi without any help.",
+    id = 0, badge = "000000",
+    trigger = game_init() && maelstrom()
 )
 
 achievement(
-    title = "But Where Do My Pinkies Go?", points = 1,
-    description = "Obtain the Crystal Gloves.",
+    title = "Now THAT is a BIG Mushroom[m]", points = 50,
+    description = "Encounter Ormagon.",
     id = 0, badge = "000000",
-    trigger = game_init() && crystal_gloves()
-)
-
-// MiniGames //
-achievement(
-    title = "Brub Scrub", points = 10,
-    description = "Score at least 50 points in Scrub the Brub.",
-    id = 0, badge = "000000",
-    trigger = game_init() && _brub_points() && (number() >= 50)
+    trigger = game_init() && wild_appear("Ormagon   ")
 )
 
 // Fun //
 achievement(
-    title = "Outhouse", points = 1,
+    title = "Outhouse[m]", points = 1,
     description = "Look inside Gia's 'storage shed'.",
     id = 0, badge = "000000",
     trigger = game_init() && poop_gag()
 )
 
 achievement(
-    title = "Acquired Taste", points = 1,
+    title = "Acquired Taste[m]", points = 1,
     description = "Eat 20 mushrooms.",
     id = 0, badge = "000000",
     trigger = game_init() && mushroom_gag()
+)
+
+// Battles //
+achievement(
+    title = "199 Borgors[m]", points = 100,
+    description = "Defeat Morag at your first encounter.",
+    id = 0, badge = "000000",
+    trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
 )
 
 // The Third Door - Unlock the third door.
