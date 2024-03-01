@@ -19,15 +19,28 @@ wScript_System = 0xC714
 wScript_Text = 0xC71B
 
 // Build the wActor array - TODO unused
+wActorState = []
 wActorScriptA = []
 wActorScriptB = []
 wActor_00 = 0xC1BF
+wActor_Offset_State = 1
 wActor_Offset_ScriptA = 10
 wActor_Offset_ScriptB = 17
+wActor_Size = 27
 for i in range(0, 0x2F) {
-    array_push(wActorScriptA, wActor_00 + wActor_Offset_ScriptA*i)
-    array_push(wActorScriptB, wActor_00 + wActor_Offset_ScriptB*i)
+    array_push(wActorState, wActor_00 + wActor_Size*i + wActor_Offset_State)
+    array_push(wActorScriptA, wActor_00 + wActor_Size*i + wActor_Offset_ScriptA)
+    array_push(wActorScriptB, wActor_00 + wActor_Size*i + wActor_Offset_ScriptB)
 }
+
+wActorTony = 0xC189
+wActorTonyState = wActorTony + wActor_Offset_State
+wActorTonyScriptA = wActorTony + wActor_Offset_ScriptA
+wActorTonyScriptB = wActorTony +wActor_Offset_ScriptB
+
+// Actor Frames (Bank 1 ROM)
+AI_Anim = 0x4A6B
+AI_Hero_Main = 0x5D81
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
@@ -35,6 +48,19 @@ Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
 Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) item icon for simplicity
 
+//TODO unused
+// Buttons pressed (Held, PushDown, PushUp)
+wCnt1 = 0xC931
+wCntDown = 0xC932
+wCntUp = 0xC933
+Button_A = 0
+Button_B = 1
+Button_Select = 2
+Button_Start = 3
+Button_Right = 4
+Button_Left = 5
+Button_Up = 6
+Button_Down = 7
 
 //////////////////////
 // Helper Functions //
@@ -77,11 +103,16 @@ function geyser2() =>
 
 function poop_gag() =>
     bank_address(wScript_System) == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
+function soap_gag() =>
+    bank_address(wScript_Text) == 0x074FE5 // wvegiashut01.mgi Line 463, TextClose()
+function haggle() =>
+    bank_address(wScript_Text) == 0x0A97CD // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
 function morag_underneath_start() =>
     bank_address(wScript_Text) == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
 function morag_underneath_end() =>
     bank_address(wScript_Text) == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+
 
 // Repeatable actions
 
@@ -107,7 +138,20 @@ function _brub_points() =>
 
 function mushroom_gag() =>
     bank_address(wScript_Text) == 0x0727E3 // undtown06.mgi Line 103, End()
+function close_training_door() =>
+    bank_address(wScript_System) == 0x04C159 // nrmvash13_dr.mgi Line 241, TextClose()
 
+function agovo_start() =>
+    bank_address(wScript_Master) == 0x05A7A3 // nrmvash02.mgi Line 379, TextClose()
+function agovo_win() =>
+    bank_address(wScript_Master) == 0x05A393 // nrmvash02.mgi Line 77, TextWrite("You win!")
+
+/////////////////
+// Actor State //
+/////////////////
+
+function tony_frozen() =>
+    word(wActorTonyState) == AI_Anim
 
 ///////////////////
 // String Buffer //
@@ -142,6 +186,12 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 function game_init() => always_true() //i2_logo_displayed()
 
 function get_treasure(name) => _get_treasure() && treasure_name(name)
+
+//TODO unused
+function press(button) =>
+    bit(button, wCntDown) == 1
+function menu() =>
+    press(Button_Start)
 
 //////////////////
 // Achievements //
@@ -182,11 +232,33 @@ achievement(
 )
 
 // MiniGames //
+brub_score = 50
 achievement(
     title = "Brub Scrub", points = 10,
-    description = "Score at least 50 points in Scrub the Brub.",
+    description = "Score at least " + brub_score + " points in Scrub the Brub.",
     id = 0, badge = "000000",
-    trigger = game_init() && _brub_points() && (number() >= 50)
+    trigger = game_init() && _brub_points() && (number() >= brub_score)
+)
+agovo_score = 462
+function agovo_timer() =>
+    never(tony_frozen()) && // Time reset
+    disable_when(repeated(agovo_score, !tony_frozen()), until=agovo_start())
+achievement(
+    title = "Speedy Tony", points = 10,
+    description = "Beat Avoid the Agovos in under 7.7 seconds.",
+    id = 0, badge = "000000",
+    trigger = game_init() && agovo_timer() && agovo_win()
+)
+leaderboard(
+    title = "Avoid the Agovos",
+    description = "Fastest time in Avoid the Agovos",
+    start = once(agovo_start()), // && never something
+    cancel = tony_frozen(),
+    submit = agovo_win(),
+    value = always_true(), // remove 4 from the count?
+    format = "FRAMES",
+    lower_is_better = true,
+    id = 0
 )
 
 
@@ -271,6 +343,12 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && maelstrom()
 )
+achievement(
+    title = "Skeleton Key[m]", points = 5,
+    description = "Find the Channeled Gem using Ashgar's Key.",
+    id = 0, badge = "000000",
+    trigger = game_init() && get_treasure("ChanneledGem")
+)
 
 achievement(
     title = "Now THAT is a BIG Mushroom[m]", points = 50,
@@ -286,13 +364,31 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && poop_gag()
 )
-
 achievement(
     title = "Acquired Taste[m]", points = 1,
     description = "Eat 20 mushrooms.",
     id = 0, badge = "000000",
     trigger = game_init() && mushroom_gag()
 )
+achievement(
+    title = "So That's Where Soap Comes From[m]", points = 1,
+    description = "Tell Eidon about Oflardt's stories.",
+    id = 0, badge = "000000",
+    trigger = game_init() && soap_gag()
+)
+achievement(
+    title = "Bargainer[m]", points = 3,
+    description = "Haggle the ferryman down to his lowest price.",
+    id = 0, badge = "000000",
+    trigger = game_init() && haggle()
+)
+achievement(
+    title = "Gentleman Thief", points = 5,
+    description = "Close the training equipment door after opening it.",
+    id = 0, badge = "000000",
+    trigger = game_init() && close_training_door()
+)
+
 
 // Battles //
 achievement(
@@ -308,7 +404,6 @@ achievement(
 // Savior - Cure Orwin.
 // His Job is Done - 100% the game.
 // Second Largest Screwdriver - Find the giant screwdriver.
-// Truly a Wise Man - Listen to Oflardt's stories.
 
 // Beast of the Deep - Obtain Megathan.
 // Beast of the Sky - Obtain Orothan F.
@@ -324,6 +419,5 @@ achievement(
 // Scrub the Brub
 // Avoid the Agovos
 // Archery
-// Haggle the ferryman
 // Talk to every cat photo
 // Craft first Hyren
