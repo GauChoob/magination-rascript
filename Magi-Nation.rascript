@@ -2,28 +2,32 @@
 // #ID = 4731
 // md5: 1624f857098ca278b15629914f48352b
 
-// At the moment, it seems like SRAM is perpetually mapped to Bank 0, and WRAM mapped to Bank 1
-// Unfortunately the save file swaps between bank 0 or 2 so we can't reliably read SRAM
-// Unfortunately the mGBA core doesn't mirror WRAM2-7 into address 0x10000-0x16000 
-// so we cannot use this memory reliably
-// Therefore the only useable memory for achievements is WRAM0, along with the MusyX data at $DF00
 
-// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts
+// Mapping reference: https://github.com/RetroAchievements/rcheevos/blob/cc854ad75b6533e73cff5eb7a92429c5750c01a3/src/rcheevos/consoleinfo.c#L422
+// Unfortunately, only the first SRAM is mapped, and since the save file swaps between bank 0 and 2
+// we can't reliably read SRAM at the moment.
+// WRAM0 and 1 are mapped.
+// Gambatte, GearBoy, VGA-M, SameBoy and GBHawk all support WRAM2-7 at 0x10000-0x16000
+// However, mGBA does not, meaning this memory location is core-dependant
+// Therefore the only useable memory for achievements is WRAM0, along with WRAM1 (only has MusyX data)
+// This means that magi and creature stats and count, chests, spells, relics, glyph status, hero abilities are all locked out
+
+// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
 wScript_Master = 0xC706
 wScript_Scroll = 0xC70D
 wScript_System = 0xC714
 wScript_Text = 0xC71B
 
-// Build the wActor array
-//wActorScriptA = []
-//wActorScriptB = []
-//wActor_00 = 0xC1BF
-//wActor_Offset_ScriptA = 10
-//wActor_Offset_ScriptB = 17
-//for i in range(0, 0x2F) {
-//    array_push(wActorScriptA, wActor_00 + wActor_Offset_ScriptA*i)
-//    array_push(wActorScriptB, wActor_00 + wActor_Offset_ScriptB*i)
-//}
+// Build the wActor array - TODO unused
+wActorScriptA = []
+wActorScriptB = []
+wActor_00 = 0xC1BF
+wActor_Offset_ScriptA = 10
+wActor_Offset_ScriptB = 17
+for i in range(0, 0x2F) {
+    array_push(wActorScriptA, wActor_00 + wActor_Offset_ScriptA*i)
+    array_push(wActorScriptB, wActor_00 + wActor_Offset_ScriptB*i)
+}
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
@@ -63,6 +67,8 @@ function energy_band() =>
     bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
     bank_address(wScript_Text) == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
+function agadons_boots() =>
+    bank_address(wScript_System) == 0x067B62 // orotunnel10_dr.mgi Line 29 TextClose()
    
 function geyser1() =>
     bank_address(wScript_Master) == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
@@ -167,6 +173,12 @@ achievement(
     description = "Obtain the Crystal Gloves.",
     id = 0, badge = "000000",
     trigger = game_init() && crystal_gloves()
+)
+achievement(
+    title = "Fancy Footwear", points = 1,
+    description = "Obtain Agadon's Boots.",
+    id = 0, badge = "000000",
+    trigger = game_init() && agadons_boots()
 )
 
 // MiniGames //
@@ -301,7 +313,6 @@ achievement(
 // Beast of the Deep - Obtain Megathan.
 // Beast of the Sky - Obtain Orothan F.
 // Guardian of the Region - Obtain any Hyren.
-// Fancy Footwear - Obtain Agadon's Boots.
 // Under the Sea - Obtain the Orothean Belt.
 // Highway to Heaven - Obtain the Eye of the Storm.
 // Hero of Naroom - Complete the first Shadow Geyser.
