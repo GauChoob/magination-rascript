@@ -299,19 +299,19 @@ function archery_count() => measured(tally(0, [
 // Geysers //
 achievement(
     title = "Hero of Naroom", points = 5,
-    description = "Complete the first Shadow Geyser",
+    description = "Complete the first Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && geyser1()
 )
 achievement(
     title = "Hero of the Underneath", points = 5,
-    description = "Complete the second Shadow Geyser",
+    description = "Complete the second Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && geyser2()
 )
 achievement(
     title = "Hero of the Cald", points = 5,
-    description = "Complete the third Shadow Geyser",
+    description = "Complete the third Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && geyser3()
 )
@@ -369,13 +369,13 @@ leaderboard(
 
 achievement(
     title = "Aim for Tickets", points = 10,
-    description = "Score at least 50 points in Aim for Animite",
+    description = "Score at least 50 points in Aim for Animite.",
     id = 0, badge = "000000",
     trigger = game_init() && archery_start() && archery_end() && (number() >= 50) // use number() instead of archery_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Bullseye", points = 25,
-    description = "Score at least 60 points in Aim for Animite",
+    description = "Score at least 60 points in Aim for Animite.",
     id = 0, badge = "000000",
     trigger = game_init() && archery_start() && archery_end() && (number() >= 60) // use number() instead of archery_count() since we only need to check the total score at the end
 )
@@ -419,66 +419,66 @@ leaderboard(
 // Spells //
 achievement(
     title = "Throw Leaves at Enemies", points = 1,
-    description = "Obtain Leaf Cut.",
+    description = "Obtain Leaf Cut in Naroom.",
     id = 0, badge = "000000",
     trigger = game_init() && leaf_cut()
 )
 achievement(
     title = "Throw Healing at Friends", points = 1,
-    description = "Obtain Grow.",
+    description = "Obtain Grow in Naroom.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Grow        ")
 )
 achievement(
-    title = "Rock and Roll[m]", points = 3,
-    description = "Obtain Cave In.",
+    title = "Rock and Roll [m]", points = 3,
+    description = "Obtain Cave In in the second Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Cave In     ")
 )
 achievement(
-    title = "Ready to Rumble[m]", points = 3,
-    description = "Obtain Thunderquake.",
+    title = "Ready to Rumble [m]", points = 3,
+    description = "Obtain Thunderquake in the second Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Thunderquake")
 )
 achievement(
     title = "Have Some Flame", points = 5,
-    description = "Obtain Fireball.",
+    description = "Obtain Fireball in the Cald.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Fireball    ")
 )
 achievement(
-    title = "After the Flame, Only Ashes Remain[m]", points = 2,
-    description = "Obtain Flame Geyser.",
+    title = "After the Flame, Only Ashes Remain [m]", points = 2,
+    description = "Obtain Flame Geyser in the third Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Flame Geyser")
 )
 achievement(
     title = "Abracadableeeerrrgh!", points = 3,
-    description = "Obtain Entangle.",
+    description = "Obtain Entangle in Orothe.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Entangle    ")
 )
 achievement(
     title = "Not What You Expect", points = 1,
-    description = "Obtain the Blurry Scroll.",
+    description = "Obtain the Blurry Scroll in Orothe.",
     id = 0, badge = "000000",
     trigger = game_init() && blurry_scroll()
 )
 achievement(
-    title = "Bend Water to Your Will[m]", points = 3,
-    description = "Obtain Tidal Wave.",
+    title = "Bend Water to Your Will [m]", points = 3,
+    description = "Obtain Tidal Wave in the fourth Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Tidal Wave  ")
 )
 achievement(
-    title = "Zaptacular[m]", points = 3,
+    title = "Zaptacular [m]", points = 3,
     description = "Obtain Lightning.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Lightning   ")
 )
 achievement(
-    title = "Winds of Protection[m]", points = 3,
+    title = "Winds of Protection [m]", points = 3,
     description = "Obtain Updraft.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Updraft     ")
@@ -486,26 +486,26 @@ achievement(
 
 // Completionist //
 achievement(
-    title = "Great Furok[m]", points = 5,
+    title = "Great Furok [m]", points = 5,
     description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
     id = 0, badge = "000000",
     trigger = game_init() && great_furok()
 )
 achievement(
-    title = "Solo Operative[m]", points = 10,
+    title = "Solo Operative [m]", points = 10,
     description = "Obtain Maelstrom by defeating all the ShadowMagi without any help.",
     id = 0, badge = "000000",
     trigger = game_init() && maelstrom()
 )
 achievement(
-    title = "Skeleton Key[m]", points = 5,
+    title = "Skeleton Key [m]", points = 5,
     description = "Find the Channeled Gem using Ashgar's Key.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("ChanneledGem")
 )
 
 achievement(
-    title = "Now THAT is a BIG Mushroom[m]", points = 50,
+    title = "Now THAT is a BIG Mushroom [m]", points = 50,
     description = "Encounter Ormagon.",
     id = 0, badge = "000000",
     trigger = game_init() && wild_appear("Ormagon   ")
@@ -513,25 +513,25 @@ achievement(
 
 // Fun //
 achievement(
-    title = "Outhouse[m]", points = 1,
+    title = "Outhouse [m]", points = 1,
     description = "Look inside Gia's 'storage shed'.",
     id = 0, badge = "000000",
     trigger = game_init() && poop_gag()
 )
 achievement(
-    title = "Acquired Taste[m]", points = 1,
+    title = "Acquired Taste [m]", points = 1,
     description = "Eat 20 mushrooms.",
     id = 0, badge = "000000",
     trigger = game_init() && mushroom_gag()
 )
 achievement(
-    title = "So That's Where Soap Comes From[m]", points = 1,
+    title = "So That's Where Soap Comes From [m]", points = 1,
     description = "Tell Eidon about Oflardt's stories.",
     id = 0, badge = "000000",
     trigger = game_init() && soap_gag()
 )
 achievement(
-    title = "Bargainer[m]", points = 3,
+    title = "Bargainer [m]", points = 3,
     description = "Haggle the ferryman down to his lowest price.",
     id = 0, badge = "000000",
     trigger = game_init() && haggle()
@@ -546,7 +546,7 @@ achievement(
 
 // Battles //
 achievement(
-    title = "199 Borgors[m]", points = 100,
+    title = "199 Borgors [m]", points = 100,
     description = "Defeat Morag at your first encounter.",
     id = 0, badge = "000000",
     trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
@@ -572,3 +572,9 @@ achievement(
 // Winners Never Lose - Defeat Agram.
 // Talk to every cat photo
 // Craft first Hyren
+
+// Leaderboard:
+// Minigames
+// wFightscene_ArenaIndex
+// In Battle - enemy name, or else the location based on the arena background?
+// Music ID?
