@@ -26,8 +26,8 @@ function changes_from(address, value) => (prev(address) == value) && (address !=
 // WRAM //
 //////////
 
-// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
-// TODO - wrap these in bank_address
+// The game has 4 different bytecode scripts running simultaneously,
+// plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
 function wScript_Master() => bank_address(0xC706)
 function wScript_Scroll() => bank_address(0xC70D)
 function wScript_System() => bank_address(0xC714)
@@ -64,12 +64,12 @@ function wActorTonyScriptB() => bank_address(wActorTony + wActor_Offset_ScriptB)
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
+Creature_Name = wText_StringBuffer + 0 // Forging creature name
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
 Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) item icon for simplicity
 
-//TODO unused
-// Buttons pressed (Held, PushDown, PushUp)
+// Buttons pressed (Held, PushDown, PushUp) - TODO Unused
 wCnt1 = 0xC931
 wCntDown = 0xC932
 wCntUp = 0xC933
@@ -95,23 +95,21 @@ SFXID_CriticalAttack = 14
 //  Bytecode Script Addresses //
 ////////////////////////////////
 
-// Unique actions //
+// Unique Actions //
+////////////////////
 
-// TODO Unused
-function i2_logo_displayed() =>
-    wScript_Master() == 0x0AB260 // hdnload01.mgi Line 19, Delay(90)
 
-function great_furok() =>
-    wScript_Text() == 0x053A0A // nrmvash11_txt.mgi Line 281, TextClose()
-
+// Spells
 function leaf_cut() =>
     wScript_Text() == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
 function blurry_scroll() =>
-    wScript_Text() == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
+    wScript_System() == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
 
+// Relics
 function maelstrom() =>
     wScript_Text() == 0x06B4D5 // cldlavatown14_txt.mgi Line 86, TextClose()
 
+// Hero Abilities
 function energy_band() =>
     wScript_Text() == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
@@ -119,15 +117,36 @@ function crystal_gloves() =>
 function agadons_boots() =>
     wScript_System() == 0x067B62 // orotunnel10_dr.mgi Line 29 TextClose()
 function orothean_belt() =>
-    wScript_Text() == 0x070E4C // hldcell06.mgi Line 422 TextClose()
-   
+    wScript_Text() == 0x070E4C // hldcell06.mgi Line 422, TextClose()
+function eye_of_the_storm() =>
+    wScript_Text() == 0x065746 // ardpalace01_txt.mgi Line 65, TextClose()
+
+// Geyser completions
 function geyser1() =>
     wScript_Master() == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
 function geyser2() =>
     wScript_Master() == 0x04ED51 // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
 function geyser3() =>
     wScript_Master() == 0x07FB09 // cldgeyser05.mgi Line 93, PalFade(0,15,32,0)
+_geyser4 = 0x0612BC // orogeyser12.mgi Line 34, PalFade(0,15,32,0)
+function geyser4_nofight() =>
+    wScript_Master() ==_geyser4
+function geyser4_fight() =>
+    wActorScriptA[0] ==_geyser4
+function geyser5() =>
+    wScript_Master() == 0x093F53 // ardgeyser28.mgi Line 50, PalFade(0,15,32,0)
 
+// Boss fights
+function morag_underneath_start() =>
+    wScript_Text() == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
+function morag_underneath_end() =>
+    wScript_Text() == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+function zet_end() =>
+    wScript_Text() == 0x09AD56 // cregate01_txt.mgi Line 66, TextClose()
+function agram_end() =>
+    wScript_Text() == 0x0568AC // throne01_txt.mgi Line 66, TextIcon(ICON_AGRAM)
+
+// Gags
 function poop_gag() =>
     wScript_System() == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
 function soap_gag() =>
@@ -135,13 +154,21 @@ function soap_gag() =>
 function haggle() =>
     wScript_Text() == 0x0A97CD // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
-function morag_underneath_start() =>
-    wScript_Text() == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
-function morag_underneath_end() =>
-    wScript_Text() == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+// Misc
+function great_furok() =>
+    wScript_Text() == 0x053A0A // nrmvash11_txt.mgi Line 281, TextClose()
+function cure_orwin() =>
+    wScript_Text() == 0x08E2BA // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
+function party() =>
+    wScript_Text() == 0x05A2DD // nrmvash02_party.mgi Line 639, TextClose()
+function evu_secret() =>
+    wScript_Text() == 0x05A2DD // nrmvash02_party.mgi Line 639, TextClose()
+function new_game_plus() =>
+    wScript_Text() == 0x0AAF63 // hdnload01_sct.mgi Line 63, TextClose()
 
 
-// Repeatable actions
+// Repeatable Actions //
+////////////////////////
 
 // Battle
 function _tony_summon() =>
@@ -152,6 +179,11 @@ function _wild_appear() =>
     wScript_Text() == 0x130B19 // battle_txt.mgi Line 974, TextClose()
 function tony_wins() =>
     wScript_Text() == 0x130B69 // battle_txt.mgi Line 1016, TextClose()
+
+function salafy_level4_start() =>
+    wScript_System() == 0x0589DD // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY)
+function salafy_win() =>
+    wScript_Text() == 0x04D58F // vash13.mgi Line 139, TextIcon(ICON_SALAFY)
 
 // Chests
 function _get_treasure() =>
@@ -183,28 +215,44 @@ function agovo_win() =>
 function agovo_lose() =>
     wScript_Master() == 0x05A381 // nrmvash02.mgi Line 67, TextWrite("You lose!")
 
-// Misc
+// Forging Dream Creatures
+function forge_naroom() =>
+    wScript_Text() == 0x053CC1 // nrmvash11_txt.mgi Line 415, TextIcon(ICON_PRUITT)
+function forge_underneath() =>
+    wScript_Text() == 0x055495 // undcave08_txt.mgi Line 207, TextIcon(ICON_FOSSIK)
+function forge_cald() =>
+    wScript_Text() == 0x07B5CE // caldlavatown12_txt.mgi Line 72, TextIcon(ICON_MAGAM)
+function forge_orothe_city() =>
+    wScript_Text() == 0x063053 // orocity04_txt.mgi Line 373, TextIcon(ICON_ORLON)
+function forge_orothe_island() =>
+    wScript_Text() == 0x06CC66 // oroislands04_txt.mgi Line 184, TextIcon(ICON_ORLON)
+function forge_arderial() =>
+    wScript_Text() == 0x069380 // ardgarden08_txt.mgi Line 373, TextIcon(ICON_LASADA)
+function forge_core() =>
+    wScript_Text() == 0x096525 // hdnroom01.mgi Line 207, TextIcon(ICON_CLOAK)
 
+// Misc
 function mushroom_gag() =>
     wScript_Text() == 0x0727E3 // undtown06.mgi Line 103, End()
 function close_training_door() =>
     wScript_System() == 0x04C159 // nrmvash13_dr.mgi Line 241, TextClose()
+function large_screwdriver() =>
+    wScript_System() == 0x06DFF0 // hldmaze08_dr.mgi Line 67, TextClose()
+function greet_coresmith() =>
+    wScript_Text() == 0x0963C9 // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
 
-// Actor Frames (Bank 1 ROM)
+// Actor //
+///////////
 
+// AI Frames (Bank 1 ROM)
 AI_Anim = 0x4A6B
-AI_Hero_Main = 0x5D81
+function tony_frozen() =>
+    wActorTonyState() == AI_Anim
 
-// Actor Graphics
+// Graphics Scripts
 Brub_Squished_Anim = 0x0472C6 // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
 RedBrub_Squished_Anim = 0x0047327 // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
 
-/////////////////
-// Actor State //
-/////////////////
-
-function tony_frozen() =>
-    wActorTonyState() == AI_Anim
 
 ///////////////////
 // String Buffer //
@@ -213,6 +261,7 @@ function tony_frozen() =>
 function battle_source(source) => ascii_string_equals(Battle_Source, source)
 function battle_target(target) => ascii_string_equals(Battle_Target, target)
 function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
+function creature_name(name) => ascii_string_equals(Creature_Name, name)
 
 // Convert 3-digit ascii to number
 function number() =>
@@ -220,13 +269,13 @@ function number() =>
     (byte(wText_StringBuffer + 1) - 0x30)*10 +
     (byte(wText_StringBuffer + 2) - 0x30)
 
+
 ////////////
 // Battle //
 ////////////
 
-
 function tony_summon(creature) => _tony_summon() && battle_target(creature)
-function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature)
+function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature) // TODO Unused and untested
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 
@@ -250,8 +299,6 @@ function brub_start() => once(minigame_brub()) && never(minigame_archery())
 function archery_start() => once(minigame_archery()) && never(minigame_brub())
 function brub_end() => minigame_underneath_points() || minigame_cald_points()
 function archery_end() => minigame_cald_points()
-
-
 // Actor00, 01, 02 are left, middle and right columns respectively
 function brub_squish_blue(actorid) =>
     (wSound_Control_SFX0() == SFXID_CriticalAttack) && (wActorScriptB[actorid] == Brub_Squished_Anim) && (wActorTonyX() == 4 + 5*actorid)
@@ -292,6 +339,20 @@ function archery_count() => measured(tally(0, [
     archery_target_animite(),
 ]))
 
+
+forge_location = {
+    "Naroom": forge_naroom(),
+    "Underneath": forge_underneath(),
+    "Cald": forge_cald(),
+    "Orothe": (forge_orothe_city() || forge_orothe_island()),
+    "Arderial": forge_arderial(),
+    "Core": forge_core()
+}
+function forge(location, creature) =>
+    forge_location[location] && creature_name(creature)
+
+
+
 //////////////////
 // Achievements //
 //////////////////
@@ -314,6 +375,24 @@ achievement(
     description = "Complete the third Shadow Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && geyser3()
+)
+achievement(
+    title = "Hero of Orothe", points = 10,
+    description = "Complete the fourth Shadow Geyser.",
+    id = 0, badge = "000000",
+    trigger = game_init() && (geyser4_fight() || geyser4_nofight())
+)
+achievement(
+    title = "Hero of Arderial", points = 10,
+    description = "Beat Morag.",
+    id = 0, badge = "000000",
+    trigger = game_init() && geyser5()
+)
+achievement(
+    title = "Hero of Agadon", points = 25,
+    description = "Beat Agram.",
+    id = 0, badge = "000000",
+    trigger = game_init() && agram_end()
 )
 
 // Hero Abilities //
@@ -340,6 +419,12 @@ achievement(
     description = "Obtain the Orothean Belt.",
     id = 0, badge = "000000",
     trigger = game_init() && orothean_belt()
+)
+achievement(
+    title = "Highway to Heaven", points = 3,
+    description = "Meet the Queen.",
+    id = 0, badge = "000000",
+    trigger = game_init() && eye_of_the_storm()
 )
 
 // MiniGames //
@@ -415,7 +500,6 @@ leaderboard(
     id = 0
 )
 
-
 // Spells //
 achievement(
     title = "Throw Leaves at Enemies", points = 1,
@@ -454,7 +538,7 @@ achievement(
     trigger = game_init() && get_treasure("Flame Geyser")
 )
 achievement(
-    title = "Abracadableeeerrrgh!", points = 3,
+    title = "Abracadableeeerrrgh!", points = 1,
     description = "Obtain Entangle in Orothe.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Entangle    ")
@@ -473,13 +557,13 @@ achievement(
 )
 achievement(
     title = "Zaptacular [m]", points = 3,
-    description = "Obtain Lightning.",
+    description = "Obtain Lightning before facing Morag.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Lightning   ")
 )
 achievement(
     title = "Winds of Protection [m]", points = 3,
-    description = "Obtain Updraft.",
+    description = "Obtain Updraft before facing Morag.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Updraft     ")
 )
@@ -503,9 +587,108 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("ChanneledGem")
 )
-
 achievement(
-    title = "Now THAT is a BIG Mushroom [m]", points = 50,
+    title = "Second Largest Screwdriver [m]", points = 25,
+    description = "Examine the large screwdriver near some Jingjacks.",
+    id = 0, badge = "000000",
+    trigger = game_init() && large_screwdriver()
+)
+achievement(
+    title = "Savior [m]", points = 50,
+    description = "Cure Orwin.",
+    id = 0, badge = "000000",
+    trigger = game_init() && cure_orwin()
+)
+achievement(
+    title = "Celebration [m]", points = 10,
+    description = "After defeating Agram, attend the party instead of going home.",
+    id = 0, badge = "000000",
+    trigger = game_init() && party()
+)
+achievement(
+    title = "Simpsons Homage [m]", points = 10,
+    description = "Do everything at the Naroom party and watch Evu perform magic.",
+    id = 0, badge = "000000",
+    trigger = game_init() && evu_secret()
+)
+achievement(
+    title = "The Third Door [m]", points = 5,
+    description = "Unlock New Game Plus.",
+    id = 0, badge = "000000",
+    trigger = game_init() && new_game_plus()
+)
+achievement(
+    title = "Dark Side [m]", points = 50,
+    description = "Visit the Core Ringsmith.",
+    id = 0, badge = "000000",
+    trigger = game_init() && greet_coresmith()
+)
+
+/////////////////////
+// Dream Creatures //
+/////////////////////
+achievement(
+    title = "Leaves that Cut", points = 10,
+    description = "Forge Leaf Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Naroom", "Leaf Hyren")
+)
+achievement(
+    title = "Tree Power", points = 10,
+    description = "Forge Timber Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Naroom", "TimberHyrn")
+)
+achievement(
+    title = "Pummel Party", points = 10,
+    description = "Forge Mush Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Underneath", "Mush Hyren")
+)
+achievement(
+    title = "Bury Your Foes", points = 10,
+    description = "Forge Cave Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Underneath", "Cave Hyren")
+)
+achievement(
+    title = "Flightless Wings", points = 10,
+    description = "Forge Magma Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Cald", "MagmaHyren")
+)
+achievement(
+    title = "Purifying Flame", points = 10,
+    description = "Forge Flame Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Cald", "FlameHyren")
+)
+achievement(
+    title = "Sitting Pretty", points = 10,
+    description = "Forge Coral Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Orothe", "CoralHyren")
+)
+achievement(
+    title = "Ruler of the Depths", points = 10,
+    description = "Forge Deep Hyren.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Orothe", "Deep Hyren")
+)
+achievement(
+    title = "Beast of the Sea", points = 10,
+    description = "Forge Megathan.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Orothe", "Megathan  ")
+)
+achievement(
+    title = "Wind Fish", points = 10,
+    description = "Forge Orathan F.",
+    id = 0, badge = "000000",
+    trigger = game_init() && forge("Arderial", "Orathan F ")
+)
+achievement(
+    title = "Now THAT is a BIG Mushroom [m]", points = 100,
     description = "Encounter Ormagon.",
     id = 0, badge = "000000",
     trigger = game_init() && wild_appear("Ormagon   ")
@@ -519,7 +702,7 @@ achievement(
     trigger = game_init() && poop_gag()
 )
 achievement(
-    title = "Acquired Taste [m]", points = 1,
+    title = "Acquired Taste [m]", points = 3,
     description = "Eat 20 mushrooms.",
     id = 0, badge = "000000",
     trigger = game_init() && mushroom_gag()
@@ -537,7 +720,7 @@ achievement(
     trigger = game_init() && haggle()
 )
 achievement(
-    title = "Gentleman Thief", points = 5,
+    title = "Gentleman Thief [m]", points = 5,
     description = "Close the training equipment door after opening it.",
     id = 0, badge = "000000",
     trigger = game_init() && close_training_door()
@@ -551,29 +734,20 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
 )
+achievement(
+    title = "Two Stoogies", points = 10,
+    description = "Meet Korg and Zet for the last time.",
+    id = 0, badge = "000000",
+    trigger = game_init() && zet_end()
+)
+achievement(
+    title = "Weebest", points = 25,
+    description = "Defeat Salafy's at her hardest difficulty.",
+    id = 0, badge = "000000",
+    trigger = game_init() && once(salafy_level4_start()) && salafy_win()
+)
 
-// The Third Door - Unlock the third door.
-// Step into the Dark Side - Visit the Core Ringsmith.
-// Be the Very Best/Weebest - Defeat Salafy at her best.
-// Savior - Cure Orwin.
-// His Job is Done - 100% the game.
-// Second Largest Screwdriver - Find the giant screwdriver.
-
-// Beast of the Deep - Obtain Megathan.
-// Beast of the Sky - Obtain Orothan F.
-// Guardian of the Region - Obtain any Hyren.
-
-// Highway to Heaven - Queen
-// Hero of Naroom - Complete the first Shadow Geyser.
-// Hero of the Underneath - Complete the second Shadow Geyser.
-// Hero of Cald - Complete the third Shadow Geyser.
-// Hero of Orothe - Complete the fourth Shadow Geyser.
-// Hero of Arderial - Queen
-// Winners Never Lose - Defeat Agram.
-// Talk to every cat photo
-// Craft first Hyren
-
-// Leaderboard:
+// Active text:
 // Minigames
 // wFightscene_ArenaIndex
 // In Battle - enemy name, or else the location based on the arena background?
