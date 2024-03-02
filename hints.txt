@@ -1,0 +1,4 @@
+Scrub the Brub
+Every 32 frames, 37.5% chance of blue, 12.5% of red, columns left to right
+Squishing resets going from left to right (in 32 frames)
+Therefore, move left-right and prioritize left/middle column

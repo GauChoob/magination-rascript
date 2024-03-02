@@ -2,7 +2,6 @@
 // #ID = 4731
 // md5: 1624f857098ca278b15629914f48352b
 
-
 // Mapping reference: https://github.com/RetroAchievements/rcheevos/blob/cc854ad75b6533e73cff5eb7a92429c5750c01a3/src/rcheevos/consoleinfo.c#L422
 // Unfortunately, only the first SRAM is mapped, and since the save file swaps between bank 0 and 2
 // we can't reliably read SRAM at the moment.
@@ -12,35 +11,56 @@
 // Therefore the only useable memory for achievements is WRAM0, along with WRAM1 (only has MusyX data)
 // This means that magi and creature stats and count, chests, spells, relics, glyph status, hero abilities are all locked out
 
-// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
-wScript_Master = 0xC706
-wScript_Scroll = 0xC70D
-wScript_System = 0xC714
-wScript_Text = 0xC71B
+// Reference source code: https://github.com/GauChoob/magination
 
-// Build the wActor array - TODO unused
+//////////////////////
+// Helper Functions //
+//////////////////////
+
+// Only valid for ROM banks >= 1
+function bank_address(address) => byte(address)*0x4000 - 0x4000 + word(address + 1)
+
+function changes_from(address, value) => (prev(address) == value) && (address != value)
+
+//////////
+// WRAM //
+//////////
+
+// The game has 4 different bytecode scripts running simultaneously, plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
+// TODO - wrap these in bank_address
+function wScript_Master() => bank_address(0xC706)
+function wScript_Scroll() => bank_address(0xC70D)
+function wScript_System() => bank_address(0xC714)
+function wScript_Text() => bank_address(0xC71B)
+
+// Build the wActor array
 wActorState = []
+wActorX = []
+wActorY = []
 wActorScriptA = []
 wActorScriptB = []
 wActor_00 = 0xC1BF
 wActor_Offset_State = 1
+wActor_Offset_X = 5
+wActor_Offset_Y = 6
 wActor_Offset_ScriptA = 10
 wActor_Offset_ScriptB = 17
 wActor_Size = 27
 for i in range(0, 0x2F) {
-    array_push(wActorState, wActor_00 + wActor_Size*i + wActor_Offset_State)
-    array_push(wActorScriptA, wActor_00 + wActor_Size*i + wActor_Offset_ScriptA)
-    array_push(wActorScriptB, wActor_00 + wActor_Size*i + wActor_Offset_ScriptB)
+    array_push(wActorState, word(wActor_00 + wActor_Size*i + wActor_Offset_State))
+    array_push(wActorX, byte(wActor_00 + wActor_Size*i + wActor_Offset_X))
+    array_push(wActorY, byte(wActor_00 + wActor_Size*i + wActor_Offset_Y))
+    array_push(wActorScriptA, bank_address(wActor_00 + wActor_Size*i + wActor_Offset_ScriptA))
+    array_push(wActorScriptB, bank_address(wActor_00 + wActor_Size*i + wActor_Offset_ScriptB))
 }
 
 wActorTony = 0xC189
-wActorTonyState = wActorTony + wActor_Offset_State
-wActorTonyScriptA = wActorTony + wActor_Offset_ScriptA
-wActorTonyScriptB = wActorTony +wActor_Offset_ScriptB
+function wActorTonyState() => word(wActorTony + wActor_Offset_State)
+function wActorTonyX() => byte(wActorTony + wActor_Offset_X)
+function wActorTonyY() => byte(wActorTony + wActor_Offset_Y)
+function wActorTonyScriptA() => bank_address(wActorTony + wActor_Offset_ScriptA)
+function wActorTonyScriptB() => bank_address(wActorTony + wActor_Offset_ScriptB)
 
-// Actor Frames (Bank 1 ROM)
-AI_Anim = 0x4A6B
-AI_Hero_Main = 0x5D81
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
@@ -62,96 +82,129 @@ Button_Left = 5
 Button_Up = 6
 Button_Down = 7
 
-//////////////////////
-// Helper Functions //
-//////////////////////
+// Sound is initialized right after WRAM is wiped on reset
+function wSound_SoundInit() => byte(0xC91D)
+Sound_Init_MagicNumber = 0x55
+// Requested SFX
+function wSound_Control_SFX0() => byte(0xC921)
+SFXID_CriticalAttack = 14
 
-// Only valid for ROM banks >= 1
-function bank_address(address) => byte(address)*0x4000 - 0x4000 + word(address + 1)
 
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
 ////////////////////////////////
 
-// Unique actions
+// Unique actions //
+
+// TODO Unused
 function i2_logo_displayed() =>
-    repeated(89,bank_address(wScript_Master) == 0x0AB260) // hdnload01.mgi Line 19, Delay(90)
+    wScript_Master() == 0x0AB260 // hdnload01.mgi Line 19, Delay(90)
 
 function great_furok() =>
-    bank_address(wScript_Text) == 0x053A0A // nrmvash11_txt.mgi Line 281, TextClose()
+    wScript_Text() == 0x053A0A // nrmvash11_txt.mgi Line 281, TextClose()
 
 function leaf_cut() =>
-    bank_address(wScript_Text) == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
+    wScript_Text() == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
 function blurry_scroll() =>
-    bank_address(wScript_Text) == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
+    wScript_Text() == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
 
 function maelstrom() =>
-    bank_address(wScript_Text) == 0x06B4D5 // cldlavatown14_txt.mgi Line 86, TextClose()
+    wScript_Text() == 0x06B4D5 // cldlavatown14_txt.mgi Line 86, TextClose()
 
 function energy_band() =>
-    bank_address(wScript_Text) == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
+    wScript_Text() == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
-    bank_address(wScript_Text) == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
+    wScript_Text() == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
 function agadons_boots() =>
-    bank_address(wScript_System) == 0x067B62 // orotunnel10_dr.mgi Line 29 TextClose()
+    wScript_System() == 0x067B62 // orotunnel10_dr.mgi Line 29 TextClose()
+function orothean_belt() =>
+    wScript_Text() == 0x070E4C // hldcell06.mgi Line 422 TextClose()
    
 function geyser1() =>
-    bank_address(wScript_Master) == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
+    wScript_Master() == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
 function geyser2() =>
-    bank_address(wScript_Master) == 0x04ED51 // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
+    wScript_Master() == 0x04ED51 // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
+function geyser3() =>
+    wScript_Master() == 0x07FB09 // cldgeyser05.mgi Line 93, PalFade(0,15,32,0)
 
 function poop_gag() =>
-    bank_address(wScript_System) == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
+    wScript_System() == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
 function soap_gag() =>
-    bank_address(wScript_Text) == 0x074FE5 // wvegiashut01.mgi Line 463, TextClose()
+    wScript_Text() == 0x074FE5 // wvegiashut01.mgi Line 463, TextClose()
 function haggle() =>
-    bank_address(wScript_Text) == 0x0A97CD // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
+    wScript_Text() == 0x0A97CD // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
 function morag_underneath_start() =>
-    bank_address(wScript_Text) == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
+    wScript_Text() == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
 function morag_underneath_end() =>
-    bank_address(wScript_Text) == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+    wScript_Text() == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
 
 
 // Repeatable actions
 
 // Battle
 function _tony_summon() =>
-    bank_address(wScript_Text) == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
+    wScript_Text() == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
 function _magi_summon() =>
-    bank_address(wScript_Text) == 0x130B09 // battle_txt.mgi Line 964, TextClose()
+    wScript_Text() == 0x130B09 // battle_txt.mgi Line 964, TextClose()
 function _wild_appear() =>
-    bank_address(wScript_Text) == 0x130B19 // battle_txt.mgi Line 974, TextClose()
+    wScript_Text() == 0x130B19 // battle_txt.mgi Line 974, TextClose()
 function tony_wins() =>
-    bank_address(wScript_Text) == 0x130B69 // battle_txt.mgi Line 1016, TextClose()
+    wScript_Text() == 0x130B69 // battle_txt.mgi Line 1016, TextClose()
 
 // Chests
 function _get_treasure() =>
-    bank_address(wScript_System) == 0x08805A // system.mgi Line 41, TextClose()
+    wScript_System() == 0x08805A // system.mgi Line 41, TextClose()
 
 // Minigames
-function _brub_points() =>
-    bank_address(wScript_Text) == 0x0738E8 // undtown08.mgi Line 78, TextClose()
-    // TODO undtown08_sct.mgi and also archery game
-    // Need to differentiate between the two because same dialogue potentially
+function minigame_underneath_points() =>
+    wScript_Text() == 0x0738E8 // undtown08.mgi Line 74, TextClose()
+function minigame_cald_points() =>
+    wScript_Text() == 0x073488 // undtown08_sct.mgi Line 68, TextClose()
+function minigame_brub() =>
+    wScript_Master() == 0x073A21 // undtown09.mgi Line 31, Sync(2,0)
+function minigame_archery() =>
+    wScript_Master() == 0x09A710 // nrmvash24.mgi Line 49, PalFade(0,15,32,0)
 
-function mushroom_gag() =>
-    bank_address(wScript_Text) == 0x0727E3 // undtown06.mgi Line 103, End()
-function close_training_door() =>
-    bank_address(wScript_System) == 0x04C159 // nrmvash13_dr.mgi Line 241, TextClose()
+function archery_target_animite() =>
+    wScript_Scroll() == 0x9A7EF // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect)
+function archery_target_slow() =>
+    changes_from(wScript_Scroll(), 0x9A877) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect)
+function archery_target_medium() =>
+    changes_from(wScript_Scroll(), 0x9A8B5) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect)
+function archery_target_fast() =>
+    changes_from(wScript_Scroll(), 0x9A8F3) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect)
 
 function agovo_start() =>
-    bank_address(wScript_Master) == 0x05A7A3 // nrmvash02.mgi Line 379, TextClose()
+    wScript_Master() == 0x05A7A3 // nrmvash02.mgi Line 379, TextClose()
 function agovo_win() =>
-    bank_address(wScript_Master) == 0x05A393 // nrmvash02.mgi Line 77, TextWrite("You win!")
+    wScript_Master() == 0x05A393 // nrmvash02.mgi Line 77, TextWrite("You win!")
+function agovo_lose() =>
+    wScript_Master() == 0x05A381 // nrmvash02.mgi Line 67, TextWrite("You lose!")
+
+// Misc
+
+function mushroom_gag() =>
+    wScript_Text() == 0x0727E3 // undtown06.mgi Line 103, End()
+function close_training_door() =>
+    wScript_System() == 0x04C159 // nrmvash13_dr.mgi Line 241, TextClose()
+
+// Actor Frames (Bank 1 ROM)
+
+AI_Anim = 0x4A6B
+AI_Hero_Main = 0x5D81
+
+// Actor Graphics
+Brub_Squished_Anim = 0x0472C6 // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
+RedBrub_Squished_Anim = 0x0047327 // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
 
 /////////////////
 // Actor State //
 /////////////////
 
 function tony_frozen() =>
-    word(wActorTonyState) == AI_Anim
+    wActorTonyState() == AI_Anim
 
 ///////////////////
 // String Buffer //
@@ -181,9 +234,8 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // Misc //
 //////////
 
-// Prevents achievements trigger before game init
-// TODO SKIP GAME INIT CHECK FOR DEBUGGING PURPOSES
-function game_init() => always_true() //i2_logo_displayed()
+// WRAM has been initialized
+function game_init() => wSound_SoundInit() == Sound_Init_MagicNumber
 
 function get_treasure(name) => _get_treasure() && treasure_name(name)
 
@@ -192,6 +244,53 @@ function press(button) =>
     bit(button, wCntDown) == 1
 function menu() =>
     press(Button_Start)
+
+// Scrub the Brub and Aim for Animite
+function brub_start() => once(minigame_brub()) && never(minigame_archery())
+function archery_start() => once(minigame_archery()) && never(minigame_brub())
+function brub_end() => minigame_underneath_points() || minigame_cald_points()
+function archery_end() => minigame_cald_points()
+
+
+// Actor00, 01, 02 are left, middle and right columns respectively
+function brub_squish_blue(actorid) =>
+    (wSound_Control_SFX0() == SFXID_CriticalAttack) && (wActorScriptB[actorid] == Brub_Squished_Anim) && (wActorTonyX() == 4 + 5*actorid)
+function brub_squish_red(actorid) =>
+    (wSound_Control_SFX0() == SFXID_CriticalAttack) && (wActorScriptB[actorid] == RedBrub_Squished_Anim) && (wActorTonyX() == 4 + 5*actorid)
+function brub_count() => measured(tally(0, [
+    brub_squish_blue(0),
+    brub_squish_red(0),
+    brub_squish_red(0),
+    brub_squish_red(0),
+    brub_squish_red(0),
+    brub_squish_red(0),
+    brub_squish_blue(1),
+    brub_squish_red(1),
+    brub_squish_red(1),
+    brub_squish_red(1),
+    brub_squish_red(1),
+    brub_squish_red(1),
+    brub_squish_blue(2),
+    brub_squish_red(2),
+    brub_squish_red(2),
+    brub_squish_red(2),
+    brub_squish_red(2),
+    brub_squish_red(2),
+]))
+// Perhaps there's a chance of giving an unecessary point for a slow/medium/fast target hit within 10 frames of the scene ending, but I don't think it is possible.
+function archery_count() => measured(tally(0, [
+    archery_target_slow(),
+    archery_target_medium(),
+    archery_target_medium(),
+    archery_target_fast(),
+    archery_target_fast(),
+    archery_target_fast(),
+    archery_target_animite(),
+    archery_target_animite(),
+    archery_target_animite(),
+    archery_target_animite(),
+    archery_target_animite(),
+]))
 
 //////////////////
 // Achievements //
@@ -210,6 +309,12 @@ achievement(
     id = 0, badge = "000000",
     trigger = game_init() && geyser2()
 )
+achievement(
+    title = "Hero of the Cald", points = 5,
+    description = "Complete the third Shadow Geyser",
+    id = 0, badge = "000000",
+    trigger = game_init() && geyser3()
+)
 
 // Hero Abilities //
 achievement(
@@ -225,37 +330,86 @@ achievement(
     trigger = game_init() && crystal_gloves()
 )
 achievement(
-    title = "Fancy Footwear", points = 1,
+    title = "Fancy Footwear", points = 2,
     description = "Obtain Agadon's Boots.",
     id = 0, badge = "000000",
     trigger = game_init() && agadons_boots()
 )
+achievement(
+    title = "Under the Sea", points = 2,
+    description = "Obtain the Orothean Belt.",
+    id = 0, badge = "000000",
+    trigger = game_init() && orothean_belt()
+)
 
 // MiniGames //
-brub_score = 50
 achievement(
     title = "Brub Scrub", points = 10,
-    description = "Score at least " + brub_score + " points in Scrub the Brub.",
+    description = "Score at least 50 points in Scrub the Brub.",
     id = 0, badge = "000000",
-    trigger = game_init() && _brub_points() && (number() >= brub_score)
+    trigger = game_init() && brub_start() && brub_end() && (number() >= 50) // use number() instead of brub_count() since we only need to check the total score at the end
 )
-agovo_score = 462
-function agovo_timer() =>
-    never(tony_frozen()) && // Time reset
-    disable_when(repeated(agovo_score, !tony_frozen()), until=agovo_start())
+achievement(
+    title = "Brub Elite", points = 25,
+    description = "Score at least 60 points in Scrub the Brub.",
+    id = 0, badge = "000000",
+    trigger = game_init() && brub_start() && brub_end() && (number() >= 60) // use number() instead of brub_count() since we only need to check the total score at the end
+)
+leaderboard(
+    title = "Scrub the Brub",
+    description = "Highest points in Scrub the Brub.",
+    start = game_init() && brub_start() && never(brub_end()),
+    cancel = always_false(),
+    submit = brub_end(),
+    value = brub_count(), // use brub_count() instead of number() so we can keep track of score during the minigame
+    format = "VALUE",
+    lower_is_better = false,
+    id = 0
+)
+
+achievement(
+    title = "Aim for Tickets", points = 10,
+    description = "Score at least 50 points in Aim for Animite",
+    id = 0, badge = "000000",
+    trigger = game_init() && archery_start() && archery_end() && (number() >= 50) // use number() instead of archery_count() since we only need to check the total score at the end
+)
+achievement(
+    title = "Bullseye", points = 25,
+    description = "Score at least 60 points in Aim for Animite",
+    id = 0, badge = "000000",
+    trigger = game_init() && archery_start() && archery_end() && (number() >= 60) // use number() instead of archery_count() since we only need to check the total score at the end
+)
+leaderboard(
+    title = "Aim for Animite",
+    description = "Highest points in Aim for Animite.",
+    start = game_init() && archery_start() && never(archery_end()),
+    cancel = always_false(),
+    submit = archery_end(),
+    value = archery_count(), // use archery_count() instead of number() so we can keep track of score during the minigame
+    format = "VALUE",
+    lower_is_better = false,
+    id = 0
+)
+
 achievement(
     title = "Speedy Tony", points = 10,
-    description = "Beat Avoid the Agovos in under 7.7 seconds.",
+    description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60 = 462
     id = 0, badge = "000000",
-    trigger = game_init() && agovo_timer() && agovo_win()
+    trigger = game_init() && disable_when(repeated(462, !tony_frozen()), until=agovo_start()) && agovo_win()
+)
+achievement(
+    title = "Flash Tony", points = 25,
+    description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60 = 444
+    id = 0, badge = "000000",
+    trigger = game_init() && disable_when(repeated(444, !tony_frozen()), until=agovo_start()) && agovo_win()
 )
 leaderboard(
     title = "Avoid the Agovos",
-    description = "Fastest time in Avoid the Agovos",
-    start = once(agovo_start()), // && never something
-    cancel = tony_frozen(),
+    description = "Fastest time in Avoid the Agovos.",
+    start = game_init() && once(agovo_start()) && never(agovo_lose()) && never(agovo_win()),
+    cancel = agovo_lose(),
     submit = agovo_win(),
-    value = always_true(), // remove 4 from the count?
+    value = always_true(),
     format = "FRAMES",
     lower_is_better = true,
     id = 0
@@ -294,7 +448,7 @@ achievement(
     trigger = game_init() && get_treasure("Fireball    ")
 )
 achievement(
-    title = "After the Flame, Only Ashes Remain[m]", points = 3,
+    title = "After the Flame, Only Ashes Remain[m]", points = 2,
     description = "Obtain Flame Geyser.",
     id = 0, badge = "000000",
     trigger = game_init() && get_treasure("Flame Geyser")
@@ -408,16 +562,13 @@ achievement(
 // Beast of the Deep - Obtain Megathan.
 // Beast of the Sky - Obtain Orothan F.
 // Guardian of the Region - Obtain any Hyren.
-// Under the Sea - Obtain the Orothean Belt.
-// Highway to Heaven - Obtain the Eye of the Storm.
+
+// Highway to Heaven - Queen
 // Hero of Naroom - Complete the first Shadow Geyser.
 // Hero of the Underneath - Complete the second Shadow Geyser.
 // Hero of Cald - Complete the third Shadow Geyser.
 // Hero of Orothe - Complete the fourth Shadow Geyser.
-// Hero of Arderial - Complete the fifth Shadow Geyser.
+// Hero of Arderial - Queen
 // Winners Never Lose - Defeat Agram.
-// Scrub the Brub
-// Avoid the Agovos
-// Archery
 // Talk to every cat photo
 // Craft first Hyren
