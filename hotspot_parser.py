@@ -3,18 +3,28 @@ import sys
 pretty_names = [
     ('HS_NRMGLADE01', 'Naroom Grove'),
     ('HS_NRMGLADE02', 'Naroom Grove'),
-    ('HS_NRMGLADE03', 'Vash Naroom Entrance'),
-    ('HS_NRMGLADE09', 'Naroom Shadow Geyser Entrance'),
+    ('HS_NRMGLADE03', 'Vash Naroom'),
+    ('HS_NRMGLADE04', 'Naroom Glade'),
+    ('HS_NRMGLADE05', 'Naroom Glade'),
+    ('HS_NRMGLADE06', 'Naroom Glade'),
+    ('HS_NRMGLADE07', 'Naroom Glade'),
+    ('HS_NRMGLADE08', 'Naroom Glade'),
+    ('HS_NRMGLADE09', 'Naroom Shadow Geyser'),
     ('HS_NRMGLADE10', 'Naroom Cave'), # When geyser is defeated
     ('HS_NRMGLADE11', 'Naroom Forest'), # Boxxle to the forest
-    ('HS_NRMGLADE', 'Naroom Glade'),
     ('HS_NRMGEYSER', 'Naroom Shadow Geyser'),
+    ('HS_NRMFOREST06', 'Wence\'s House'),
+    ('HS_NRMFOREST07', 'Wence\'s House'),
     ('HS_NRMFOREST', 'Naroom Forest'),
+    ('HS_NRMLAKE04', 'Under the Seer\'s House'),
+    ('HS_NRMLAKE05', 'Under the Seer\'s House'),
+    ('HS_NRMLAKE06', 'Under the Seer\'s House'),
     ('HS_NRMLAKE', 'Seer\'s House'),
-    ('HS_NRMRIVER03', 'Developer\s Secret Room'),
+    ('HS_NRMRIVER03', 'Hacking! Developer\'s Secret Room'),
     ('HS_NRMRIVER', 'Naroom Grove'),
     ('HS_NRMVASH24', 'Aim for Animite'),
-    ('HS_NRMVASH02_SCT', 'Avoid the Agovos Lobby'),
+    ('HS_NRMVASH02_SCT', 'Avoid the Agovos'),
+    ('HS_NRMVASH13', 'Training Grounds'),
     ('HS_NRMVASH', 'Vash Naroom'),
     ('HS_HDNROOM05', 'Avoid the Agovos'),
     ('HS_NRMTOWEAVE', 'Naroom Forest'),
@@ -26,7 +36,7 @@ pretty_names = [
     ('HS_HDNUNDTUN', 'Underneath Tunnels'),
     ('HS_UNDMUSHFARM', 'Gruk\'s Mushroom Farm'),
     ('HS_UNDCAVERN', 'Underneath Caverns'), # To Gruk's
-    ('HS_THRONE', 'Arderial Palace'),
+    ('HS_THRONE', 'Core'),
     ('HS_CREGATE', 'Core Entrance'),
     ('HS_CLDLAVAPOOL', 'Ashyn'),
     ('HS_CLDLAVATOWN', 'Ashyn'),
@@ -57,27 +67,55 @@ pretty_names = [
     ('HS_HMTCAVE', 'Tavel Gorge Cave'), # 2-4
     ('HS_WVEGIASHUT', 'Gia\'s Farm'),
     ('HS_WVESHORTCUT', 'Naroom Cave'),
+    ('HS_WVEPATHVALLEY04', 'Wheat Farm'),
+    ('HS_WVEPATHVALLEY07', 'Underneath Tunnels'), # Tunnel entrance
     ('HS_WVEPATHVALLEY', 'Weave'),
     ('HS_WVECOREENTRANCE', 'Core Entrance'),
     ('HS_OROCITY', 'Oscent Mar'),
     ('HS_OROTUNNEL', 'Orothe Tunnels'), # Under the island
-    ('HS_ORORUINS', 'Underwater Ruins'),
-    ('HS_OROISLANDS', 'Orothe Island'),
-    ('HS_ORODEEP', 'Path to the Orothe Shadow Geyser'),
-    ('HS_OROGEYSER', 'Orothe Shadow Geyser'),
+    ('HS_ORORUINS', 'Underwater Ruins'), #
+    ('HS_OROISLANDS', 'Orothe Island'), #
+    ('HS_ORODEEP', 'Path to the Orothe Shadow Geyser'), #
+    ('HS_OROGEYSER', 'Orothe Shadow Geyser'), #
     ('HS_OROCORAL', 'Orothe Corals'), # Dead end path where you get dumped from the Orothe Tunnels
-    ('HS_OVERSURFACE01', 'Naroom Overworld'),
-    ('HS_OVRSURFACE01B', 'Hyren\'s Glade'),
-    ('HS_OVERSURFACE02', 'Underneath Overworld'),
-    ('HS_OVERSURFACE03', 'Cald Overworld'),
-    ('HS_OVERSURFACE04', 'Orothe Overworld'),
+    ('HS_OVERSURFACE01', 'Naroom Overworld'), #
+    ('HS_OVRSURFACE01B', 'Hyren\'s Glade'), #
+    ('HS_OVERSURFACE02', 'Underneath Overworld'), #
+    ('HS_OVERSURFACE03', 'Cald Overworld'), #
+    ('HS_OVERSURFACE04', 'Orothe Overworld'), #
     ('HS_OVERSURFACE05', 'Arderial Overworld'),
     ('HS_ARDPALACE', 'Arderial Throne Room'),
-    ('HS_ARDCITY', 'Arderial Palace'),
-    ('HS_ARDGARDEN04', 'Arderial Clouds'), # Shadowhold rescued guys
-    ('HS_ARDGARDEN', 'Arderial Hamlet'), # Multiple locations
-    ('HS_ARDCLOUDS', 'Arderial Clouds'), # All the routes put together
-    ('HS_ARDGEYSER', 'Arderial Shadow Geyser'),
+    ('HS_ARDCITY01', 'Arderial Palace'),
+    ('HS_ARDCITY02', 'Arderial Inn'),
+    ('HS_ARDCITY03', 'Arderial Historian'),
+    ('HS_ARDCITY04', 'Arderial Shop'),
+    ('HS_ARDGARDEN01', 'Arderial Palace'),
+    ('HS_ARDGARDEN02', 'Arderial Palace'),
+    ('HS_ARDGARDEN03', 'Arderial Palace'),
+    ('HS_ARDGARDEN04', 'Middle Clouds'), # Empty room
+    ('HS_ARDGARDEN05', 'Arderial Inn'),
+    ('HS_ARDGARDEN06', 'Arderial Historian'),
+    ('HS_ARDGARDEN07', 'Arderial Historian'),
+    ('HS_ARDGARDEN08', 'Arderial Shop'),
+    ('HS_ARDGARDEN09', 'Arderial Historian'),
+    ('HS_ARDCLOUDS01', 'Middle Clouds'),
+    ('HS_ARDCLOUDS02', 'Middle Clouds'),
+    ('HS_ARDCLOUDS03', 'Middle Clouds'),
+    ('HS_ARDCLOUDS04', 'Middle Clouds'),
+    ('HS_ARDCLOUDS05', 'Middle Clouds'),
+    ('HS_ARDCLOUDS06', 'Middle Clouds'),
+    ('HS_ARDCLOUDS07', 'North Clouds'),
+    ('HS_ARDCLOUDS08', 'North Clouds'),
+    ('HS_ARDCLOUDS09', 'North Clouds'),
+    ('HS_ARDCLOUDS10', 'North Clouds'),
+    ('HS_ARDCLOUDS11', 'North Clouds'),
+    ('HS_ARDCLOUDS12', 'North Clouds'),
+    ('HS_ARDCLOUDS13', 'North Clouds'),
+    ('HS_ARDCLOUDS14', 'Palace Clouds'),
+    ('HS_ARDCLOUDS15', 'South Clouds'),
+    ('HS_ARDCLOUDS16', 'South Clouds'),
+    ('HS_ARDCLOUDS', 'Arderial Clouds'),
+    ('HS_ARDGEYSER', 'Arderial Shadow Geyser'), #
 ]
 
 def prettify_name(name):
@@ -113,13 +151,14 @@ def hotspot_parser(file_in, file_out):
             if header == 'TR':
                 continue
             if header == 'HS':
-                map.append((address, line))
+                map.append((address + 1, line))
                 continue
             raise KeyError
             
 
     with open(file_out, 'w') as f:
-        f.write('hotspot_reference = {\n')
+        f.write('// Autogenerated from hotspot_parser.py\n')
+        f.write('hotspot_lookup = {\n')
         f.write('    0x0000: "Splash Screen",\n')
         f.write(',\n'.join([f'    0x{entry[0]:04X}: "{prettify_name(entry[1])} ({entry[1]})"' for entry in map]))
         f.write('\n}')

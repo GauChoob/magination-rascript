@@ -27,3 +27,7 @@ Fungicide achievement door: Must be done before beating Morag
 %BIT	Party_Valkan			XRAM_SAVEBITS 1^7		// Valkan's party bit
 
 Worveline hiding spots: Pruitt's bed, Item shop's chest, Evu's fireplace, Empty house(northeast) chair, house left of Pruitt's, spooky kid's drawers
+
+Hotspots:
+Checked: Naroom, Arderial, Core, Weave
+Missing: Cald, Underneath, Orothe
