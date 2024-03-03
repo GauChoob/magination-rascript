@@ -14,6 +14,7 @@ pretty_names = [
     ('HS_NRMRIVER03', 'Developer\s Secret Room'),
     ('HS_NRMRIVER', 'Naroom Grove'),
     ('HS_NRMVASH24', 'Aim for Animite'),
+    ('HS_NRMVASH02_SCT', 'Avoid the Agovos Lobby'),
     ('HS_NRMVASH', 'Vash Naroom'),
     ('HS_HDNROOM05', 'Avoid the Agovos'),
     ('HS_NRMTOWEAVE', 'Naroom Forest'),
