@@ -17,11 +17,9 @@
 // Helper Functions //
 //////////////////////
 
-// Only valid for ROM banks >= 1
-function bank_address(address) => byte(address)*0x4000 - 0x4000 + word(address + 1)
 // Converts a ROM address from raw location to a bank_address. Only valid for ROM banks >= 1
 // e.g. 0x047327 -> ROMX[0x11] 0x7327 -> 0x732711
-function bank_address2(raw_address) =>
+function bank_address(raw_address) =>
     0x100*(raw_address - (raw_address / 0x4000 - 1)*0x4000) + (raw_address / 0x4000)
 
 function changes_from(address, value) => (prev(address) == value) && (address != value)
@@ -65,26 +63,12 @@ function wActorTonyY() => byte(wActorTony + wActor_Offset_Y)
 function wActorTonyScriptA() => tbyte(wActorTony + wActor_Offset_ScriptA)
 function wActorTonyScriptB() => tbyte(wActorTony + wActor_Offset_ScriptB)
 
-
 // String buffer for text input
 wText_StringBuffer = 0xC949
 Creature_Name = wText_StringBuffer + 0 // Forging creature name
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
 Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) item icon for simplicity
-
-// Buttons pressed (Held, PushDown, PushUp) - TODO Unused
-wCnt1 = 0xC931
-wCntDown = 0xC932
-wCntUp = 0xC933
-Button_A = 0
-Button_B = 1
-Button_Select = 2
-Button_Start = 3
-Button_Right = 4
-Button_Left = 5
-Button_Up = 6
-Button_Down = 7
 
 // Sound is initialized right after WRAM is wiped on reset
 function wSound_SoundInit() => byte(0xC91D)
@@ -104,70 +88,70 @@ SFXID_CriticalAttack = 14
 
 // Spells
 function leaf_cut() =>
-    wScript_Text() == 0x0AC508 // nrmvash12_txt.mgi Line 109, TextClose()
+    wScript_Text() == bank_address(0x0AC508) // nrmvash12_txt.mgi Line 109, TextClose()
 function blurry_scroll() =>
-    wScript_System() == 0x066A01 // ororuins02_dr.mgi Line 22, TextClose()
+    wScript_System() == bank_address(0x066A01) // ororuins02_dr.mgi Line 22, TextClose()
 
 // Relics
 function maelstrom() =>
-    wScript_Text() == 0x06B4D5 // cldlavatown14_txt.mgi Line 86, TextClose()
+    wScript_Text() == bank_address(0x06B4D5) // cldlavatown14_txt.mgi Line 86, TextClose()
 
 // Hero Abilities
 function energy_band() =>
-    wScript_Text() == 0x052835 // nrmglade09A_txt.mgi Line 187, TextClose()
+    wScript_Text() == bank_address(0x052835) // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
-    wScript_Text() == 0x0746FC // wvegiashut01_txt.mgi Line 102, TextClose()
+    wScript_Text() == bank_address(0x0746FC) // wvegiashut01_txt.mgi Line 102, TextClose()
 function agadons_boots() =>
-    wScript_System() == 0x067B62 // orotunnel10_dr.mgi Line 29 TextClose()
+    wScript_System() == bank_address(0x067B62) // orotunnel10_dr.mgi Line 29 TextClose()
 function orothean_belt() =>
-    wScript_Text() == 0x070E4C // hldcell06.mgi Line 422, TextClose()
+    wScript_Text() == bank_address(0x070E4C) // hldcell06.mgi Line 422, TextClose()
 function eye_of_the_storm() =>
-    wScript_Text() == 0x065746 // ardpalace01_txt.mgi Line 65, TextClose()
+    wScript_Text() == bank_address(0x065746) // ardpalace01_txt.mgi Line 65, TextClose()
 
 // Geyser completions
 function geyser1() =>
-    wScript_Master() == 0x06A7F3 // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x06A7F3) // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
 function geyser2() =>
-    wScript_Master() == 0x04ED51 // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x04ED51) // undgeyser09.mgi Line 136, PalFade(0,15,32,0)
 function geyser3() =>
-    wScript_Master() == 0x07FB09 // cldgeyser05.mgi Line 93, PalFade(0,15,32,0)
-_geyser4 = 0x0612BC // orogeyser12.mgi Line 34, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x07FB09) // cldgeyser05.mgi Line 93, PalFade(0,15,32,0)
+_geyser4 = bank_address(0x0612BC) // orogeyser12.mgi Line 34, PalFade(0,15,32,0)
 function geyser4_nofight() =>
     wScript_Master() ==_geyser4
 function geyser4_fight() =>
     wActorScriptA[0] ==_geyser4
 function geyser5() =>
-    wScript_Master() == 0x093F53 // ardgeyser28.mgi Line 50, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x093F53) // ardgeyser28.mgi Line 50, PalFade(0,15,32,0)
 
 // Boss fights
 function morag_underneath_start() =>
-    wScript_Text() == 0x088DAE // undtown01_txt.mgi Line 380, TextClose()
+    wScript_Text() == bank_address(0x088DAE) // undtown01_txt.mgi Line 380, TextClose()
 function morag_underneath_end() =>
-    wScript_Text() == 0x088DB2 // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+    wScript_Text() == bank_address(0x088DB2) // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
 function zet_end() =>
-    wScript_Text() == 0x09AD56 // cregate01_txt.mgi Line 66, TextClose()
+    wScript_Text() == bank_address(0x09AD56) // cregate01_txt.mgi Line 66, TextClose()
 function agram_end() =>
-    wScript_Text() == 0x0568AC // throne01_txt.mgi Line 66, TextIcon(ICON_AGRAM)
+    wScript_Text() == bank_address(0x0568AC) // throne01_txt.mgi Line 66, TextIcon(ICON_AGRAM)
 
 // Gags
 function poop_gag() =>
-    wScript_System() == 0x0742C4 // wvegiashut01_dr.mgi Line 38, TextClose()
+    wScript_System() == bank_address(0x0742C4) // wvegiashut01_dr.mgi Line 38, TextClose()
 function soap_gag() =>
-    wScript_Text() == 0x074FE5 // wvegiashut01.mgi Line 463, TextClose()
+    wScript_Text() == bank_address(0x074FE5) // wvegiashut01.mgi Line 463, TextClose()
 function haggle() =>
-    wScript_Text() == 0x0A97CD // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
+    wScript_Text() == bank_address(0x0A97CD) // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
 // Misc
 function great_furok() =>
-    wScript_Text() == 0x053A0A // nrmvash11_txt.mgi Line 281, TextClose()
+    wScript_Text() == bank_address(0x053A0A) // nrmvash11_txt.mgi Line 281, TextClose()
 function cure_orwin() =>
-    wScript_Text() == 0x08E2BA // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
+    wScript_Text() == bank_address(0x08E2BA) // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
 function party() =>
-    wScript_Text() == 0x05A2DD // nrmvash02_party.mgi Line 639, TextClose()
+    wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose()
 function evu_secret() =>
-    wScript_Text() == 0x05A2DD // nrmvash02_party.mgi Line 639, TextClose()
+    wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose()
 function new_game_plus() =>
-    wScript_Text() == 0x0AAF63 // hdnload01_sct.mgi Line 63, TextClose()
+    wScript_Text() == bank_address(0x0AAF63) // hdnload01_sct.mgi Line 63, TextClose()
 
 
 // Repeatable Actions //
@@ -175,74 +159,74 @@ function new_game_plus() =>
 
 // Battle
 function _tony_summon() =>
-    wScript_Text() == 0x130AF4 // battle_txt.mgi Line 954, TextClose()
+    wScript_Text() == bank_address(0x130AF4) // battle_txt.mgi Line 954, TextClose()
 function _magi_summon() =>
-    wScript_Text() == 0x130B09 // battle_txt.mgi Line 964, TextClose()
+    wScript_Text() == bank_address(0x130B09) // battle_txt.mgi Line 964, TextClose()
 function _wild_appear() =>
-    wScript_Text() == 0x130B19 // battle_txt.mgi Line 974, TextClose()
+    wScript_Text() == bank_address(0x130B19) // battle_txt.mgi Line 974, TextClose()
 function tony_wins() =>
-    wScript_Text() == 0x130B69 // battle_txt.mgi Line 1016, TextClose()
+    wScript_Text() == bank_address(0x130B69) // battle_txt.mgi Line 1016, TextClose()
 
 function salafy_level4_start() =>
-    wScript_System() == 0x0589DD // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY)
+    wScript_System() == bank_address(0x0589DD) // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY)
 function salafy_win() =>
-    wScript_Text() == 0x04D58F // vash13.mgi Line 139, TextIcon(ICON_SALAFY)
+    wScript_Text() == bank_address(0x04D58F) // vash13.mgi Line 139, TextIcon(ICON_SALAFY)
 
 // Chests
 function _get_treasure() =>
-    wScript_System() == 0x08805A // system.mgi Line 41, TextClose()
+    wScript_System() == bank_address(0x08805A) // system.mgi Line 41, TextClose()
 
 // Minigames
 function minigame_underneath_points() =>
-    wScript_Text() == 0x0738E8 // undtown08.mgi Line 74, TextClose()
+    wScript_Text() == bank_address(0x0738E8) // undtown08.mgi Line 74, TextClose()
 function minigame_cald_points() =>
-    wScript_Text() == 0x073488 // undtown08_sct.mgi Line 68, TextClose()
+    wScript_Text() == bank_address(0x073488) // undtown08_sct.mgi Line 68, TextClose()
 function minigame_brub() =>
-    wScript_Master() == 0x073A21 // undtown09.mgi Line 31, Sync(2,0)
+    wScript_Master() == bank_address(0x073A21) // undtown09.mgi Line 31, Sync(2,0)
 function minigame_archery() =>
-    wScript_Master() == 0x09A710 // nrmvash24.mgi Line 49, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x09A710) // nrmvash24.mgi Line 49, PalFade(0,15,32,0)
 
 function archery_target_animite() =>
-    wScript_Scroll() == 0x9A7EF // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect)
+    wScript_Scroll() == bank_address(0x09A7EF) // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect)
 function archery_target_slow() =>
-    changes_from(wScript_Scroll(), 0x9A877) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect)
 function archery_target_medium() =>
-    changes_from(wScript_Scroll(), 0x9A8B5) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect)
 function archery_target_fast() =>
-    changes_from(wScript_Scroll(), 0x9A8F3) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect)
 
 function agovo_start() =>
-    wScript_Master() == 0x05A7A3 // nrmvash02.mgi Line 379, TextClose()
+    wScript_Master() == bank_address(0x05A7A3) // nrmvash02.mgi Line 379, TextClose()
 function agovo_win() =>
-    wScript_Master() == 0x05A393 // nrmvash02.mgi Line 77, TextWrite("You win!")
+    wScript_Master() == bank_address(0x05A393) // nrmvash02.mgi Line 77, TextWrite("You win!")
 function agovo_lose() =>
-    wScript_Master() == 0x05A381 // nrmvash02.mgi Line 67, TextWrite("You lose!")
+    wScript_Master() == bank_address(0x05A381) // nrmvash02.mgi Line 67, TextWrite("You lose!")
 
 // Forging Dream Creatures
 function forge_naroom() =>
-    wScript_Text() == 0x053CC1 // nrmvash11_txt.mgi Line 415, TextIcon(ICON_PRUITT)
+    wScript_Text() == bank_address(0x053CC1) // nrmvash11_txt.mgi Line 415, TextIcon(ICON_PRUITT)
 function forge_underneath() =>
-    wScript_Text() == 0x055495 // undcave08_txt.mgi Line 207, TextIcon(ICON_FOSSIK)
+    wScript_Text() == bank_address(0x055495) // undcave08_txt.mgi Line 207, TextIcon(ICON_FOSSIK)
 function forge_cald() =>
-    wScript_Text() == 0x07B5CE // caldlavatown12_txt.mgi Line 72, TextIcon(ICON_MAGAM)
+    wScript_Text() == bank_address(0x07B5CE) // caldlavatown12_txt.mgi Line 72, TextIcon(ICON_MAGAM)
 function forge_orothe_city() =>
-    wScript_Text() == 0x063053 // orocity04_txt.mgi Line 373, TextIcon(ICON_ORLON)
+    wScript_Text() == bank_address(0x063053) // orocity04_txt.mgi Line 373, TextIcon(ICON_ORLON)
 function forge_orothe_island() =>
-    wScript_Text() == 0x06CC66 // oroislands04_txt.mgi Line 184, TextIcon(ICON_ORLON)
+    wScript_Text() == bank_address(0x06CC66) // oroislands04_txt.mgi Line 184, TextIcon(ICON_ORLON)
 function forge_arderial() =>
-    wScript_Text() == 0x069380 // ardgarden08_txt.mgi Line 373, TextIcon(ICON_LASADA)
+    wScript_Text() == bank_address(0x069380) // ardgarden08_txt.mgi Line 373, TextIcon(ICON_LASADA)
 function forge_core() =>
-    wScript_Text() == 0x096525 // hdnroom01.mgi Line 207, TextIcon(ICON_CLOAK)
+    wScript_Text() == bank_address(0x096525) // hdnroom01.mgi Line 207, TextIcon(ICON_CLOAK)
 
 // Misc
 function mushroom_gag() =>
-    wScript_Text() == 0x0727E3 // undtown06.mgi Line 103, End()
+    wScript_Text() == bank_address(0x0727E3) // undtown06.mgi Line 103, End()
 function close_training_door() =>
-    wScript_System() == 0x04C159 // nrmvash13_dr.mgi Line 241, TextClose()
+    wScript_System() == bank_address(0x04C159) // nrmvash13_dr.mgi Line 241, TextClose()
 function large_screwdriver() =>
-    wScript_System() == 0x06DFF0 // hldmaze08_dr.mgi Line 67, TextClose()
+    wScript_System() == bank_address(0x06DFF0) // hldmaze08_dr.mgi Line 67, TextClose()
 function greet_coresmith() =>
-    wScript_Text() == 0x0963C9 // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
+    wScript_Text() == bank_address(0x0963C9) // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
 
 // Actor //
 ///////////
@@ -253,8 +237,8 @@ function tony_frozen() =>
     wActorTonyState() == AI_Anim
 
 // Graphics Scripts
-Brub_Squished_Anim = 0x0472C6 // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
-RedBrub_Squished_Anim = 0x0047327 // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
+Brub_Squished_Anim = bank_address(0x0472C6) // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
+RedBrub_Squished_Anim = bank_address(0x0047327) // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
 
 
 ///////////////////
@@ -278,7 +262,7 @@ function number() =>
 ////////////
 
 function tony_summon(creature) => _tony_summon() && battle_target(creature)
-function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature) // TODO Unused and untested
+function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature) // TODO unused and untested
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 
@@ -289,13 +273,8 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // WRAM has been initialized
 function game_init() => wSound_SoundInit() == Sound_Init_MagicNumber
 
+// Treasure chest item
 function get_treasure(name) => _get_treasure() && treasure_name(name)
-
-//TODO unused
-function press(button) =>
-    bit(button, wCntDown) == 1
-function menu() =>
-    press(Button_Start)
 
 // Scrub the Brub and Aim for Animite
 function brub_start() => once(minigame_brub()) && never(minigame_archery())
@@ -342,7 +321,7 @@ function archery_count() => measured(tally(0, [
     archery_target_animite(),
 ]))
 
-
+// Forging a dream creature
 forge_location = {
     "Naroom": forge_naroom(),
     "Underneath": forge_underneath(),
@@ -361,6 +340,7 @@ function forge(location, creature) =>
 //////////////////
 
 // Geysers //
+/////////////
 achievement(
     title = "Hero of Naroom", points = 5,
     description = "Complete the first Shadow Geyser.",
@@ -387,7 +367,7 @@ achievement(
 )
 achievement(
     title = "Hero of Arderial", points = 10,
-    description = "Beat Morag.",
+    description = "Beat Morag.",  // Avoid spoilers
     id = 104, badge = "000000",
     trigger = game_init() && geyser5()
 )
@@ -399,6 +379,7 @@ achievement(
 )
 
 // Hero Abilities //
+////////////////////
 achievement(
     title = "You're the Best Around", points = 1,
     description = "Obtain the Energy Band.",
@@ -425,12 +406,13 @@ achievement(
 )
 achievement(
     title = "Highway to Heaven", points = 3,
-    description = "Meet the Queen.",
+    description = "Meet the Queen.",  // Avoid spoilers
     id = 204, badge = "000000",
     trigger = game_init() && eye_of_the_storm()
 )
 
 // MiniGames //
+///////////////
 achievement(
     title = "Brub Scrub", points = 10,
     description = "Score at least 50 points in Scrub the Brub.",
@@ -452,7 +434,7 @@ leaderboard(
     value = brub_count(), // use brub_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
-    id = 30
+    id = 302
 )
 
 achievement(
@@ -476,7 +458,7 @@ leaderboard(
     value = archery_count(), // use archery_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
-    id = 31
+    id = 312
 )
 
 achievement(
@@ -500,10 +482,11 @@ leaderboard(
     value = always_true(),
     format = "FRAMES",
     lower_is_better = true,
-    id = 32
+    id = 322
 )
 
 // Spells //
+////////////
 achievement(
     title = "Throw Leaves at Enemies", points = 1,
     description = "Obtain Leaf Cut in Naroom.",
@@ -560,18 +543,19 @@ achievement(
 )
 achievement(
     title = "Zaptacular [m]", points = 3,
-    description = "Obtain Lightning before facing Morag.",
+    description = "Obtain Lightning before facing Morag.", // Avoid spoilers
     id = 409, badge = "000000",
     trigger = game_init() && get_treasure("Lightning   ")
 )
 achievement(
     title = "Winds of Protection [m]", points = 3,
-    description = "Obtain Updraft before facing Morag.",
+    description = "Obtain Updraft before facing Morag.", // Avoid spoilers
     id = 410, badge = "000000",
     trigger = game_init() && get_treasure("Updraft     ")
 )
 
 // Completionist //
+///////////////////
 achievement(
     title = "Great Furok [m]", points = 5,
     description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
@@ -610,7 +594,7 @@ achievement(
 )
 achievement(
     title = "Simpsons Homage [m]", points = 10,
-    description = "Do everything at the Naroom party and watch Evu perform magic.",
+    description = "Do everything at the Naroom party before leaving.",
     id = 506, badge = "000000",
     trigger = game_init() && evu_secret()
 )
@@ -627,7 +611,6 @@ achievement(
     trigger = game_init() && greet_coresmith()
 )
 
-/////////////////////
 // Dream Creatures //
 /////////////////////
 achievement(
@@ -655,13 +638,13 @@ achievement(
     trigger = game_init() && forge("Underneath", "Cave Hyren")
 )
 achievement(
-    title = "Flightless Wings", points = 10,
+    title = "Flightless Wings [m]", points = 10,
     description = "Forge Magma Hyren.",
     id = 604, badge = "000000",
     trigger = game_init() && forge("Cald", "MagmaHyren")
 )
 achievement(
-    title = "Purifying Flame", points = 10,
+    title = "Purifying Flame [m]", points = 10,
     description = "Forge Flame Hyren.",
     id = 605, badge = "000000",
     trigger = game_init() && forge("Cald", "FlameHyren")
@@ -698,6 +681,7 @@ achievement(
 )
 
 // Fun //
+/////////
 achievement(
     title = "Outhouse [m]", points = 1,
     description = "Look inside Gia's 'storage shed'.",
@@ -731,6 +715,7 @@ achievement(
 
 
 // Battles //
+/////////////
 achievement(
     title = "199 Borgors [m]", points = 100,
     description = "Defeat Morag at your first encounter.",
@@ -750,11 +735,13 @@ achievement(
     trigger = game_init() && once(salafy_level4_start()) && salafy_win()
 )
 
+
 ///////////////////
 // Rich Presence //
 ///////////////////
 
 // The scene id/menu/battle status isn't directly kept track in any variable but we can reasonably guess it using the loaded hotspots
+// Hotspot tables are located in bank 0x21
 function wHotspot_Table() => word(0xC6DF)
 // Autogenerated from hotspot_parser.py
 hotspot_lookup = {
@@ -1140,8 +1127,8 @@ hotspot_lookup = {
     0x5CB8: "Shadowhold",   // HS_HLDEXTERIOR
 }
 
-// As stated above, we cannot reliably use this information with the current memory mapping
-// However we can conditionally use it in Rich Presence when available
+// As stated above, we cannot reliably use SRAM with the current memory mapping and game design for achievements.
+// However we can conditionally use it in Rich Presence when available.
 function wBattery_ActiveSavefileBaseBank() => byte(0xC727)
 function sram_valid() =>
     wBattery_ActiveSavefileBaseBank() == 0
@@ -1205,9 +1192,10 @@ gamecount_lookup = {
 }
 
 // We can't directly track Tony's stats, but every time he enters a battle, his stats are loaded into WRAMX
-// We can display Tony's stats for the supported cores
+// We can display Tony's stats for the supported cores (i.e. not mGBA)
 // We need to make sure at least one battle has occurred to be able to read his stats,
 // and they will only update every battle, not in-between
+
 // Tony's stats apart from Energy never change, even on level up.
 // So we if detect his stats, we know the WRAMX has been initialized
 function wBattle_Creature_Hero_Stats() => dword(0x15152)
@@ -1242,8 +1230,5 @@ rich_presence_display(
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???")
 )
 
-
-
-// TODO - use tbyte instead of bank_address
 // TODO - remove animite upper bit
 // TODO - remove alternate patch
