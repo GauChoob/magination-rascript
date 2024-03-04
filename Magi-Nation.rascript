@@ -10,6 +10,7 @@
 // However, mGBA does not, meaning this memory location is core-dependant
 // Therefore the only useable memory for achievements is WRAM0, along with WRAM1 (only has MusyX data)
 // This means that magi and creature stats and count, chests, spells, relics, glyph status, hero abilities are all locked out
+// Even with access to WRAM2-7, we don't really gain much. We can read the scene map tiles and also read the battle state
 
 // Reference source code: https://github.com/GauChoob/magination
 
@@ -343,7 +344,7 @@ function forge(location, creature) =>
 /////////////
 achievement(
     title = "Hero of Naroom", points = 5,
-    description = "Complete the first Shadow Geyser.",
+    description = "Complete the first Shadow Geysers.",
     id = 100, badge = "000000",
     trigger = game_init() && geyser1()
 )
@@ -372,7 +373,7 @@ achievement(
     trigger = game_init() && geyser5()
 )
 achievement(
-    title = "Hero of Agadon", points = 25,
+    title = "Hero of Magi-Nation", points = 25,
     description = "Beat Agram.",
     id = 105, badge = "000000",
     trigger = game_init() && agram_end()
@@ -1162,7 +1163,7 @@ GC_AGRAM_BATTLE = 24
 GC_END_FUNERAL = 25
 GC_END_PARTY = 26
 gamecount_lookup = {
-    0: "Thinking about starting a New Game",
+    0: "About to play Magi-Nation",
     GC_OPENING: "Dunked in the Naroom river",
     GC_NRM_INTRO: "Running errands in Vash Naroom",
     GC_FIND_ORWIN: "Searching for Orwin",
