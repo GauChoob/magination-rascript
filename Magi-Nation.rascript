@@ -749,7 +749,7 @@ achievement(
 )
 achievement(
     title = "Weebest", points = 25,
-    description = "Defeat Salafy's at her hardest difficulty.",
+    description = "Defeat Salafy at her hardest difficulty.",
     id = 404398, badge = "000000",
     trigger = game_init() && once(salafy_level4_start()) && salafy_win()
 )
