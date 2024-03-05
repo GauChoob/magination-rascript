@@ -35,6 +35,9 @@ pretty_names = [
     ('HS_UNDTUNNEL', 'Underneath Tunnels'),
     ('HS_HDNUNDTUN', 'Underneath Tunnels'),
     ('HS_UNDMUSHFARM', 'Gruk\'s Mushroom Farm'),
+    ('HS_UNDCAVERN06', 'Underneath Geyser'),
+    ('HS_UNDCAVERN07', 'Prospector Garage'),
+    ('HS_UNDCAVERN08', 'Prospector Garage'),
     ('HS_UNDCAVERN', 'Underneath Caverns'), # To Gruk's
     ('HS_THRONE', 'Core'),
     ('HS_CREGATE', 'Core Entrance'),

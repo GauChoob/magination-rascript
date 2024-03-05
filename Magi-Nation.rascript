@@ -11,10 +11,10 @@
 // This means that magi and creature stats and count, chests, spells, relics, glyph status, hero abilities are all locked out
 // Even with access to WRAM2-7, we don't really gain much. We can read the scene map tiles and also read the battle state
 
-// So basically we are mostly left with a few pointers to data and pointers to bytecode scripts
-// For the majority of the achievements, we read the pointer address and don't read text contents
-// With the exception of item names and dream creature names, because we don't have any alternative way of reading them
-// without creating a patch, but in that case we are dropping support for the large majority of players who play without a patch
+// So basically we are mostly left with a few pointers to data tables and pointers to bytecode scripts
+// For the majority of the achievements, we read the pointer address and don't read the actual text contents
+// With the exception of item names in treasure chests and dream creature names, because we don't have any reliable alternative way of reading them
+// without creating a patch, but in that case we are dropping support for the large majority of players who would play without a patch
 
 // Reference source code: https://github.com/GauChoob/magination
 
@@ -34,7 +34,7 @@ function changes_from(address, value) => (prev(address) == value) && (address !=
 //////////
 
 // The game has 4 different bytecode scripts running simultaneously,
-// plus each Actor has 1-2 scripts, up to a maximum of 24 simultaneous threads
+// plus each Actor (up to 10 simultaneously) has 1-2 scripts, up to a maximum of 24 simultaneous threads
 function wScript_Master() => tbyte(0xC706)
 function wScript_Scroll() => tbyte(0xC70D)
 function wScript_System() => tbyte(0xC714)
@@ -73,7 +73,7 @@ wText_StringBuffer = 0xC949
 Creature_Name = wText_StringBuffer + 0 // Forging creature name
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
-Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the (optional) item icon for simplicity
+Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
 
 // Sound is initialized right after WRAM is wiped on reset
 function wSound_SoundInit() => byte(0xC91D)
@@ -350,11 +350,11 @@ function forge(location, creature) =>
 //////////////////
 
 // The achievement covers pretty much all possible progression and all secrets, except for:
-// Blast urn rooms
-// Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM)
-// Opening all chests in all locations (requires SRAM, not sure if actually a good achievement idea)
+// Blast urn rooms (requires SRAM ideally so not currently doable in a smart fashion)
+// Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM so not currently doable)
+// Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
-// Orwin's funeral (bad ending)
+// Orwin's funeral (normal bonus ending)
 // Taking the easy vs hard way with Warrada (not sure if actually a good achievement idea)
 // Note that the Arderial and Core hyrens are unobtainable in the game
 
@@ -894,9 +894,9 @@ hotspot_lookup = {
     0x4825: "Underneath Caverns",   // HS_UNDCAVERN11
     0x482A: "Underneath Caverns",   // HS_UNDCAVERN04
     0x4837: "Underneath Caverns",   // HS_UNDCAVERN05
-    0x4840: "Underneath Caverns",   // HS_UNDCAVERN06
-    0x4855: "Underneath Caverns",   // HS_UNDCAVERN07
-    0x485E: "Underneath Caverns",   // HS_UNDCAVERN08
+    0x4840: "Underneath Geyser",   // HS_UNDCAVERN06
+    0x4855: "Prospector Garage",   // HS_UNDCAVERN07
+    0x485E: "Prospector Garage",   // HS_UNDCAVERN08
     0x487C: "Underneath Geyser",   // HS_UNDGEYSER01
     0x4896: "Underneath Geyser",   // HS_UNDGEYSER02
     0x48D0: "Underneath Geyser",   // HS_UNDGEYSER03
@@ -1254,5 +1254,4 @@ rich_presence_display(
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???")
 )
 
-// TODO - remove animite upper bit
 // TODO - remove alternate patch
