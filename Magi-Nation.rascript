@@ -742,7 +742,7 @@ achievement(
     trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
 )
 achievement(
-    title = "Two Stoogies", points = 10,
+    title = "Two Stooges", points = 10,
     description = "Meet Korg and Zet for the last time.",
     id = 404393, badge = "000000",
     trigger = game_init() && zet_end()
