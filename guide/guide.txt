@@ -1,4 +1,4 @@
-# Magi-Nation Achievement Guide
+![Magi-Nation Achievement Guide](https://github.com/GauChoob/magination-rascript/blob/main/guide/Banner.png?raw=true)
 
 # 1) Synopsis
 
@@ -21,7 +21,7 @@ This guide goes through all the achievements that are not automatically unlocked
 * There are two different endings based on whether Orwin was cured. You can wait to cure Orwin until the end of the game, allowing you to quickly unlock both endings without having to restart the entire game.
 
 # 4) Ormagon Quest
-The Ormagon Quest was a secret quest that was supposed to only be revealed in the sequel of the game, Keeper's Quest. However, the sequel was never officially released! The steps to encounter Ormagon were discovered by users in 2001. At this point in time, it is not clear how exactly this happened, but we suspect that the developers had a role in leaking some key details to help the fanbase.
+Ormagon is the strongest dream creature in the game. The Ormagon Quest was a secret quest to obtain Ormagon that was supposed to only be revealed in the sequel of the game, Keeper's Quest. However, the sequel was never officially released! The steps to encounter Ormagon were discovered by users in 2001. At this point in time, it is not clear how exactly this happened, but we suspect that the developers had a role in leaking some key details to help the fanbase.
 
 Here are the steps you must take to complete the Ormagon Quest:
 1. Shortly after completing the second Shadow Geyser, you will end up waking up in Wence's house. Before going to talk to Gia, you must go to the town in the Underneath and talk to the hunter to learn about Ormagon.
