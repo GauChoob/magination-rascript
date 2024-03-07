@@ -16,6 +16,7 @@
 // with the exception of item names in treasure chests and dream creature names, because we don't have any reliable alternative way of reading them
 // without creating a patch, but in that case we are dropping support for the large majority of players who would play without a patch
 
+// If ever there would be a translation patch (there definitely never will be due to the game's popularity), it is fairly trivial to check for an alternative name if need be...
 
 // Reference source code: https://github.com/GauChoob/magination
 
