@@ -364,37 +364,37 @@ function forge(location, creature) =>
 achievement(
     title = "Hero of Naroom", points = 5,
     description = "Complete the first Shadow Geyser.",
-    id = 404343, badge = "000000",
+    id = 404343, badge = "459092",
     trigger = game_init() && geyser1()
 )
 achievement(
     title = "Hero of the Underneath", points = 5,
     description = "Complete the second Shadow Geyser.",
-    id = 404344, badge = "000000",
+    id = 404344, badge = "459100",
     trigger = game_init() && geyser2()
 )
 achievement(
     title = "Hero of the Cald", points = 5,
     description = "Complete the third Shadow Geyser.",
-    id = 404345, badge = "000000",
+    id = 404345, badge = "459111",
     trigger = game_init() && geyser3()
 )
 achievement(
     title = "Hero of Orothe", points = 10,
     description = "Complete the fourth Shadow Geyser.",
-    id = 404346, badge = "000000",
+    id = 404346, badge = "459118",
     trigger = game_init() && (geyser4_fight() || geyser4_nofight())
 )
 achievement(
     title = "Hero of Arderial", points = 10,
     description = "Defeat Morag.",  // Avoid spoilers
-    id = 404347, badge = "000000",
+    id = 404347, badge = "459124",
     trigger = game_init() && geyser5()
 )
 achievement(
     title = "Hero of Magi-Nation", points = 25,
     description = "Defeat Agram.",
-    id = 404348, badge = "000000",
+    id = 404348, badge = "459126",
     trigger = game_init() && agram_end()
 )
 
@@ -403,31 +403,31 @@ achievement(
 achievement(
     title = "You're the Best Around", points = 1,
     description = "Obtain the Energy Band.",
-    id = 404349, badge = "000000",
+    id = 404349, badge = "459089",
     trigger = game_init() && energy_band()
 )
 achievement(
     title = "But Where Do My Pinkies Go?", points = 1,
     description = "Obtain the Crystal Gloves.",
-    id = 404350, badge = "000000",
+    id = 404350, badge = "459095",
     trigger = game_init() && crystal_gloves()
 )
 achievement(
     title = "Fancy Footwear", points = 2,
     description = "Obtain Agadon's Boots.",
-    id = 404351, badge = "000000",
+    id = 404351, badge = "459105",
     trigger = game_init() && agadons_boots()
 )
 achievement(
     title = "Under the Sea", points = 2,
     description = "Obtain the Orothean Belt.",
-    id = 404352, badge = "000000",
+    id = 404352, badge = "459113",
     trigger = game_init() && orothean_belt()
 )
 achievement(
     title = "Highway to Heaven", points = 3,
     description = "Meet the Queen.",  // Avoid spoilers
-    id = 404353, badge = "000000",
+    id = 404353, badge = "459120",
     trigger = game_init() && eye_of_the_storm()
 )
 
@@ -436,13 +436,13 @@ achievement(
 achievement(
     title = "Brub Scrub", points = 10,
     description = "Score at least 50 points in Scrub the Brub.",
-    id = 404354, badge = "000000",
+    id = 404354, badge = "459096",
     trigger = game_init() && brub_start() && brub_end() && (number() >= 50) // use number() instead of brub_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Brub Elite", points = 25,
     description = "Score at least 60 points in Scrub the Brub.",
-    id = 404355, badge = "000000",
+    id = 404355, badge = "459097",
     trigger = game_init() && brub_start() && brub_end() && (number() >= 60) // use number() instead of brub_count() since we only need to check the total score at the end
 )
 leaderboard(
@@ -454,19 +454,19 @@ leaderboard(
     value = brub_count(), // use brub_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
-    id = 300
+    id = 90347
 )
 
 achievement(
     title = "Aim for Tickets", points = 10,
     description = "Score at least 50 points in Aim for Animite.",
-    id = 404356, badge = "000000",
+    id = 404356, badge = "459102",
     trigger = game_init() && archery_start() && archery_end() && (number() >= 50) // use number() instead of archery_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Bullseye", points = 25,
     description = "Score at least 60 points in Aim for Animite.",
-    id = 404357, badge = "000000",
+    id = 404357, badge = "459103",
     trigger = game_init() && archery_start() && archery_end() && (number() >= 60) // use number() instead of archery_count() since we only need to check the total score at the end
 )
 leaderboard(
@@ -478,19 +478,19 @@ leaderboard(
     value = archery_count(), // use archery_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
-    id = 310
+    id = 90348
 )
 
 achievement(
     title = "Speedy Tony", points = 10,
     description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60 = 462
-    id = 404358, badge = "000000",
+    id = 404358, badge = "459093",
     trigger = game_init() && disable_when(repeated(462, !tony_frozen()), until=agovo_start()) && agovo_win()
 )
 achievement(
     title = "Flash Tony", points = 25,
     description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60 = 444
-    id = 404359, badge = "000000",
+    id = 404359, badge = "459094",
     trigger = game_init() && disable_when(repeated(444, !tony_frozen()), until=agovo_start()) && agovo_win()
 )
 leaderboard(
@@ -502,7 +502,7 @@ leaderboard(
     value = always_true(),
     format = "FRAMES",
     lower_is_better = true,
-    id = 320
+    id = 90349
 )
 
 // Spells //
@@ -510,67 +510,67 @@ leaderboard(
 achievement(
     title = "Throw Leaves at Enemies", points = 1,
     description = "Obtain Leaf Cut in Naroom.",
-    id = 404360, badge = "000000",
+    id = 404360, badge = "459088",
     trigger = game_init() && leaf_cut()
 )
 achievement(
     title = "Throw Healing at Friends", points = 1,
     description = "Obtain Grow in Naroom.",
-    id = 404361, badge = "000000",
+    id = 404361, badge = "459090",
     trigger = game_init() && get_treasure("Grow        ")
 )
 achievement(
     title = "Rock and Roll [m]", points = 3,
     description = "Obtain Cave In in the second Shadow Geyser.",
-    id = 404362, badge = "000000",
+    id = 404362, badge = "459099",
     trigger = game_init() && get_treasure("Cave In     ")
 )
 achievement(
     title = "Ready to Rumble [m]", points = 3,
     description = "Obtain Thunderquake in the second Shadow Geyser.",
-    id = 404363, badge = "000000",
+    id = 404363, badge = "459098",
     trigger = game_init() && get_treasure("Thunderquake")
 )
 achievement(
     title = "Have Some Flame", points = 5,
     description = "Obtain Fireball in the Cald.",
-    id = 404364, badge = "000000",
+    id = 404364, badge = "459104",
     trigger = game_init() && get_treasure("Fireball    ")
 )
 achievement(
     title = "After the Flame, Only Ashes Remain [m]", points = 2,
     description = "Obtain Flame Geyser in the third Shadow Geyser.",
-    id = 404365, badge = "000000",
+    id = 404365, badge = "459110",
     trigger = game_init() && get_treasure("Flame Geyser")
 )
 achievement(
     title = "Abracadableeeerrrgh!", points = 1,
     description = "Obtain Entangle in Orothe.",
-    id = 404366, badge = "000000",
+    id = 404366, badge = "459116",
     trigger = game_init() && get_treasure("Entangle    ")
 )
 achievement(
     title = "Not What You Expect", points = 1,
     description = "Obtain the Blurry Scroll in Orothe.",
-    id = 404367, badge = "000000",
+    id = 404367, badge = "459115",
     trigger = game_init() && blurry_scroll()
 )
 achievement(
     title = "Bend Water to Your Will [m]", points = 3,
     description = "Obtain Tidal Wave in the fourth Shadow Geyser.",
-    id = 404368, badge = "000000",
+    id = 404368, badge = "459117",
     trigger = game_init() && get_treasure("Tidal Wave  ")
 )
 achievement(
     title = "Zaptacular [m]", points = 3,
     description = "Obtain Lightning before facing Morag.", // Avoid spoilers
-    id = 404369, badge = "000000",
+    id = 404369, badge = "459122",
     trigger = game_init() && get_treasure("Lightning   ")
 )
 achievement(
     title = "Winds of Protection [m]", points = 3,
     description = "Obtain Updraft before facing Morag.", // Avoid spoilers
-    id = 404370, badge = "000000",
+    id = 404370, badge = "459123",
     trigger = game_init() && get_treasure("Updraft     ")
 )
 
@@ -579,55 +579,55 @@ achievement(
 achievement(
     title = "Great Furok [m]", points = 5,
     description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
-    id = 404371, badge = "000000",
+    id = 404371, badge = "459087",
     trigger = game_init() && great_furok()
 )
 achievement(
     title = "Solo Operative [m]", points = 10,
     description = "Obtain Maelstrom by defeating all the ShadowMagi without any help.",
-    id = 404372, badge = "000000",
+    id = 404372, badge = "459101",
     trigger = game_init() && maelstrom()
 )
 achievement(
     title = "Skeleton Key [m]", points = 5,
     description = "Find the Channeled Gem using Ashgar's Key.",
-    id = 404373, badge = "000000",
+    id = 404373, badge = "459107",
     trigger = game_init() && get_treasure("ChanneledGem")
 )
 achievement(
     title = "Second Largest Screwdriver [m]", points = 25,
     description = "Examine the large screwdriver near some Jingjacks.", // No spoilers
-    id = 404374, badge = "000000",
+    id = 404374, badge = "459112",
     trigger = game_init() && large_screwdriver()
 )
 achievement(
     title = "Savior [m]", points = 50,
     description = "Cure Orwin.",
-    id = 404375, badge = "000000",
+    id = 404375, badge = "459114",
     trigger = game_init() && cure_orwin()
 )
 achievement(
     title = "Spoiled Kyros [m]", points = 10,
     description = "After defeating Agram, attend the party instead of going home.",
-    id = 404376, badge = "000000",
+    id = 404376, badge = "459127",
     trigger = game_init() && party()
 )
 achievement(
     title = "Simpsons Homage [m]", points = 10,
     description = "Do everything at the Naroom party before leaving.",
-    id = 404377, badge = "000000",
+    id = 404377, badge = "459128",
     trigger = game_init() && evu_secret()
 )
 achievement(
     title = "The Third Door [m]", points = 5,
     description = "Unlock New Game Plus.",
-    id = 404378, badge = "000000",
+    id = 404378, badge = "459129",
     trigger = game_init() && new_game_plus()
 )
 achievement(
     title = "Dark Side [m]", points = 50,
     description = "Visit the Core Ringsmith.",
-    id = 404379, badge = "000000",
+    id = 404379, badge = "459130",
     trigger = game_init() && greet_coresmith()
 )
 
@@ -636,67 +636,67 @@ achievement(
 achievement(
     title = "Leaves that Cut", points = 10,
     description = "Forge Leaf Hyren.",
-    id = 404380, badge = "000000",
+    id = 404380, badge = "459132",
     trigger = game_init() && forge("Naroom", "Leaf Hyren")
 )
 achievement(
     title = "Tree Power", points = 10,
     description = "Forge Timber Hyren.",
-    id = 404394, badge = "000000",
+    id = 404394, badge = "459133",
     trigger = game_init() && forge("Naroom", "TimberHyrn")
 )
 achievement(
     title = "Pummel Party", points = 10,
     description = "Forge Mush Hyren.",
-    id = 404381, badge = "000000",
+    id = 404381, badge = "459134",
     trigger = game_init() && forge("Underneath", "Mush Hyren")
 )
 achievement(
     title = "Bury Your Foes", points = 10,
     description = "Forge Cave Hyren.",
-    id = 404382, badge = "000000",
+    id = 404382, badge = "459135",
     trigger = game_init() && forge("Underneath", "Cave Hyren")
 )
 achievement(
     title = "Flightless Wings [m]", points = 10,
     description = "Forge Magma Hyren.",
-    id = 404383, badge = "000000",
+    id = 404383, badge = "459136",
     trigger = game_init() && forge("Cald", "MagmaHyren")
 )
 achievement(
     title = "Purifying Flame [m]", points = 10,
     description = "Forge Flame Hyren.",
-    id = 404384, badge = "000000",
+    id = 404384, badge = "459137",
     trigger = game_init() && forge("Cald", "FlameHyren")
 )
 achievement(
     title = "Sitting Pretty", points = 10,
     description = "Forge Coral Hyren.",
-    id = 404385, badge = "000000",
+    id = 404385, badge = "459138",
     trigger = game_init() && forge("Orothe", "CoralHyren")
 )
 achievement(
     title = "Ruler of the Depths", points = 10,
     description = "Forge Deep Hyren.",
-    id = 404395, badge = "000000",
+    id = 404395, badge = "459139",
     trigger = game_init() && forge("Orothe", "Deep Hyren")
 )
 achievement(
     title = "Beast of the Sea", points = 10,
     description = "Forge Megathan.",
-    id = 404386, badge = "000000",
+    id = 404386, badge = "459140",
     trigger = game_init() && forge("Orothe", "Megathan  ")
 )
 achievement(
     title = "Wind Fish", points = 10,
     description = "Forge Orathan F.",
-    id = 404387, badge = "000000",
+    id = 404387, badge = "459141",
     trigger = game_init() && forge("Arderial", "Orathan F ")
 )
 achievement(
     title = "Now THAT is a BIG Mushroom [m]", points = 100,
     description = "Encounter Ormagon.",
-    id = 404388, badge = "000000",
+    id = 404388, badge = "459125",
     trigger = game_init() && wild_appear("Ormagon   ")
 )
 
@@ -705,7 +705,7 @@ achievement(
 achievement(
     title = "Outhouse [m]", points = 1,
     description = "Look inside Gia's 'storage shed'.",
-    id = 404396, badge = "000000",
+    id = 404396, badge = "459091",
     trigger = game_init() && poop_gag()
 )
 achievement(
@@ -717,19 +717,19 @@ achievement(
 achievement(
     title = "So That's Where Soap Comes From [m]", points = 1,
     description = "Tell Eidon about Oflardt's stories.",
-    id = 404390, badge = "000000",
+    id = 404390, badge = "459106",
     trigger = game_init() && soap_gag()
 )
 achievement(
     title = "Bargainer [m]", points = 3,
     description = "Haggle the ferryman down to his lowest price.",
-    id = 404391, badge = "000000",
+    id = 404391, badge = "459108",
     trigger = game_init() && haggle()
 )
 achievement(
     title = "Gentleman Thief [m]", points = 5,
     description = "Close the training equipment door after opening it.",
-    id = 404397, badge = "000000",
+    id = 404397, badge = "459109",
     trigger = game_init() && close_training_door()
 )
 
@@ -739,19 +739,19 @@ achievement(
 achievement(
     title = "199 Borgors [m]", points = 100,
     description = "Defeat Morag at your first encounter.",
-    id = 404392, badge = "000000",
+    id = 404392, badge = "459131",
     trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
 )
 achievement(
     title = "Two Stooges", points = 10,
     description = "Meet Korg and Zet for the last time.",
-    id = 404393, badge = "000000",
+    id = 404393, badge = "459119",
     trigger = game_init() && zet_end()
 )
 achievement(
     title = "Weebest", points = 25,
     description = "Defeat Salafy at her hardest difficulty.",
-    id = 404398, badge = "000000",
+    id = 404398, badge = "459121",
     trigger = game_init() && once(salafy_level4_start()) && salafy_win()
 )
 
@@ -1193,8 +1193,8 @@ gamecount_lookup = {
     GC_GLOVES: "Destroyed the first shadow geyser",
     GC_UND_INTRO: "Exploring the Underneath",
     GC_UND_QUAKE: "Investigating another earthquake",
-    GC_UND_GEYSER: "Facing on the second shadow geyser",
-    GC_UND_WASTED: "Completing the second shadow geyser", // Changes at start of geyser boss battle
+    GC_UND_GEYSER: "Facing the second shadow geyser",
+    GC_UND_WASTED: "Destroying the second shadow geyser", // Changes at start of geyser boss battle
     GC_CALD_INTRO: "Leaving the Underneath",
     GC_ARBOLL_HUNT: "Hunting for that blasted Lava Arboll",
     GC_LAVA_BRIDGE: "Building a bridge",
@@ -1208,7 +1208,7 @@ gamecount_lookup = {
     GC_FALSE_END: "Heading home",
     GC_ARDERIAL: "Meeting the queen",
     GC_ARDERIAL_GEYSER: "Met the queen",
-    GC_AGRAM_BATTLE: "Searching the Core",
+    GC_AGRAM_BATTLE: "Facing the Core",
     GC_END_FUNERAL: "Attending a funeral",
     GC_END_PARTY: "Life of the party",
 }
