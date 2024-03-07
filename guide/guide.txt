@@ -11,16 +11,36 @@
 |Hardest achievement of the set|199 Borgors|
 
 # 2) Introduction
-Magi-Nation is a well-received Gameboy Color game that had the flaw of being released late in the console's life cycle and so was not as well known as other big titles. It was developed in Seattle by a small team of developers that had many sleepless nights to meet deadlines to release the game on time. The current achievement set includes almost all of the hidden content in the game, including some secrets discovered as late as 2024!
+Magi-Nation is a well-received Game Boy Color game that had the flaw of being released late in the console's life cycle and so was not as well known as other big titles. It was developed in Seattle by a small team of developers that had many sleepless nights to meet deadlines to release the game on time. The current achievement set includes almost all of the hidden content in the game, including some secrets discovered as late as 2024!
 
-This guide goes through all the achievements that are not automatically unlocked in a normal playthrough, or that are not obvious from the achievement description. Generally, the achievements are in chronological order, and if you try and obtain the achievements when they are next on the list, you should not miss it. Do not read the next two sections if you want to avoid spoilers!
+This guide goes through all the achievements that are not automatically unlocked in a normal playthrough, or that are not obvious from the achievement description. Generally, the achievements are in chronological order, and so if you try and obtain the achievements when they are next on the list, you should not miss them. Do not read the next two sections if you want to avoid spoilers!
 
 # 3) Warnings
 * If you would like to encounter Ormagon, follow an Ormagon guide from early on. Remember not to cure Orwin until after reaching the end of the quest.
-* If you do not return Ashgar's key before defeating the Cald shadow geyser, you will no longer be able to Forge Cald dream creatures and nobody in the Cald will want to talk to you.
-* There are two different endings based on whether Orwin was healed. You can wait to heal Orwin until the end of the game, allowing you to quickly unlock both endings without having to restart the entire game.
+* If you do not return Ashgar's key before defeating the Cald Shadow Geyser, you will no longer be able to forge Cald dream creatures and nobody in the Cald will want to talk to you.
+* There are two different endings based on whether Orwin was cured. You can wait to cure Orwin until the end of the game, allowing you to quickly unlock both endings without having to restart the entire game.
 
-# 4) Achievement Guide
+# 4) Ormagon Quest
+The Ormagon Quest was a secret quest that was supposed to only be revealed in the sequel of the game, Keeper's Quest. However, the sequel was never officially released! The steps to encounter Ormagon were discovered by users in 2001. At this point in time, it is not clear how exactly this happened, but we suspect that the developers had a role in leaking some key details to help the fanbase.
+
+Here are the steps you must take to complete the Ormagon Quest:
+1. Shortly after completing the second Shadow Geyser, you will end up waking up in Wence's house. Before going to talk to Gia, you must go to the town in the Underneath and talk to the hunter to learn about Ormagon.
+1. In the Cald, when using the ferry for the first time, you must pay the Ferryman to wait for you. Note that this locks you out of two achievements, and so you should save the game before taking the ferry. One strategy can be to refuse to pay the Ferryman, quickly unlock the two necessary achievements (So That's Where Soap Comes From and Bargainer), and then reload the game.
+1. In the Orothe Tunnels, you must find some Algae and leave the tunnels WITHOUT getting Agadon's Boots.
+1. Take the ferry back and give the Algae to the hunter who is now located in the Abandoned Tower in the Underneath.
+1. After getting Agadon's Boots, before completing the third Shadow Geyser, you must head to the Underneath and go to the Training Grounds. Yaki will be gone to the Cald, and so you will be able to enter the training equipment door and get some Fungicide. To open this door, you must run counter-clockwise around the statue exactly 5 times and then interact with the empty eye. Note that at this point you can unlock one achievement by closing the door (Gentleman Thief).
+![Training Grounds](https://github.com/GauChoob/magination-rascript/blob/main/guide/Vash%20cropped.png?raw=true)
+1. Do NOT cure Orwin until the end of the guide, as Orwin will prevent you from completing the quest.
+1. When you get to Oscent Mar, before exploring the Underwater Ruins, buy a Specimen Jar and bring it to the Underneath.
+1. In the Underneath Caverns outside of Gruk's Mushroom Farm, you will find a trail of fungus leading to a wall. Interact with the wall to put some fungus into the Specimen Jar.
+1. Give the Jar of Fungus to the boy who collects spooky plants in Vash Naroom. At this point you may continue your quest in Orothe.
+1. After defeating Morag, the spooky boy's house will be overrun by fungus. Use Fungicide to get rid of the fungus.
+1. Pick up the Hollow Stool in the spooky boy's house.
+1. You may now cure Orwin.
+1. Head back to the Underneath Caverns to the wall of fungus. Use Fungicide to destroy the wall and enter the secret room.
+1. Use the Hollow Stool in the middle of the room to encounter Ormagon. Quest complete!
+
+# 5) Achievement Guide
 
 ![](https://media.retroachievements.org/Badge/459087.png) [Great Furok [m] (5)]()   
 _Obtain a Great Furok by almost escaping the Tavel Gorge caves._
