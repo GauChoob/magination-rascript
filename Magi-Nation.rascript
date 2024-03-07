@@ -155,6 +155,10 @@ function great_furok() =>
     wScript_Text() == bank_address(0x053A0A) // nrmvash11_txt.mgi Line 281, TextClose()
 function cure_orwin() =>
     wScript_Text() == bank_address(0x08E2BA) // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
+function funeral() =>
+    wScript_Text() == bank_address(0x051944) // nrmvash03.mgi Line 626, TextClose()
+function party() =>
+    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0)
 function evu_secret() =>
     wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose()
 function new_game_plus() =>
@@ -234,10 +238,7 @@ function large_screwdriver() =>
     wScript_System() == bank_address(0x06DFF0) // hldmaze08_dr.mgi Line 67, TextClose()
 function greet_coresmith() =>
     wScript_Text() == bank_address(0x0963C9) // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
-function funeral() =>
-    wScript_Text() == bank_address(0x051944) // nrmvash03.mgi Line 626, TextClose()
-function party() =>
-    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0)
+
 
 // Actor //
 ///////////
@@ -285,7 +286,8 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 function game_init() =>
     wSound_SoundInit() == Sound_Init_MagicNumber
 
-// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak
+// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak,
+// which could in rare cases be used to cheat on leaderboards or for specific achievements
 function game_reset() =>
     i2_logo_displayed()
 
@@ -356,12 +358,12 @@ function forge(location, creature) =>
 //////////////////
 
 // The achievement covers pretty much all possible progression and all secrets, except for:
-// Blast urn rooms (requires SRAM ideally so not currently doable in a smart fashion)
-// Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM so not currently doable)
+// Blast urn rooms (requires SRAM ideally, or else the setup is too janky)
+// Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM, or else the setup is too janky)
 // Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
 // Taking the easy vs hard way with Warrada (not sure if actually a good achievement idea)
-// Note that the Arderial and Core hyrens are unobtainable in the game
+// Note that the Arderial and Core hyrens are unobtainable in the game and so there are no achievements for them
 
 // Geysers //
 /////////////
@@ -618,7 +620,7 @@ achievement(
 )
 achievement(
     title = "Spoiled Kyros [m]", points = 10,
-    description = "After defeating Agram, attend the party instead of going home.",
+    description = "After defeating Agram, attend a party instead of going home.",
     id = 404376, badge = "459127",
     trigger = game_init() && party()
 )
@@ -1198,22 +1200,22 @@ gamecount_lookup = {
     GC_NRM_INTRO: "Running errands in Vash Naroom",
     GC_FIND_ORWIN: "Searching for Orwin",
     GC_QUEST_FOR_GIA: "Heading to see Gia",
-    GC_NAROOM_GEYSER: "Facing the first shadow geyser",
-    GC_GLOVES: "Destroyed the first shadow geyser",
+    GC_NAROOM_GEYSER: "Facing the first Shadow Geyser",
+    GC_GLOVES: "Destroyed the first Shadow Geyser",
     GC_UND_INTRO: "Exploring the Underneath",
     GC_UND_QUAKE: "Investigating another earthquake",
-    GC_UND_GEYSER: "Facing the second shadow geyser",
-    GC_UND_WASTED: "Destroying the second shadow geyser", // Changes at start of geyser boss battle
+    GC_UND_GEYSER: "Facing the second Shadow Geyser",
+    GC_UND_WASTED: "Destroying the second Shadow Geyser", // Changes at start of geyser boss battle
     GC_CALD_INTRO: "Leaving the Underneath",
     GC_ARBOLL_HUNT: "Hunting for that blasted Lava Arboll",
     GC_LAVA_BRIDGE: "Building a bridge",
     GC_BOOTS_QUEST: "Getting a nice pair of boots",
-    GC_CALD_GEYSER: "Facing the third shadow geyser",
-    GC_TONY_KIDNAPPED: "Having a hot party",
+    GC_CALD_GEYSER: "Facing the third Shadow Geyser",
+    GC_TONY_KIDNAPPED: "Having a party",
     GC_SHADOWHOLD_JAIL: "In a pickle",
     GC_BACK_IN_OROTHE: "Swimming with turtles",
-    GC_OROTHE_GEYSER: "Facing the fourth shadow geyser",
-    GC_BEAT_OROTHE: "Destroyed the fourth shadow geyser",
+    GC_OROTHE_GEYSER: "Facing the fourth Shadow Geyser",
+    GC_BEAT_OROTHE: "Destroyed the fourth Shadow Geyser",
     GC_FALSE_END: "Heading home",
     GC_ARDERIAL: "Meeting the queen",
     GC_ARDERIAL_GEYSER: "Met the queen",
@@ -1241,7 +1243,7 @@ rich_presence_conditional_display(
 )
 rich_presence_conditional_display(
     sram_valid() && battle_wram_valid(),
-    "{0}. {1}. Level {2} ({3})",
+    "Progression: {0}. Location: {1}. Level {2} ({3})",
     rich_presence_lookup("Gamecount", xGameCount(), gamecount_lookup, "???"),
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???"),
     rich_presence_value("Tony Level", wBattle_Creature_Hero_Level(), "VALUE"),
@@ -1249,18 +1251,18 @@ rich_presence_conditional_display(
 )
 rich_presence_conditional_display(
     battle_wram_valid(),
-    "{0}. Level {1} ({2})",
+    "Location: {0}. Level {1} ({2})",
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???"),
     rich_presence_value("Tony Level", wBattle_Creature_Hero_Level(), "VALUE"),
     rich_presence_value("Tony MaxEnergy", wBattle_Creature_Hero_MaxEnergy(), "VALUE")
 )
 rich_presence_conditional_display(
     sram_valid(),
-    "{0}. {1}.",
+    "Progression: {0}. Location: {1}.",
     rich_presence_lookup("Gamecount", xGameCount(), gamecount_lookup, "???"),
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???")
 )
 rich_presence_display(
-    "{0}.",
+    "Location: {0}.",
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???")
 )
