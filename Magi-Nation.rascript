@@ -18,6 +18,9 @@
 
 // If ever there would be a translation patch (there definitely never will be due to the game's popularity), it is fairly trivial to check for an alternative name if need be...
 
+// The achievements were developed primarily on Gambatte, but GearBoy, VGA-M and mGBA were all also briefly tested,
+// and the achievements are expected to work on all 6 cores mentioned above.
+
 // Reference source code: https://github.com/GauChoob/magination
 
 //////////////////////
