@@ -1000,10 +1000,10 @@ hotspot_lookup = {
     0x4FDD: "Underneath Tunnels",   // HS_HDNROOM03B
     0x4FE6: "Underneath Tunnels",   // HS_HDNROOM03C
     0x4FEF: "Underneath Tunnels",   // HS_HDNROOM04
-    0x5005: "Abandoned Fort",   // HS_FORT01
-    0x5017: "Abandoned Fort",   // HS_FORT02
-    0x5020: "Abandoned Fort",   // HS_FORT02B
-    0x5032: "Abandoned Fort",   // HS_FORT03
+    0x5005: "Abandoned Tower",   // HS_FORT01
+    0x5017: "Abandoned Tower",   // HS_FORT02
+    0x5020: "Abandoned Tower",   // HS_FORT02B
+    0x5032: "Abandoned Tower",   // HS_FORT03
     0x5040: "Arderial Fort",   // HS_HDNFORT04
     0x5049: "Arderial Fort",   // HS_HDNFORT04B
     0x5052: "Start Screen",   // HS_HDNLOAD01

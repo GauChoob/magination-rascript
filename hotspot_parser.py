@@ -73,7 +73,7 @@ pretty_names = [
     ('HS_HDNROOM03', 'Underneath Tunnels'), # Naroom Hyren path
     ('HS_HDNROOM04', 'Underneath Tunnels'), # Underneath Tunnel shortcut (Agadon's boots)
     ('HS_HDNFORT', 'Arderial Fort'), # Arderial-Naroom warp
-    ('HS_FORT', 'Abandoned Fort'), # Underneath, Fort1-3
+    ('HS_FORT', 'Abandoned Tower'), # Underneath, Fort1-3
     ('HS_HDNLOAD', 'Start Screen'), # Headed towards Music player
     ('HS_HMTCAVE01', 'Tavel Gorge'),
     ('HS_HMTCAVE', 'Tavel Gorge Cave'), # 2-4
