@@ -17,7 +17,8 @@ This guide goes through all the achievements that are not automatically unlocked
 
 # 3) Warnings
 * If you would like to encounter Ormagon, follow an Ormagon guide from early on. Remember not to cure Orwin until after reaching the end of the quest.
-* If you do not return Ashgar's key before defeating the Cald shadow geyser, you will no longer be able to Forge Cald dream creatures and nobody in the Cald will want to talk to you
+* If you do not return Ashgar's key before defeating the Cald shadow geyser, you will no longer be able to Forge Cald dream creatures and nobody in the Cald will want to talk to you.
+* There are two different endings based on whether Orwin was healed. You can wait to heal Orwin until the end of the game, allowing you to quickly unlock both endings without having to restart the entire game.
 
 # 4) Achievement Guide
 
