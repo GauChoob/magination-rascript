@@ -529,13 +529,13 @@ achievement(
     trigger = game_init() && get_treasure("Grow        ")
 )
 achievement(
-    title = "Rock and Roll [m]", points = 3,
+    title = "Rock and Roll", points = 3,
     description = "Obtain Cave In in the second Shadow Geyser.",
     id = 404362, badge = "459099",
     trigger = game_init() && get_treasure("Cave In     ")
 )
 achievement(
-    title = "Ready to Rumble [m]", points = 3,
+    title = "Ready to Rumble", points = 3,
     description = "Obtain Thunderquake in the second Shadow Geyser.",
     id = 404363, badge = "459098",
     trigger = game_init() && get_treasure("Thunderquake")
@@ -547,7 +547,7 @@ achievement(
     trigger = game_init() && get_treasure("Fireball    ")
 )
 achievement(
-    title = "After the Flame, Only Ashes Remain [m]", points = 2,
+    title = "After the Flame, Only Ashes Remain", points = 2,
     description = "Obtain Flame Geyser in the third Shadow Geyser.",
     id = 404365, badge = "459110",
     trigger = game_init() && get_treasure("Flame Geyser")
@@ -565,19 +565,19 @@ achievement(
     trigger = game_init() && blurry_scroll()
 )
 achievement(
-    title = "Bend Water to Your Will [m]", points = 3,
+    title = "Bend Water to Your Will", points = 3,
     description = "Obtain Tidal Wave in the fourth Shadow Geyser.",
     id = 404368, badge = "459117",
     trigger = game_init() && get_treasure("Tidal Wave  ")
 )
 achievement(
-    title = "Zaptacular [m]", points = 3,
+    title = "Zaptacular", points = 3,
     description = "Obtain Lightning before facing Morag.", // Avoid spoilers
     id = 404369, badge = "459122",
     trigger = game_init() && get_treasure("Lightning   ")
 )
 achievement(
-    title = "Winds of Protection [m]", points = 3,
+    title = "Winds of Protection", points = 3,
     description = "Obtain Updraft before facing Morag.", // Avoid spoilers
     id = 404370, badge = "459123",
     trigger = game_init() && get_treasure("Updraft     ")
@@ -586,61 +586,61 @@ achievement(
 // Completionist //
 ///////////////////
 achievement(
-    title = "Great Furok [m]", points = 5,
+    title = "Great Furok", points = 5,
     description = "Obtain a Great Furok by almost escaping the Tavel Gorge caves.",
     id = 404371, badge = "459087",
     trigger = game_init() && great_furok()
 )
 achievement(
-    title = "Solo Operative [m]", points = 10,
+    title = "Solo Operative", points = 10,
     description = "Obtain Maelstrom by defeating all the ShadowMagi without any help.",
     id = 404372, badge = "459101",
     trigger = game_init() && maelstrom()
 )
 achievement(
-    title = "Skeleton Key [m]", points = 5,
+    title = "Skeleton Key", points = 5,
     description = "Find the Channeled Gem using Ashgar's Key.",
     id = 404373, badge = "459107",
     trigger = game_init() && get_treasure("ChanneledGem")
 )
 achievement(
-    title = "Second Largest Screwdriver [m]", points = 25,
+    title = "Second Largest Screwdriver", points = 25,
     description = "Examine the large screwdriver near some Jingjacks.", // No spoilers
     id = 404374, badge = "459112",
     trigger = game_init() && large_screwdriver()
 )
 achievement(
-    title = "Savior [m]", points = 50,
+    title = "Savior", points = 50,
     description = "Cure Orwin.",
     id = 404375, badge = "459114",
     trigger = game_init() && cure_orwin()
 )
 achievement(
-    title = "Funeral [m]", points = 5,
+    title = "Funeral", points = 5,
     description = "After defeating Agram, attend a funeral instead of going home.",
     id = 405828, badge = "459150",
     trigger = game_init() && funeral()
 )
 achievement(
-    title = "Spoiled Kyros [m]", points = 10,
+    title = "Spoiled Kyros", points = 10,
     description = "After defeating Agram, attend a party instead of going home.",
     id = 404376, badge = "459127",
     trigger = game_init() && party()
 )
 achievement(
-    title = "Simpsons Homage [m]", points = 10,
+    title = "Simpsons Homage", points = 10,
     description = "Do everything at the Naroom party before leaving.",
     id = 404377, badge = "459128",
     trigger = game_init() && evu_secret()
 )
 achievement(
-    title = "The Third Door [m]", points = 5,
+    title = "The Third Door", points = 5,
     description = "Unlock New Game Plus.",
     id = 404378, badge = "459129",
     trigger = game_init() && new_game_plus()
 )
 achievement(
-    title = "Dark Side [m]", points = 50,
+    title = "Dark Side", points = 50,
     description = "Visit the Core Ringsmith.",
     id = 404379, badge = "459130",
     trigger = game_init() && greet_coresmith()
@@ -673,13 +673,13 @@ achievement(
     trigger = game_init() && forge("Underneath", "Cave Hyren")
 )
 achievement(
-    title = "Flightless Wings [m]", points = 10,
+    title = "Flightless Wings", points = 10,
     description = "Forge Magma Hyren.",
     id = 404383, badge = "459136",
     trigger = game_init() && forge("Cald", "MagmaHyren")
 )
 achievement(
-    title = "Purifying Flame [m]", points = 10,
+    title = "Purifying Flame", points = 10,
     description = "Forge Flame Hyren.",
     id = 404384, badge = "459137",
     trigger = game_init() && forge("Cald", "FlameHyren")
@@ -709,7 +709,7 @@ achievement(
     trigger = game_init() && forge("Arderial", "Orathan F ")
 )
 achievement(
-    title = "Now THAT is a BIG Mushroom [m]", points = 100,
+    title = "Now THAT is a BIG Mushroom", points = 100,
     description = "Encounter Ormagon.",
     id = 404388, badge = "459125",
     trigger = game_init() && wild_appear("Ormagon   ")
@@ -718,31 +718,31 @@ achievement(
 // Fun //
 /////////
 achievement(
-    title = "Outhouse [m]", points = 1,
+    title = "Outhouse", points = 1,
     description = "Look inside Gia's 'storage shed'.",
     id = 404396, badge = "459091",
     trigger = game_init() && poop_gag()
 )
 achievement(
-    title = "Acquired Taste [m]", points = 3,
+    title = "Acquired Taste", points = 3,
     description = "Eat 20 mushrooms.",
     id = 404389, badge = "458598",
     trigger = game_init() && mushroom_gag()
 )
 achievement(
-    title = "So That's Where Soap Comes From [m]", points = 1,
+    title = "So That's Where Soap Comes From", points = 1,
     description = "Tell Eidon about Oflardt's stories.",
     id = 404390, badge = "459106",
     trigger = game_init() && soap_gag()
 )
 achievement(
-    title = "Bargainer [m]", points = 3,
+    title = "Bargainer", points = 3,
     description = "Haggle the ferryman down to his lowest price.",
     id = 404391, badge = "459108",
     trigger = game_init() && haggle()
 )
 achievement(
-    title = "Gentleman Thief [m]", points = 5,
+    title = "Gentleman Thief", points = 5,
     description = "Close the training equipment door after opening it.",
     id = 404397, badge = "459109",
     trigger = game_init() && close_training_door()
@@ -752,7 +752,7 @@ achievement(
 // Battles //
 /////////////
 achievement(
-    title = "199 Borgors [m]", points = 100,
+    title = "199 Borgors", points = 100,
     description = "Defeat Morag at your first encounter.",
     id = 404392, badge = "459131",
     trigger = game_init() && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
