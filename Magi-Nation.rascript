@@ -154,8 +154,6 @@ function great_furok() =>
     wScript_Text() == bank_address(0x053A0A) // nrmvash11_txt.mgi Line 281, TextClose()
 function cure_orwin() =>
     wScript_Text() == bank_address(0x08E2BA) // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
-function party() =>
-    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0)
 function evu_secret() =>
     wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose()
 function new_game_plus() =>
@@ -235,6 +233,10 @@ function large_screwdriver() =>
     wScript_System() == bank_address(0x06DFF0) // hldmaze08_dr.mgi Line 67, TextClose()
 function greet_coresmith() =>
     wScript_Text() == bank_address(0x0963C9) // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
+function funeral() =>
+    wScript_Text() == bank_address(0x051944) // nrmvash03.mgi Line 626, TextClose()
+function party() =>
+    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0)
 
 // Actor //
 ///////////
@@ -279,10 +281,12 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 //////////
 
 // WRAM has been initialized
-// Reset if i2 logo is displayed on soft reset (Select-Start-A-B, formatting game pak)
 function game_init() =>
-    (wSound_SoundInit() == Sound_Init_MagicNumber) &&
-    never(i2_logo_displayed())
+    wSound_SoundInit() == Sound_Init_MagicNumber
+
+// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak
+function game_reset() =>
+    i2_logo_displayed()
 
 // Treasure chest item
 function get_treasure(name) => _get_treasure() && treasure_name(name)
@@ -355,7 +359,6 @@ function forge(location, creature) =>
 // Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM so not currently doable)
 // Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
-// Orwin's funeral (normal bonus ending)
 // Taking the easy vs hard way with Warrada (not sure if actually a good achievement idea)
 // Note that the Arderial and Core hyrens are unobtainable in the game
 
@@ -448,8 +451,8 @@ achievement(
 leaderboard(
     title = "Scrub the Brub",
     description = "Highest points in Scrub the Brub.",
-    start = game_init() && brub_start() && never(brub_end()),
-    cancel = always_false(),
+    start = game_init() && never(game_reset()) && brub_start() && never(brub_end()),
+    cancel = game_reset(),
     submit = brub_end(),
     value = brub_count(), // use brub_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
@@ -472,8 +475,8 @@ achievement(
 leaderboard(
     title = "Aim for Animite",
     description = "Highest points in Aim for Animite.",
-    start = game_init() && archery_start() && never(archery_end()),
-    cancel = always_false(),
+    start = game_init() && never(game_reset()) && archery_start() && never(archery_end()),
+    cancel = game_reset(),
     submit = archery_end(),
     value = archery_count(), // use archery_count() instead of number() so we can keep track of score during the minigame
     format = "VALUE",
@@ -496,8 +499,8 @@ achievement(
 leaderboard(
     title = "Avoid the Agovos",
     description = "Fastest time in Avoid the Agovos.",
-    start = game_init() && once(agovo_start()) && never(agovo_lose()) && never(agovo_win()),
-    cancel = agovo_lose(),
+    start = game_init() && never(game_reset()) && once(agovo_start()) && never(agovo_lose()) && never(agovo_win()),
+    cancel = agovo_lose() || game_reset(),
     submit = agovo_win(),
     value = always_true(),
     format = "FRAMES",
@@ -605,6 +608,12 @@ achievement(
     description = "Cure Orwin.",
     id = 404375, badge = "459114",
     trigger = game_init() && cure_orwin()
+)
+achievement(
+    title = "Funeral [m]", points = 5,
+    description = "After defeating Agram, attend a funeral instead of going home.",
+    id = 405828, badge = "459150",
+    trigger = game_init() && funeral()
 )
 achievement(
     title = "Spoiled Kyros [m]", points = 10,
@@ -740,7 +749,7 @@ achievement(
     title = "199 Borgors [m]", points = 100,
     description = "Defeat Morag at your first encounter.",
     id = 404392, badge = "459131",
-    trigger = game_init() && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
+    trigger = game_init() && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
 )
 achievement(
     title = "Two Stooges", points = 10,
@@ -752,7 +761,7 @@ achievement(
     title = "Weebest", points = 25,
     description = "Defeat Salafy at her hardest difficulty.",
     id = 404398, badge = "459121",
-    trigger = game_init() && once(salafy_level4_start()) && salafy_win()
+    trigger = game_init() && never(game_reset()) && once(salafy_level4_start()) && salafy_win()
 )
 
 
@@ -767,7 +776,6 @@ achievement(
 function wHotspot_Table() => word(0xC6DF)
 // Autogenerated from hotspot_parser.py
 hotspot_lookup = {
-    0x0000: "Splash Screen",
     0x4001: "Naroom Grove",   // HS_NRMGLADE01
     0x400A: "Naroom Grove",   // HS_NRMGLADE01F
     0x4018: "Naroom Grove",   // HS_NRMGLADE02
@@ -1255,5 +1263,3 @@ rich_presence_display(
     "{0}.",
     rich_presence_lookup("Location", wHotspot_Table(), hotspot_lookup, "???")
 )
-
-// TODO - remove alternate patch
