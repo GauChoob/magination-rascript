@@ -38,7 +38,7 @@ function changes_from(address, value) => (prev(address) == value) && (address !=
 // WRAM //
 //////////
 
-// The game has 4 different bytecode scripts running simultaneously,
+// The game has 4 different bytecode scripts running simultaneously, pointed to by these 4 variables,
 // plus each Actor (up to 10 simultaneously) has 1-2 scripts, up to a maximum of 24 simultaneous threads
 function wScript_Master() => tbyte(0xC706)
 function wScript_Scroll() => tbyte(0xC70D)
@@ -91,6 +91,8 @@ SFXID_CriticalAttack = 14
 ////////////////////////////////
 //  Bytecode Script Addresses //
 ////////////////////////////////
+
+// All of these bytecode script addresses are only pointed to for up to a few frames at most, making them transient, event-based addresses
 
 // Unique Actions //
 ////////////////////
@@ -234,7 +236,7 @@ function forge_core() =>
 
 // Misc
 function mushroom_gag() =>
-    wScript_Text() == bank_address(0x0727E3) // undtown06.mgi Line 103, End()
+    wScript_Text() == bank_address(0x0727E3) // undtown06.mgi Line 103, TextClose()
 function close_training_door() =>
     wScript_System() == bank_address(0x04C159) // nrmvash13_dr.mgi Line 241, TextClose()
 function large_screwdriver() =>
