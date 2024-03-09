@@ -111,16 +111,19 @@ SFXID_CriticalAttack = 14
 
 
 // Spells
+// Triggers on textbox close after the spell is obtained
 function leaf_cut() =>
     wScript_Text() == bank_address(0x0AC508) // nrmvash12_txt.mgi Line 109, TextClose()
 function blurry_scroll() =>
     wScript_System() == bank_address(0x066A01) // ororuins02_dr.mgi Line 22, TextClose()
 
 // Relics
+// Triggers on textbox close after the relic is obtained
 function maelstrom() =>
     wScript_Text() == bank_address(0x06B4D5) // cldlavatown14_txt.mgi Line 86, TextClose()
 
 // Hero Abilities
+// Triggers on textbox close after the ability is obtained
 function energy_band() =>
     wScript_Text() == bank_address(0x052835) // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
@@ -133,6 +136,7 @@ function eye_of_the_storm() =>
     wScript_Text() == bank_address(0x065746) // ardpalace01_txt.mgi Line 65, TextClose()
 
 // Geyser completions
+// Triggers on scene fadeout right before permanently leaving the geyser
 function geyser1() =>
     wScript_Master() == bank_address(0x06A7F3) // nrmgeyser11.mgi Line 106, PalFade(0,15,32,0)
 function geyser2() =>
@@ -149,43 +153,47 @@ function geyser5() =>
 
 // Boss fights
 function morag_underneath_start() =>
-    wScript_Text() == bank_address(0x088DAE) // undtown01_txt.mgi Line 380, TextClose()
+    wScript_Text() == bank_address(0x088DAE) // undtown01_txt.mgi Line 380, TextClose() - Triggers on textbox close right before battle starts
 function morag_underneath_end() =>
-    wScript_Text() == bank_address(0x088DB2) // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG)
+    wScript_Text() == bank_address(0x088DB2) // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG) - Triggers on textbox open right after battle ends
 function zet_end() =>
-    wScript_Text() == bank_address(0x09AD56) // cregate01_txt.mgi Line 66, TextClose()
+    wScript_Text() == bank_address(0x09AD56) // cregate01_txt.mgi Line 66, TextClose() - Triggers on textbox close right after Zet's last dialogue
 function agram_end() =>
-    wScript_Text() == bank_address(0x0568AC) // throne01_txt.mgi Line 66, TextIcon(ICON_AGRAM)
+    wScript_Text() == bank_address(0x0568AC) // throne01_txt.mgi Line 66, TextIcon(ICON_AGRAM) - Triggers on textbox open right after battle ends
 
 // Gags
 function poop_gag() =>
-    wScript_System() == bank_address(0x0742C4) // wvegiashut01_dr.mgi Line 38, TextClose()
+    wScript_System() == bank_address(0x0742C4) // wvegiashut01_dr.mgi Line 38, TextClose() - Triggers on textbox close at the end of the dialogue
 function soap_gag() =>
-    wScript_Text() == bank_address(0x074FE5) // wvegiashut01.mgi Line 463, TextClose()
+    wScript_Text() == bank_address(0x074FE5) // wvegiashut01.mgi Line 463, TextClose() - Triggers on textbox close at the end of the dialogue
 function haggle() =>
+    // Triggers mid-dialogue when Tony gets to choose whether to accept 50 animite or not
+    // Unfortunately there's no valid pointer address after Tony selects to accept 50 animite, as the next frame
+    // the script has already exited to a wider scope
     wScript_Text() == bank_address(0x0A97CD) // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
 // Misc
-function i2_logo_displayed() =>
-    wScript_Master() == bank_address(0x0AB260) // hdnload01.mgi Line 19, Delay(90)
+function i2_logo() =>
+    wScript_Master() == bank_address(0x0AB25C) // hdnload01.mgi Line 18, PalFade(0,7,32,2) - Triggers as the i2 logo fades in
 function great_furok() =>
-    wScript_Text() == bank_address(0x053A0A) // nrmvash11_txt.mgi Line 281, TextClose()
+    wScript_Text() == bank_address(0x053A0A) // nrmvash11_txt.mgi Line 281, TextClose() - Triggers on textbox close after Tony gets a Great Furok
 function cure_orwin() =>
-    wScript_Text() == bank_address(0x08E2BA) // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN)
+    wScript_Text() == bank_address(0x08E2BA) // nrmvash15_sicko.mgi Line 521, TextIcon(ICON_ORWIN) - Triggers on textbox open right after Orwin jumps out of bed
 function funeral() =>
-    wScript_Text() == bank_address(0x051944) // nrmvash03.mgi Line 626, TextClose()
+    wScript_Text() == bank_address(0x051944) // nrmglade03.mgi Line 626, TextClose() - Triggers on textbox close after Gia explains the funeral, right before heading to the glade
 function party() =>
-    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x0519E3) // nrmvash03.mgi Line 664, PalFade(0,15,32,0) - Triggers upon scene load into Vash Naroom after Tony leaves the Core
 function evu_secret() =>
-    wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose()
+    wScript_Text() == bank_address(0x05A2DD) // nrmvash02_party.mgi Line 639, TextClose() - Triggers on textbox close right before Evu teleports
 function new_game_plus() =>
-    wScript_Text() == bank_address(0x0AAF63) // hdnload01_sct.mgi Line 63, TextClose()
+    wScript_Text() == bank_address(0x0AAF63) // hdnload01_sct.mgi Line 63, TextClose() - Triggers on textbox close after talking to the secret hooded figure
 
 
 // Repeatable Actions //
 ////////////////////////
 
 // Battle
+// Battle engine events
 function _tony_summon() =>
     wScript_Text() == bank_address(0x130AF4) // battle_txt.mgi Line 954, TextClose()
 function _magi_summon() =>
@@ -196,41 +204,42 @@ function tony_wins() =>
     wScript_Text() == bank_address(0x130B69) // battle_txt.mgi Line 1016, TextClose()
 
 function salafy_level4_start() =>
-    wScript_System() == bank_address(0x0589DD) // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY)
+    wScript_System() == bank_address(0x0589DD) // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY) - triggers on first textbox open during Salafy's level 4 battle
 function salafy_win() =>
-    wScript_Text() == bank_address(0x04D58F) // vash13.mgi Line 139, TextIcon(ICON_SALAFY)
+    wScript_Text() == bank_address(0x04D58F) // nrmvash13.mgi Line 139, TextIcon(ICON_SALAFY) - triggers on first textbox open after defeating Salafy (any level)
 
 // Chests
 function _get_treasure() =>
-    wScript_System() == bank_address(0x08805A) // system.mgi Line 41, TextClose()
+    wScript_System() == bank_address(0x08805A) // system.mgi Line 41, TextClose() - System event
 
 // Minigames
 function minigame_underneath_points() =>
-    wScript_Text() == bank_address(0x0738E8) // undtown08.mgi Line 74, TextClose()
+    wScript_Text() == bank_address(0x0738E8) // undtown08.mgi Line 74, TextClose() - triggers on textbox close after receiving score result
 function minigame_cald_points() =>
-    wScript_Text() == bank_address(0x073488) // undtown08_sct.mgi Line 68, TextClose()
+    wScript_Text() == bank_address(0x073488) // undtown08_sct.mgi Line 68, TextClose() - triggers on textbox close after receiving score result
 function minigame_brub() =>
-    wScript_Master() == bank_address(0x073A21) // undtown09.mgi Line 31, Sync(2,0)
+    wScript_Master() == bank_address(0x073A21) // undtown09.mgi Line 31, Sync(2,0) - triggers when brub scene is loaded
 function minigame_archery() =>
-    wScript_Master() == bank_address(0x09A710) // nrmvash24.mgi Line 49, PalFade(0,15,32,0)
+    wScript_Master() == bank_address(0x09A710) // nrmvash24.mgi Line 49, PalFade(0,15,32,0) - triggers when archery scene is loaded
 
 function archery_target_animite() =>
-    wScript_Scroll() == bank_address(0x09A7EF) // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect)
+    wScript_Scroll() == bank_address(0x09A7EF) // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect) - triggers when screen starts to shake after animite is hit
 function archery_target_slow() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
 function archery_target_medium() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
 function archery_target_fast() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect)
+    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
 
 function agovo_start() =>
-    wScript_Master() == bank_address(0x05A7A3) // nrmvash02.mgi Line 379, TextClose()
+    wScript_Master() == bank_address(0x05A7A3) // nrmvash02.mgi Line 368, TextClose() - triggers on textbox close right when Tony's state becomes AI_Hero and gains control of his character in the Agovo room
 function agovo_win() =>
-    wScript_Master() == bank_address(0x05A393) // nrmvash02.mgi Line 77, TextWrite("You win!")
+    wScript_Master() == bank_address(0x05A393) // nrmvash02.mgi Line 77, TextWrite("You win!") - triggers on textbox close at the end of the Agovo room
 function agovo_lose() =>
-    wScript_Master() == bank_address(0x05A381) // nrmvash02.mgi Line 67, TextWrite("You lose!")
+    wScript_Master() == bank_address(0x05A381) // nrmvash02.mgi Line 67, TextWrite("You lose!") - triggers on textbox close at the end of the Agovo room
 
 // Forging Dream Creatures
+// Triggers on textbox open after ring crafting animation
 function forge_naroom() =>
     wScript_Text() == bank_address(0x053CC1) // nrmvash11_txt.mgi Line 415, TextIcon(ICON_PRUITT)
 function forge_underneath() =>
@@ -248,22 +257,13 @@ function forge_core() =>
 
 // Misc
 function mushroom_gag() =>
-    wScript_Text() == bank_address(0x0727E3) // undtown06.mgi Line 103, TextClose()
+    wScript_Text() == bank_address(0x0727E3) // undtown06.mgi Line 103, TextClose() - triggers on textbox close after Tony thanks Motash
 function close_training_door() =>
-    wScript_System() == bank_address(0x04C159) // nrmvash13_dr.mgi Line 241, TextClose()
+    wScript_System() == bank_address(0x04C159) // nrmvash13_dr.mgi Line 93, TextClose() - triggers on textbox close after Click! when closing door
 function large_screwdriver() =>
-    wScript_System() == bank_address(0x06DFF0) // hldmaze08_dr.mgi Line 67, TextClose()
+    wScript_System() == bank_address(0x06DFF0) // hldmaze08_dr.mgi Line 67, TextClose() - triggers on textbox close after examination of screwdriver
 function greet_coresmith() =>
-    wScript_Text() == bank_address(0x0963C9) // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK)
-
-
-// Actor //
-///////////
-
-// AI Frames (Bank 1 ROM)
-AI_Anim = 0x4A6B
-function tony_frozen() =>
-    wActorTonyState() == AI_Anim
+    wScript_Text() == bank_address(0x0963C9) // hdnroom01.mgi Line 110, TextIcon(ICON_CLOAK) - triggers on textbox open when dialogue with coresmith starts
 
 // Graphics Scripts
 Brub_Squished_Anim = bank_address(0x0472C6) // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
@@ -300,7 +300,7 @@ function game_init() =>
 // Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak,
 // which could in rare cases be used to cheat on leaderboards or for specific achievements
 function game_reset() =>
-    i2_logo_displayed()
+    i2_logo()
 
 // Treasure chest item
 function get_treasure(name) => _get_treasure() && treasure_name(name)
@@ -500,20 +500,20 @@ leaderboard(
 
 achievement(
     title = "Speedy Tony", points = 10,
-    description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60 = 462
+    description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60-1 = 461. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404358, badge = "459093",
-    trigger = game_init() && disable_when(repeated(462, !tony_frozen()), until=agovo_start()) && agovo_win()
+    trigger = game_init() && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
 )
 achievement(
     title = "Flash Tony", points = 25,
-    description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60 = 444
+    description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60-1 = 443. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404359, badge = "459094",
-    trigger = game_init() && disable_when(repeated(444, !tony_frozen()), until=agovo_start()) && agovo_win()
+    trigger = game_init() && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
 )
 leaderboard(
     title = "Avoid the Agovos",
     description = "Fastest time in Avoid the Agovos.",
-    start = game_init() && never(game_reset()) && once(agovo_start()) && never(agovo_lose()) && never(agovo_win()),
+    start = game_init() && agovo_start(),
     cancel = agovo_lose() || game_reset(),
     submit = agovo_win(),
     value = always_true(),
@@ -785,7 +785,8 @@ achievement(
 
 // The scene id/menu/battle status isn't directly kept track in any variable but we can reasonably guess it using the loaded hotspots
 // One scene can have multiple different hotspot tables depending on how you get to the specific scene and the game progress
-// Some scenes don't load any hotspots at all, but this is rare and limited
+// Some scenes don't load any hotspots at all in cutscenes, and so old information may be briefly displayed
+// For example, the Scrub the Brub minigame doesn't load hotspots so we can't detect it, but at least we can locate the player in the Brub House
 // Hotspot tables are located in bank 0x21
 function wHotspot_Table() => word(0xC6DF)
 // Autogenerated from hotspot_parser.py
@@ -1235,10 +1236,11 @@ gamecount_lookup = {
     GC_END_PARTY: "Life of the party",
 }
 
-// We can't directly track Tony's stats, but every time he enters a battle, his stats are loaded into WRAMX
+// We can't directly track Tony's stats since they are saved in SRAM1 & SRAM3, which are never exposed,
+// but every time he enters a battle, his stats are loaded into WRAM7
 // We can display Tony's stats for the supported cores (i.e. not mGBA)
 // We need to make sure at least one battle has occurred to be able to read his stats,
-// and they will only update every battle, not in-between
+// and they will unfortunately only update every battle, not in-between
 
 // Tony's stats apart from Energy never change, even on level up.
 // So we if detect his stats, we know the WRAMX has been initialized
