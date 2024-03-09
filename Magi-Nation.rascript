@@ -398,12 +398,13 @@ function prisoners() =>
 //////////////////
 
 // The achievement covers pretty much all possible progression and all secrets, except for:
-// Blast urn rooms (requires SRAM ideally, or else the setup is too janky)
-// Saving the 8 Shadowhold prisoners and obtaining their gifts (requires SRAM, or else the setup is too janky)
+// All blast urn rooms (requires SRAM ideally, or else the setup is too janky, but we already require 1 room for Jailbreak so I don't think this achievement is necessarily a great idea)
 // Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
-// Taking the easy vs hard way with Warrada (not sure if actually a good achievement idea)
+// Taking the easy vs hard way with Warrada (doesn't really make much a difference)
+// Saving the Tryn sisters or letting them die (doesn't make a big difference)
 // Note that the Arderial and Core hyrens are unobtainable in the game and so there are no achievements for them
+// We also cannot read which rings are owned so we can't do a catch-them-all achievement
 
 // Geysers //
 /////////////
