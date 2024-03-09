@@ -172,6 +172,19 @@ function haggle() =>
     // the script has already exited to a wider scope
     wScript_Text() == bank_address(0x0A97CD) // ferry01_txt.mgi Line 241, TextIcon(ICON_TONY)
 
+// Prisoner Reward
+// When the rescued prisoner gives you an item. See also Prisoner Thanks
+HldPrisoner_Reward = [
+    bank_address(0x08B02F), //1 nrmvash17.mgi Line 15, TextClose()
+    bank_address(0x07AC93), //2 cldlavatown10_txt.mgi Line 17, TextClose()
+    bank_address(0x04F699), //3 wvepathvalley04_txt.mgi Line 23, TextClose()
+    bank_address(0x088363), //4 undtown01_txt.mgi Line 28, TextClose()
+    bank_address(0x0544EC), //5 undcave03_sct.mgi Line 53, TextClose()
+    bank_address(0x05D636), //6 cldlavavent04_sct.mgi Line 56, TextClose()
+    bank_address(0x0AA7A6) //7 ferry02.mgi Line 469, TextClose()
+    // 8 only accessible by hacking ardgarden04.mgi
+]
+
 // Misc
 function i2_logo() =>
     wScript_Master() == bank_address(0x0AB25C) // hdnload01.mgi Line 18, PalFade(0,7,32,2) - Triggers as the i2 logo fades in
@@ -269,6 +282,18 @@ function greet_coresmith() =>
 Brub_Squished_Anim = bank_address(0x0472C6) // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
 RedBrub_Squished_Anim = bank_address(0x0047327) // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
 
+// Prisoner Thanks
+// Prisoner thanking the player once reward has already been received. See also Prisoner Reward
+HldPrisoner_Thanks = [
+    bank_address(0x08B055), //1 nrmvash17.mgi Line 24, TextClose()
+    bank_address(0x07ACB9), //2 cldlavatown10_txt.mgi Line 26, TextClose()
+    bank_address(0x04F6BF), //3 wvepathvalley04_txt.mgi Line 32, TextClose()
+    bank_address(0x088395), //4 undtown01_txt.mgi Line 38, TextClose()
+    bank_address(0x054510), //5 undcave03_sct.mgi Line 60, TextClose()
+    bank_address(0x05D65A), //6 cldlavavent04_sct.mgi Line 64, TextClose()
+    bank_address(0x0AA7CA) //7 ferry02.mgi Line 476, TextClose()
+    // 8 only accessible by hacking ardgarden04.mgi
+]
 
 ///////////////////
 // String Buffer //
@@ -362,7 +387,11 @@ forge_location = {
 function forge(location, creature) =>
     forge_location[location] && creature_name(creature)
 
-
+// Shadowhold prisoners
+function prisoner(id) =>
+    once((wScript_Text() == HldPrisoner_Reward[id]) || (wScript_Text() == HldPrisoner_Thanks[id]))
+function prisoners() =>
+    all_of(range(0,6), id => prisoner(id))
 
 //////////////////
 // Achievements //
@@ -622,6 +651,12 @@ achievement(
     description = "Cure Orwin.",
     id = 404375, badge = "459114",
     trigger = game_init() && cure_orwin()
+)
+achievement(
+    title = "Jailbreak", points = 50,
+    description = "Rescue all 7 prisoners and then find them throughout the world.",
+    id = 406696, badge = "460199",
+    trigger = game_init() && prisoners() // We don't care about protecting against game reset
 )
 achievement(
     title = "Funeral", points = 5,

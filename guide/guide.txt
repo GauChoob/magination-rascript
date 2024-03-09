@@ -7,15 +7,16 @@
 |Set Difficulty|5|
 |Approximate time to master|30 hours|
 |Minimum numbers of playthroughs needed|2 (2-4 achievements locked behind New Game Plus)|
-|Number of missable achievements|25|
+|Number of missable achievements|26|
 |Hardest achievement of the set|199 Borgors|
 
 # 2) Introduction
 Magi-Nation is a well-received Game Boy Color game that had the flaw of being released late in the console's life cycle and so was not as well known as other big titles. It was developed in Seattle by a small team of developers that had many sleepless nights to meet deadlines to release the game on time. The current achievement set includes almost all of the hidden content in the game, including some secrets discovered as late as 2024!
 
-This guide goes through all the achievements that are not automatically unlocked in a normal playthrough, or that are not obvious from the achievement description. Generally, the achievements are in chronological order, and so if you try and obtain the achievements when they are next on the list, you should not miss them. Do not read the next two sections if you want to avoid spoilers!
+This guide goes through all the achievements that are not automatically unlocked in a normal playthrough, or that are not obvious from the achievement description. Generally, the achievements are in chronological order, and so if you try and obtain the achievements when they are next on the list, you should not miss them.
 
-# 3) Warnings
+# 3) Hints and Warnings
+* There is an infinite money glitch: buying and re-selling most Gems to the same shop will yield a profit.
 * If you would like to encounter Ormagon, follow an Ormagon guide from early on. Remember not to cure Orwin until after reaching the end of the quest.
 * If you do not return Ashgar's key before defeating the Cald Shadow Geyser, you will no longer be able to forge Cald dream creatures and nobody in the Cald will want to talk to you.
 * You will be forced to leave the Shadowhold when you look down the pier, so avoid doing so until you have finished exploring.
@@ -138,6 +139,20 @@ Found at the end of the Shadowhold.
 _Cure Orwin._
 
 Get the Cloud Frond from the Shadowhold and bring it to the Seer. Note that healing Orwin will lock you out of the Ormagon quest, unless Orwin is healed after getting the Hollow Stool.
+
+***
+
+![](https://media.retroachievements.org/Badge/460199.png) [Jailbreak (50)](https://retroachievements.org/achievement/)   
+_Rescue all 7 prisoners and then find them throughout the world._
+
+Fully complete the Shadowhold by rescuing all 7 prisoners. After escaping from the Shadowhold, the prisoners can be found at the following locations:
+1. Vash Naroom
+1. Wheat Farm
+1. Bogrom, the Underneath Town
+1. A secret room in the Underground Caverns (on the way to Gruk's Mushroom Farm)
+1. Ashyn, the Cald Town
+1. A secret room accessible via Blast Urn in the Cald Lava Vents
+1. Dock
 
 ***
 

@@ -27,3 +27,18 @@ Fungicide achievement door: Must be done before beating Morag
 %BIT	Party_Valkan			XRAM_SAVEBITS 1^7		// Valkan's party bit
 
 Worveline hiding spots: Pruitt's bed, Item shop's chest, Evu's fireplace, Empty house(northeast) chair, house left of Pruitt's, spooky kid's drawers
+
+
+
+HldPrisoners
+1: Naroom beside Spooky kid - Water of Life
+2: Cald - Master Rune
+3: Wheat Farm - Master Rune
+4: Underneath Town - Master Rune
+5: Underneath Squishable right beside Ormagon wall- Master Rune
+6: Cald Lava Vent deep secret room- Water of Life
+7: Orothe Ferry - Master Rune
+8: Not rescuable (does not exist in Shadowhold) - Arderial Middle Clouds
+
+
+Test both versions of reward
