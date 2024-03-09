@@ -285,7 +285,7 @@ function creature_name(name) => ascii_string_equals(Creature_Name, name)
 ////////////
 
 function tony_summon(creature) => _tony_summon() && battle_target(creature)
-function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature) // TODO unused and untested
+function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature)
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 
@@ -717,7 +717,7 @@ achievement(
     trigger = game_init() && forge("Arderial", "Orathan F ")
 )
 achievement(
-    title = "Now THAT is a BIG Mushroom", points = 100,
+    title = "Now THAT is a BIG Mushroom", points = 50,
     description = "Encounter Ormagon.",
     id = 404388, badge = "459125",
     trigger = game_init() && wild_appear("Ormagon   ")
