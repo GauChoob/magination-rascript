@@ -613,7 +613,7 @@ achievement(
 )
 achievement(
     title = "Second Largest Screwdriver", points = 25,
-    description = "Examine the large screwdriver near some Jingjacks.", // No spoilers
+    description = "Examine the large screwdriver near some Jingjacks.", // Avoid spoilers
     id = 404374, badge = "459112",
     trigger = game_init() && large_screwdriver()
 )
@@ -767,7 +767,7 @@ achievement(
 )
 achievement(
     title = "Two Stooges", points = 10,
-    description = "Meet Korg and Zet for the last time.",
+    description = "Defeat Korg and Zet.", // Avoid spoilers
     id = 404393, badge = "459119",
     trigger = game_init() && zet_end()
 )
