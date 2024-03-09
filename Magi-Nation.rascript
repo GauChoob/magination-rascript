@@ -30,9 +30,18 @@
 // Converts a ROM address from raw location to a bank_address. Only valid for ROM banks >= 1
 // e.g. 0x047327 -> ROMX[0x11] 0x7327 -> 0x732711
 function bank_address(raw_address) =>
-    0x100*(raw_address - (raw_address / 0x4000 - 1)*0x4000) + (raw_address / 0x4000)
+    0x000100*(raw_address % 0x4000 + 0x4000) + // Address
+    0x000001*(raw_address / 0x4000) // Bank
+
+// Converts a number to 8-bit-width bcd
+// e.g. 149 -> 0x010409
+function bcd_8(number) =>
+    0x010000*(number/100) +
+    0x000100*((number % 100)/10) +
+    0x000001*(number % 10)
 
 function changes_from(address, value) => (prev(address) == value) && (address != value)
+
 
 //////////
 // WRAM //
@@ -79,6 +88,9 @@ Creature_Name = wText_StringBuffer + 0 // Forging creature name
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
 Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
+// Number buffer for text input
+function wX1() => tbyte(0xC92D) // 8-bit-wide BCD-encoded number (0-999)
+function number_buffer() => wX1()
 
 // Sound is initialized right after WRAM is wiped on reset
 function wSound_SoundInit() => byte(0xC91D)
@@ -267,12 +279,6 @@ function battle_target(target) => ascii_string_equals(Battle_Target, target)
 function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
 function creature_name(name) => ascii_string_equals(Creature_Name, name)
 
-// Convert 3-digit ascii to number
-function number() =>
-    (byte(wText_StringBuffer) - 0x30)*100 +
-    (byte(wText_StringBuffer + 1) - 0x30)*10 +
-    (byte(wText_StringBuffer + 2) - 0x30)
-
 
 ////////////
 // Battle //
@@ -448,13 +454,13 @@ achievement(
     title = "Brub Scrub", points = 10,
     description = "Score at least 50 points in Scrub the Brub.",
     id = 404354, badge = "459096",
-    trigger = game_init() && brub_start() && brub_end() && (number() >= 50) // use number() instead of brub_count() since we only need to check the total score at the end
+    trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Brub Elite", points = 25,
     description = "Score at least 60 points in Scrub the Brub.",
     id = 404355, badge = "459097",
-    trigger = game_init() && brub_start() && brub_end() && (number() >= 60) // use number() instead of brub_count() since we only need to check the total score at the end
+    trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
 )
 leaderboard(
     title = "Scrub the Brub",
@@ -462,7 +468,7 @@ leaderboard(
     start = game_init() && never(game_reset()) && brub_start() && never(brub_end()),
     cancel = game_reset(),
     submit = brub_end(),
-    value = brub_count(), // use brub_count() instead of number() so we can keep track of score during the minigame
+    value = brub_count(), // use brub_count() instead of number_buffer() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
     id = 90347
@@ -472,13 +478,13 @@ achievement(
     title = "Aim for Tickets", points = 10,
     description = "Score at least 50 points in Aim for Animite.",
     id = 404356, badge = "459102",
-    trigger = game_init() && archery_start() && archery_end() && (number() >= 50) // use number() instead of archery_count() since we only need to check the total score at the end
+    trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Bullseye", points = 25,
     description = "Score at least 60 points in Aim for Animite.",
     id = 404357, badge = "459103",
-    trigger = game_init() && archery_start() && archery_end() && (number() >= 60) // use number() instead of archery_count() since we only need to check the total score at the end
+    trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
 )
 leaderboard(
     title = "Aim for Animite",
@@ -486,7 +492,7 @@ leaderboard(
     start = game_init() && never(game_reset()) && archery_start() && never(archery_end()),
     cancel = game_reset(),
     submit = archery_end(),
-    value = archery_count(), // use archery_count() instead of number() so we can keep track of score during the minigame
+    value = archery_count(), // use archery_count() instead of number_buffer() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
     id = 90348
