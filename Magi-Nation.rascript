@@ -225,11 +225,11 @@ function minigame_archery() =>
 function archery_target_animite() =>
     wScript_Scroll() == bank_address(0x09A7EF) // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect) - triggers when screen starts to shake after animite is hit
 function archery_target_slow() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 function archery_target_medium() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 function archery_target_fast() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 
 function agovo_start() =>
     wScript_Master() == bank_address(0x05A7A3) // nrmvash02.mgi Line 368, TextClose() - triggers on textbox close right when Tony's state becomes AI_Hero and gains control of his character in the Agovo room
@@ -465,7 +465,7 @@ achievement(
 leaderboard(
     title = "Scrub the Brub",
     description = "Highest points in Scrub the Brub.",
-    start = game_init() && never(game_reset()) && brub_start() && never(brub_end()),
+    start = game_init() && minigame_brub(), // We don't need to use once() so we don't need to use brub_start()
     cancel = game_reset(),
     submit = brub_end(),
     value = brub_count(), // use brub_count() instead of number_buffer() so we can keep track of score during the minigame
@@ -489,7 +489,7 @@ achievement(
 leaderboard(
     title = "Aim for Animite",
     description = "Highest points in Aim for Animite.",
-    start = game_init() && never(game_reset()) && archery_start() && never(archery_end()),
+    start = game_init() && minigame_archery(), // We don't need to use once() so we don't need to use archery_start()
     cancel = game_reset(),
     submit = archery_end(),
     value = archery_count(), // use archery_count() instead of number_buffer() so we can keep track of score during the minigame
