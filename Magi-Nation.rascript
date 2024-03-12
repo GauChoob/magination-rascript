@@ -13,7 +13,7 @@
 
 // So basically we are mostly left with a few pointers to data tables and pointers to bytecode scripts
 // For the majority of the achievements, we read the pointer address and don't read the actual text contents
-// with the exception of item names in treasure chests and Ormagon, because we don't have any reliable alternative way of reading them (located in SRAM and WRAM7)
+// with the exception of item names in treasure chests (located in SRAM) and Ormagon (WRAM7), because we don't have any reliable alternative way of reading them
 // without creating a patch, but in that case we are dropping support for the large majority of players who would play without a patch
 
 // If ever there would be a translation patch (there definitely never will be due to the game's popularity), it is fairly trivial to check for an alternative name if need be...
@@ -387,9 +387,9 @@ HldPrisoner_Thanks = [
 // String Buffer //
 ///////////////////
 
-function battle_source(source) => ascii_string_equals(Battle_Source, source)
+function battle_source(source) => ascii_string_equals(Battle_Source, source) // Battle info is stored in WRAM7, so we can't access the ID directly on all Cores
 function battle_target(target) => ascii_string_equals(Battle_Target, target)
-function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
+function treasure_name(name) => ascii_string_equals(Treasure_Name, name) // The item received ID is written and then erased from WRAM before the end of a single frame, so we can't access the ID directly
 
 
 ////////////
@@ -838,7 +838,7 @@ achievement(
     title = "Wind Fish", points = 10,
     description = "Forge Orathan F.",
     id = 404387, badge = "459141",
-    trigger = game_init() && forge("Arderial", CreatureID_Orathan_F
+    trigger = game_init() && forge("Arderial", CreatureID_Orathan_F)
 )
 achievement(
     title = "Now THAT is a BIG Mushroom", points = 50,
