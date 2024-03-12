@@ -482,13 +482,13 @@ achievement(
 // MiniGames //
 ///////////////
 achievement(
-    title = "Brub Scrub", points = 10,
+    title = "Brub Scrub", points = 5,
     description = "Score at least 50 points in Scrub the Brub.",
     id = 404354, badge = "459096",
     trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
 )
 achievement(
-    title = "Brub Elite", points = 25,
+    title = "Brub Elite", points = 10,
     description = "Score at least 60 points in Scrub the Brub.",
     id = 404355, badge = "459097",
     trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
@@ -506,13 +506,13 @@ leaderboard(
 )
 
 achievement(
-    title = "Aim for Tickets", points = 10,
+    title = "Aim for Tickets", points = 5,
     description = "Score at least 50 points in Aim for Animite.",
     id = 404356, badge = "459102",
     trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
 )
 achievement(
-    title = "Bullseye", points = 25,
+    title = "Bullseye", points = 10,
     description = "Score at least 60 points in Aim for Animite.",
     id = 404357, badge = "459103",
     trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
@@ -530,13 +530,13 @@ leaderboard(
 )
 
 achievement(
-    title = "Speedy Tony", points = 10,
+    title = "Speedy Tony", points = 5,
     description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60-1 = 461. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404358, badge = "459093",
     trigger = game_init() && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
 )
 achievement(
-    title = "Flash Tony", points = 25,
+    title = "Flash Tony", points = 10,
     description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60-1 = 443. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404359, badge = "459094",
     trigger = game_init() && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
