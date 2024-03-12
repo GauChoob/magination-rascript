@@ -13,7 +13,7 @@
 
 // So basically we are mostly left with a few pointers to data tables and pointers to bytecode scripts
 // For the majority of the achievements, we read the pointer address and don't read the actual text contents
-// with the exception of item names in treasure chests and dream creature names, because we don't have any reliable alternative way of reading them
+// with the exception of item names in treasure chests and Ormagon, because we don't have any reliable alternative way of reading them (located in SRAM and WRAM7)
 // without creating a patch, but in that case we are dropping support for the large majority of players who would play without a patch
 
 // If ever there would be a translation patch (there definitely never will be due to the game's popularity), it is fairly trivial to check for an alternative name if need be...
@@ -84,7 +84,6 @@ function wActorTonyScriptB() => tbyte(wActorTony + wActor_Offset_ScriptB)
 
 // String buffer for text input
 wText_StringBuffer = 0xC949
-Creature_Name = wText_StringBuffer + 0 // Forging creature name
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
 Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
@@ -99,6 +98,95 @@ Sound_Init_MagicNumber = 0x55
 function wSound_Control_SFX0() => byte(0xC921)
 SFXID_CriticalAttack = 14
 
+// The creature ID is set when a ring is made
+function wScript_RingMadeID() => byte(0xC726)
+CreatureID_Null = 0xFF
+CreatureID_Abaquist = 0x00
+CreatureID_Agovo = 0x01
+CreatureID_Alaban = 0x02
+CreatureID_Arbolit = 0x03
+CreatureID_Arboll = 0x04
+CreatureID_Ayebaw = 0x05
+CreatureID_Bhatar = 0x06
+CreatureID_Bisiwog = 0x07
+CreatureID_BlackAgovo = 0x08
+CreatureID_Bolt_Hyren = 0x09
+CreatureID_Borgor = 0x0A
+CreatureID_Brub = 0x0B
+CreatureID_Bwill = 0x0C
+CreatureID_Cave_Hyren = 0x0D
+CreatureID_CaveRudwot = 0x0E
+CreatureID_Chaos_Jile = 0x0F
+CreatureID_CoralHyren = 0x10
+CreatureID_Core_Grag = 0x11
+CreatureID_Core_Hyren = 0x12
+CreatureID_DarkAyebaw = 0x13
+CreatureID_DarkVellup = 0x14
+CreatureID_Deep_Hyren = 0x15
+CreatureID_Diobor = 0x16
+CreatureID_Drakan = 0x17
+CreatureID_DryteFiend = 0x18
+CreatureID_Eebit = 0x19
+CreatureID_Epik = 0x1A
+CreatureID_FlameHyren = 0x1B
+CreatureID_Furok = 0x1C
+CreatureID_GhostBwisp = 0x1D
+CreatureID_GiantKorit = 0x1E
+CreatureID_Graw = 0x1F
+CreatureID_Grax = 0x20
+CreatureID_Gum_Gum = 0x21
+CreatureID_Hook_Wing = 0x22
+CreatureID_Jingjack = 0x23
+CreatureID_Karak = 0x24
+CreatureID_Kazor = 0x25
+CreatureID_Kelthet = 0x26
+CreatureID_Kletch = 0x27
+CreatureID_Koil = 0x28
+CreatureID_Lava_Aq = 0x29
+CreatureID_LavaArboll = 0x2A
+CreatureID_LavaBalmnt = 0x2B
+CreatureID_Leaf_Chogo = 0x2C
+CreatureID_Leaf_Hyren = 0x2D
+CreatureID_MagmaHyren = 0x2E
+CreatureID_Megathan = 0x2F
+CreatureID_Mush_Hyren = 0x30
+CreatureID_Orathan_F = 0x31
+CreatureID_Orish = 0x32
+CreatureID_Ormagon = 0x33
+CreatureID_Orpus = 0x34
+CreatureID_Paralit = 0x35
+CreatureID_Parmalag = 0x36
+CreatureID_Platheus = 0x37
+CreatureID_Plith = 0x38
+CreatureID_Porkuslime = 0x39
+CreatureID_Quor = 0x3A
+CreatureID_Rabbage = 0x3B
+CreatureID_Raxis = 0x3C
+CreatureID_Rudwot = 0x3D
+CreatureID_Sabreback = 0x3E
+CreatureID_Sarbil = 0x3F
+CreatureID_Sea_Jile = 0x40
+CreatureID_ShadwKarak = 0x41
+CreatureID_ShadwVinoc = 0x42
+CreatureID_Sharbloot = 0x43
+CreatureID_Shryque = 0x44
+CreatureID_Sphor = 0x45
+CreatureID_Spindle = 0x46
+CreatureID_ThundrHyrn = 0x47
+CreatureID_TimberHyrn = 0x48
+CreatureID_Treebit = 0x49
+CreatureID_Tusk_Bwisp = 0x4A
+CreatureID_Twee = 0x4B
+CreatureID_Vashp = 0x4C
+CreatureID_Vellup = 0x4D
+CreatureID_Vile_Yogu = 0x4E
+CreatureID_Vinoc = 0x4F
+CreatureID_Vulbor = 0x50
+CreatureID_Wasperine = 0x51
+CreatureID_Weebat = 0x52
+CreatureID_Weebo = 0x53
+CreatureID_Xyx = 0x54
+CreatureID_Yvohcna = 0x55
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
@@ -302,7 +390,6 @@ HldPrisoner_Thanks = [
 function battle_source(source) => ascii_string_equals(Battle_Source, source)
 function battle_target(target) => ascii_string_equals(Battle_Target, target)
 function treasure_name(name) => ascii_string_equals(Treasure_Name, name)
-function creature_name(name) => ascii_string_equals(Creature_Name, name)
 
 
 ////////////
@@ -386,7 +473,7 @@ forge_location = {
     "Core": forge_core()
 }
 function forge(location, creature) =>
-    forge_location[location] && creature_name(creature)
+    forge_location[location] && (wScript_RingMadeID() == creature)
 
 // Shadowhold prisoners
 function prisoner(id) =>
@@ -697,61 +784,61 @@ achievement(
     title = "Leaves that Cut", points = 10,
     description = "Forge Leaf Hyren.",
     id = 404380, badge = "459132",
-    trigger = game_init() && forge("Naroom", "Leaf Hyren")
+    trigger = game_init() && forge("Naroom", CreatureID_Leaf_Hyren)
 )
 achievement(
     title = "Tree Power", points = 10,
     description = "Forge Timber Hyren.",
     id = 404394, badge = "459133",
-    trigger = game_init() && forge("Naroom", "TimberHyrn")
+    trigger = game_init() && forge("Naroom", CreatureID_TimberHyrn)
 )
 achievement(
     title = "Pummel Party", points = 10,
     description = "Forge Mush Hyren.",
     id = 404381, badge = "459134",
-    trigger = game_init() && forge("Underneath", "Mush Hyren")
+    trigger = game_init() && forge("Underneath", CreatureID_Mush_Hyren)
 )
 achievement(
     title = "Bury Your Foes", points = 10,
     description = "Forge Cave Hyren.",
     id = 404382, badge = "459135",
-    trigger = game_init() && forge("Underneath", "Cave Hyren")
+    trigger = game_init() && forge("Underneath", CreatureID_Cave_Hyren)
 )
 achievement(
     title = "Flightless Wings", points = 10,
     description = "Forge Magma Hyren.",
     id = 404383, badge = "459136",
-    trigger = game_init() && forge("Cald", "MagmaHyren")
+    trigger = game_init() && forge("Cald", CreatureID_MagmaHyren)
 )
 achievement(
     title = "Purifying Flame", points = 10,
     description = "Forge Flame Hyren.",
     id = 404384, badge = "459137",
-    trigger = game_init() && forge("Cald", "FlameHyren")
+    trigger = game_init() && forge("Cald", CreatureID_FlameHyren)
 )
 achievement(
     title = "Sitting Pretty", points = 10,
     description = "Forge Coral Hyren.",
     id = 404385, badge = "459138",
-    trigger = game_init() && forge("Orothe", "CoralHyren")
+    trigger = game_init() && forge("Orothe", CreatureID_CoralHyren)
 )
 achievement(
     title = "Ruler of the Depths", points = 10,
     description = "Forge Deep Hyren.",
     id = 404395, badge = "459139",
-    trigger = game_init() && forge("Orothe", "Deep Hyren")
+    trigger = game_init() && forge("Orothe", CreatureID_Deep_Hyren)
 )
 achievement(
     title = "Beast of the Sea", points = 10,
     description = "Forge Megathan.",
     id = 404386, badge = "459140",
-    trigger = game_init() && forge("Orothe", "Megathan  ")
+    trigger = game_init() && forge("Orothe", CreatureID_Megathan)
 )
 achievement(
     title = "Wind Fish", points = 10,
     description = "Forge Orathan F.",
     id = 404387, badge = "459141",
-    trigger = game_init() && forge("Arderial", "Orathan F ")
+    trigger = game_init() && forge("Arderial", CreatureID_Orathan_F
 )
 achievement(
     title = "Now THAT is a BIG Mushroom", points = 50,
