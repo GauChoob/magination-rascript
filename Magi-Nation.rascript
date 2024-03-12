@@ -318,7 +318,8 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // Misc //
 //////////
 
-// WRAM has been initialized
+// Asserts that WRAM has been initialized.
+// (GBC boot ROM seems to only modify WRAM2 and HRAM, so we shouldn't expect the boot ROM to trigger any achievements prior to initialization (or on hard reset))
 function game_init() =>
     wSound_SoundInit() == Sound_Init_MagicNumber
 
