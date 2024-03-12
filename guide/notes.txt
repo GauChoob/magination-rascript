@@ -8,23 +8,23 @@ Fungicide achievement door: Must be done before beating Morag
 
 
 
-%BIT	Party_Gia		Auto	XRAM_SAVEBITS 0^0		// Gia's party bit (very first party scene)
-%BIT	Party_Orlon				XRAM_SAVEBITS 0^1		// Orlon's party bit
-%BIT	Party_Seer				XRAM_SAVEBITS 0^2		// Seer's party bit
-%BIT	Party_Blu				XRAM_SAVEBITS 0^3		// Blu's party bit
-%BIT	Party_Gruk				XRAM_SAVEBITS 0^4		// Gruk's party bit
-%BIT	Party_Ulk				XRAM_SAVEBITS 0^5		// Ulk's party bit
-%BIT	Party_Gogor				XRAM_SAVEBITS 0^6		// Gogor's party bit
-%BIT	Party_Pruitt			XRAM_SAVEBITS 0^7		// Pruitt's party bit
+Party_Gia
+Party_Orlon
+Party_Seer
+Party_Blu
+Party_Gruk
+Party_Ulk
+Party_Gogor
+Party_Pruitt
 
-%BIT	Party_Salafy			XRAM_SAVEBITS 1^0		// Salafy's party bit
-%BIT	Party_Evu				XRAM_SAVEBITS 1^1		// Evu's party bit
-%BIT	Party_Poad				XRAM_SAVEBITS 1^2		// Poad's party bit
-%BIT	Party_Yaki				XRAM_SAVEBITS 1^3		// Yaki's party bit
-%BIT	Party_Logan				XRAM_SAVEBITS 1^4		// Logan's party bit
-%BIT	Party_Worveline			XRAM_SAVEBITS 1^5		// Worveline's party bit
-%BIT	Party_Eidon				XRAM_SAVEBITS 1^6		// Eidon's party bit
-%BIT	Party_Valkan			XRAM_SAVEBITS 1^7		// Valkan's party bit
+Party_Salafy
+Party_Evu
+Party_Poad
+Party_Yaki
+Party_Logan
+Party_Worveline
+Party_Eidon
+Party_Valkan
 
 Worveline hiding spots: Pruitt's bed, Item shop's chest, Evu's fireplace, Empty house(northeast) chair, house left of Pruitt's, spooky kid's drawers
 
