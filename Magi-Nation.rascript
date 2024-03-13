@@ -48,7 +48,9 @@ function changes_from(address, value) => (prev(address) == value) && (address !=
 //////////
 
 // The game has 4 different bytecode scripts running simultaneously, pointed to by these 4 variables,
-// plus each Actor (up to 10 simultaneously) has 1-2 scripts, up to a maximum of 24 simultaneous threads
+// plus each Actor (49 of them) (up to 10 simultaneously) has 1-2 scripts,
+// for a total of 98 different threads, (maximum of 24 simultaneous threads)
+// The large majority of achievements track the bytecode script pointers running in the intended thread
 function wScript_Master() => tbyte(0xC706)
 function wScript_Scroll() => tbyte(0xC70D)
 function wScript_System() => tbyte(0xC714)
@@ -74,7 +76,6 @@ for i in range(0, 0x2F) {
     array_push(wActorScriptA, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptA))
     array_push(wActorScriptB, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptB))
 }
-
 wActorTony = 0xC189
 function wActorTonyState() => word(wActorTony + wActor_Offset_State)
 function wActorTonyX() => byte(wActorTony + wActor_Offset_X)
@@ -479,7 +480,7 @@ function forge(location, creature) =>
 function prisoner(id) =>
     once((wScript_Text() == HldPrisoner_Reward[id]) || (wScript_Text() == HldPrisoner_Thanks[id]))
 function prisoners() =>
-    all_of(range(0,6), id => prisoner(id))
+    measured(tally_of(range(0,6), 7, id => prisoner(id)))
 
 //////////////////
 // Achievements //
