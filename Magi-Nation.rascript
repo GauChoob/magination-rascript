@@ -50,7 +50,8 @@ function changes_from(address, value) => (prev(address) == value) && (address !=
 // The game has 4 different bytecode scripts running simultaneously, pointed to by these 4 variables,
 // plus each Actor (49 of them) (up to 10 simultaneously) has 1-2 scripts,
 // for a total of 98 different threads, (maximum of 24 simultaneous threads)
-// The large majority of achievements track the bytecode script pointers running in the intended thread
+// The large majority of achievements simply track the bytecode script pointers running in the intended thread,
+// as we know with 100% reliability when these will trigger
 function wScript_Master() => tbyte(0xC706)
 function wScript_Scroll() => tbyte(0xC70D)
 function wScript_System() => tbyte(0xC714)
