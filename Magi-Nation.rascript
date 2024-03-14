@@ -145,6 +145,7 @@ Unobtainable_Creatures = [
     CreatureID_ThundrHyrn,
     CreatureID_Xyx,
     CreatureID_Yvohcna,  // Requires Infused Platheus
+    0
 ]
 
 Obtainable_Creatures = []
@@ -158,43 +159,43 @@ for i in range(CreatureID_Abaquist, CreatureID_Yvohcna) {
 }
 
 xInventory_Relics = 0xA019
-Relic_NULL = xInventory_Relics + 0x00
-Relic_ARCHAICLEAF = xInventory_Relics + 0x01
-Relic_ARMORORB = xInventory_Relics + 0x02
-Relic_BAGOFBONES = xInventory_Relics + 0x03
-Relic_BARKTHIMBLE = xInventory_Relics + 0x04
-Relic_CHANNELEDGEM = xInventory_Relics + 0x05
-Relic_CORFPEARL = xInventory_Relics + 0x06
-Relic_CRIMSONVOID = xInventory_Relics + 0x07
-Relic_EARTHSAURA = xInventory_Relics + 0x08
-Relic_ENDBRINGER = xInventory_Relics + 0x09
-Relic_ENERGYGEM = xInventory_Relics + 0x0A
-Relic_FLAMEAURA = xInventory_Relics + 0x0B
-Relic_FLAMEESSENCE = xInventory_Relics + 0x0C
-Relic_GEMOFNAROOM = xInventory_Relics + 0x0D
-Relic_GOLDENCLOVER = xInventory_Relics + 0x0E
-Relic_GRAILOFLIFE = xInventory_Relics + 0x0F
-Relic_HYRENSCLAW = xInventory_Relics + 0x10
-Relic_LEAFESSENCE = xInventory_Relics + 0x11
-Relic_LUCENTBELT = xInventory_Relics + 0x12
-Relic_MAELSTROM = xInventory_Relics + 0x13
-Relic_OMBORSAMULET = xInventory_Relics + 0x14
-Relic_PHANTOMWIND = xInventory_Relics + 0x15
-Relic_PINCHOFLIFE = xInventory_Relics + 0x16
-Relic_RABBAGEFOOT = xInventory_Relics + 0x17
-Relic_RAGESTONE = xInventory_Relics + 0x18
-Relic_SHADOWVEIL = xInventory_Relics + 0x19
-Relic_SHIELDORB = xInventory_Relics + 0x1A
-Relic_SKYESSENCE = xInventory_Relics + 0x1B
-Relic_SPICEOFLIFE = xInventory_Relics + 0x1C
-Relic_STONEESSENCE = xInventory_Relics + 0x1D
-Relic_STONEOFDOOM = xInventory_Relics + 0x1E
-Relic_STONEOFLIFE = xInventory_Relics + 0x1F
-Relic_SWORDOFWIND = xInventory_Relics + 0x20
-Relic_TIDEESSENCE = xInventory_Relics + 0x21
-Relic_TITANRING = xInventory_Relics + 0x22
-Relic_WATERORB = xInventory_Relics + 0x23
-Relic_WISHBONE = xInventory_Relics + 0x24
+Relic_NULL = 0x00
+Relic_ARCHAICLEAF = 0x01
+Relic_ARMORORB = 0x02
+Relic_BAGOFBONES = 0x03
+Relic_BARKTHIMBLE = 0x04
+Relic_CHANNELEDGEM = 0x05
+Relic_CORFPEARL = 0x06
+Relic_CRIMSONVOID = 0x07
+Relic_EARTHSAURA = 0x08
+Relic_ENDBRINGER = 0x09
+Relic_ENERGYGEM = 0x0A
+Relic_FLAMEAURA = 0x0B
+Relic_FLAMEESSENCE = 0x0C
+Relic_GEMOFNAROOM = 0x0D
+Relic_GOLDENCLOVER = 0x0E
+Relic_GRAILOFLIFE = 0x0F
+Relic_HYRENSCLAW = 0x10
+Relic_LEAFESSENCE = 0x11
+Relic_LUCENTBELT = 0x12
+Relic_MAELSTROM = 0x13
+Relic_OMBORSAMULET = 0x14
+Relic_PHANTOMWIND = 0x15
+Relic_PINCHOFLIFE = 0x16
+Relic_RABBAGEFOOT = 0x17
+Relic_RAGESTONE = 0x18
+Relic_SHADOWVEIL = 0x19
+Relic_SHIELDORB = 0x1A
+Relic_SKYESSENCE = 0x1B
+Relic_SPICEOFLIFE = 0x1C
+Relic_STONEESSENCE = 0x1D
+Relic_STONEOFDOOM = 0x1E
+Relic_STONEOFLIFE = 0x1F
+Relic_SWORDOFWIND = 0x20
+Relic_TIDEESSENCE = 0x21
+Relic_TITANRING = 0x22
+Relic_WATERORB = 0x23
+Relic_WISHBONE = 0x24
 
 // Relics that are not obtainable in the base game
 // 32/36 relics are obtainable
@@ -202,54 +203,19 @@ Unobtainable_Relics = [
     Relic_FLAMEAURA, // Removed treasure from Cald Geyser
     Relic_LUCENTBELT,
     Relic_STONEOFLIFE,
-    Relic_TIDEESSENCE
+    Relic_TIDEESSENCE,
+    0
 ]
 
-
-Obtainable_Relics = [
-    Relic_ARCHAICLEAF,
-    Relic_ARMORORB,
-    Relic_BAGOFBONES,
-    Relic_BARKTHIMBLE,
-    Relic_CHANNELEDGEM,
-    Relic_CORFPEARL,
-    Relic_CRIMSONVOID,
-    Relic_EARTHSAURA,
-    Relic_ENDBRINGER,
-    Relic_ENERGYGEM,
-    Relic_FLAMEESSENCE,
-    Relic_GEMOFNAROOM,
-    Relic_GOLDENCLOVER,
-    Relic_GRAILOFLIFE,
-    Relic_HYRENSCLAW,
-    Relic_LEAFESSENCE,
-    Relic_MAELSTROM,
-    Relic_OMBORSAMULET,
-    Relic_PHANTOMWIND,
-    Relic_PINCHOFLIFE,
-    Relic_RABBAGEFOOT,
-    Relic_RAGESTONE,
-    Relic_SHADOWVEIL,
-    Relic_SHIELDORB,
-    Relic_SKYESSENCE,
-    Relic_SPICEOFLIFE,
-    Relic_STONEESSENCE,
-    Relic_STONEOFDOOM,
-    Relic_SWORDOFWIND,
-    Relic_TITANRING,
-    Relic_WATERORB,
-    Relic_WISHBONE,
-]
-// This loop seems to be causing some sort of memory leak/instability in RA Tools, so we just manually define the obtainable relics
-//Obtainable_Relics = []
-//j = 0
-//for i in range(1, 0x24) {
-//    if(i != Unobtainable_Relics[j]) {
-//        array_push(Obtainable_Relics, i)
-//    } else {
-//        j = j + 1
-//    }
-//}
+Obtainable_Relics = []
+j = 0
+for i in range(1, 0x24) {
+    if(i != Unobtainable_Relics[j]) {
+        array_push(Obtainable_Relics, i)
+    } else {
+        j = j + 1
+    }
+}
 
 
 //////////
@@ -312,9 +278,7 @@ SFXID_CriticalAttack = 14
 // The CreatureID is set when a ring is made
 function wScript_RingMadeID() => byte(0xC726)
 
-// The current page the user is on in the Start Menu
-function wMenu_MainMenu_CurrentMenu() => byte(0xCC47)
-Menu_MainMenu_ID_RELIC = 0x06
+
 // Pointers to the 5 visible entries in the MainMenu or Battle
 // For Items, Spells, Relics only
 wMenu_MainMenu_Entry_EntriesPointers = 0xCC78
@@ -450,6 +414,12 @@ function _wild_appear() =>
     wScript_Text() == bank_address(0x130B19) // battle_txt.mgi Line 974, TextClose()
 function tony_wins() =>
     wScript_Text() == bank_address(0x130B69) // battle_txt.mgi Line 1016, TextClose()
+function tony_escapes() =>
+    wScript_Text() == bank_address(0x130A28) // battle_txt.mgi Line 882, TextClose()
+
+// Code before booting the player back to the starting room. Excludes scripted losing to Morag, Salafy
+function battle_lost() =>
+    wScript_Master() == bank_address(0x0880D6) // system.mgi Line 99, Delay(96)
 
 function salafy_level4_start() =>
     wScript_System() == bank_address(0x0589DD) // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY) - triggers on first textbox open during Salafy's level 4 battle
@@ -568,9 +538,9 @@ function own_creatures() =>
     measured(tally_of(Obtainable_Creatures, 77, id => own_creature(id)))
 
 // Janky check to see if each relic is in any of the 5 positions in the menu
-// Unfortunately, we cannot access/read the 2 equipped relics without reading. (Technically we can read the 2nd relic by name (string) only, but that's too janky)
+// Unfortunately, we cannot access/read the 2 equipped relics without reading. (Technically we can read the 2nd relic by string only, but that's too janky)
 function own_relic(id) =>
-    once(any_of(range(0, 4), i => word(wMenu_MainMenu_Entry_EntriesPointers + 2*i) == id))
+    once(any_of(range(0, 4), i => word(wMenu_MainMenu_Entry_EntriesPointers + 2*i) == (xInventory_Relics + id)))
 function own_relics() =>
     measured(tally_of(Obtainable_Relics, 32, id => own_relic(id)))
 
@@ -645,10 +615,14 @@ function archery_count() => measured(tally(0, [
 function game_init() =>
     wSound_SoundInit() == Sound_Init_MagicNumber
 
-// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak,
+// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B, by formatting game pak, or by watching the credits
 // which could in rare cases be used to cheat on leaderboards or for specific achievements
 function game_reset() =>
     i2_logo()
+
+// The last way to reset is by losing a battle and warping back to the loading room (skips the i2 logo)
+function battle_reset() =>
+    battle_lost()
 
 // Treasure chest item
 function get_treasure(name) => _get_treasure() && treasure_name(name)
@@ -669,7 +643,7 @@ function prisoners() =>
 // Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
 // Taking the easy vs hard way with Warrada (doesn't really make much a difference)
-// Saving the Tryn sisters or letting them die (doesn't make a big difference, and you need to save them to get all relics)
+// Saving Eryn and Karyn vs letting them die (doesn't make a big difference, and you need to save them to get atwice ll relics)
 // Note that the Arderial and Core hyrens are unobtainable in the game and so there are no achievements for them
 
 
@@ -960,13 +934,13 @@ achievement(
     title = "Gotta Catch 'Em All", points = 100,
     description = "Forge all 77 forgeable dream creatures, and browse through all of them in the Equip Menu.",
     id = 0, badge = "0",
-    trigger = game_init() && never(game_reset()) && own_creatures()
+    trigger = game_init() && never(game_reset()) && never(battle_reset()) && own_creatures() // Reset to prevent animite scumming to craft 2 different creatures
 )
 achievement(
-    title = "Archeologist", points = 50,
+    title = "Archaeologist", points = 50,
     description = "Obtain all 33 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
     id = 0, badge = "0",
-    trigger = game_init() && never(game_reset()) && own_relics()  // Gotta reset when back in the normal game state to clear out the measured value since we don't have a 100% guaranteed
+    trigger = game_init() && never(game_reset()) && never(battle_reset()) && own_relics()  // Reset to prevent scumming Spice & Pinch of Life
 )
 
 // Dream Creatures //
@@ -1078,7 +1052,7 @@ achievement(
     title = "199 Borgors", points = 100,
     description = "Defeat Morag at your first encounter.",
     id = 404392, badge = "459131",
-    trigger = game_init() && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins()
+    trigger = game_init() && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins() // We don't need battle_reset() here as you're locked into the fight
 )
 achievement(
     title = "Two Stooges", points = 10,
@@ -1090,7 +1064,7 @@ achievement(
     title = "Weebest", points = 25,
     description = "Defeat Salafy at her hardest difficulty.",
     id = 404398, badge = "459121",
-    trigger = game_init() && never(game_reset()) && once(salafy_level4_start()) && salafy_win()
+    trigger = game_init() && never(game_reset()) && never(battle_reset()) && never(tony_escapes()) && once(salafy_level4_start()) && salafy_win() // Tony escaping counts as a win, so we need to explicitly guard against this
 )
 
 
