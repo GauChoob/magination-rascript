@@ -157,46 +157,47 @@ for i in range(CreatureID_Abaquist, CreatureID_Yvohcna) {
     }
 }
 
-Relic_NULL = 0x00
-Relic_ARCHAICLEAF = 0x01
-Relic_ARMORORB = 0x02
-Relic_BAGOFBONES = 0x03
-Relic_BARKTHIMBLE = 0x04
-Relic_CHANNELEDGEM = 0x05
-Relic_CORFPEARL = 0x06
-Relic_CRIMSONVOID = 0x07
-Relic_EARTHSAURA = 0x08
-Relic_ENDBRINGER = 0x09
-Relic_ENERGYGEM = 0x0A
-Relic_FLAMEAURA = 0x0B
-Relic_FLAMEESSENCE = 0x0C
-Relic_GEMOFNAROOM = 0x0D
-Relic_GOLDENCLOVER = 0x0E
-Relic_GRAILOFLIFE = 0x0F
-Relic_HYRENSCLAW = 0x10
-Relic_LEAFESSENCE = 0x11
-Relic_LUCENTBELT = 0x12
-Relic_MAELSTROM = 0x13
-Relic_OMBORSAMULET = 0x14
-Relic_PHANTOMWIND = 0x15
-Relic_PINCHOFLIFE = 0x16
-Relic_RABBAGEFOOT = 0x17
-Relic_RAGESTONE = 0x18
-Relic_SHADOWVEIL = 0x19
-Relic_SHIELDORB = 0x1A
-Relic_SKYESSENCE = 0x1B
-Relic_SPICEOFLIFE = 0x1C
-Relic_STONEESSENCE = 0x1D
-Relic_STONEOFDOOM = 0x1E
-Relic_STONEOFLIFE = 0x1F
-Relic_SWORDOFWIND = 0x20
-Relic_TIDEESSENCE = 0x21
-Relic_TITANRING = 0x22
-Relic_WATERORB = 0x23
-Relic_WISHBONE = 0x24
+xInventory_Relics = 0xA019
+Relic_NULL = xInventory_Relics + 0x00
+Relic_ARCHAICLEAF = xInventory_Relics + 0x01
+Relic_ARMORORB = xInventory_Relics + 0x02
+Relic_BAGOFBONES = xInventory_Relics + 0x03
+Relic_BARKTHIMBLE = xInventory_Relics + 0x04
+Relic_CHANNELEDGEM = xInventory_Relics + 0x05
+Relic_CORFPEARL = xInventory_Relics + 0x06
+Relic_CRIMSONVOID = xInventory_Relics + 0x07
+Relic_EARTHSAURA = xInventory_Relics + 0x08
+Relic_ENDBRINGER = xInventory_Relics + 0x09
+Relic_ENERGYGEM = xInventory_Relics + 0x0A
+Relic_FLAMEAURA = xInventory_Relics + 0x0B
+Relic_FLAMEESSENCE = xInventory_Relics + 0x0C
+Relic_GEMOFNAROOM = xInventory_Relics + 0x0D
+Relic_GOLDENCLOVER = xInventory_Relics + 0x0E
+Relic_GRAILOFLIFE = xInventory_Relics + 0x0F
+Relic_HYRENSCLAW = xInventory_Relics + 0x10
+Relic_LEAFESSENCE = xInventory_Relics + 0x11
+Relic_LUCENTBELT = xInventory_Relics + 0x12
+Relic_MAELSTROM = xInventory_Relics + 0x13
+Relic_OMBORSAMULET = xInventory_Relics + 0x14
+Relic_PHANTOMWIND = xInventory_Relics + 0x15
+Relic_PINCHOFLIFE = xInventory_Relics + 0x16
+Relic_RABBAGEFOOT = xInventory_Relics + 0x17
+Relic_RAGESTONE = xInventory_Relics + 0x18
+Relic_SHADOWVEIL = xInventory_Relics + 0x19
+Relic_SHIELDORB = xInventory_Relics + 0x1A
+Relic_SKYESSENCE = xInventory_Relics + 0x1B
+Relic_SPICEOFLIFE = xInventory_Relics + 0x1C
+Relic_STONEESSENCE = xInventory_Relics + 0x1D
+Relic_STONEOFDOOM = xInventory_Relics + 0x1E
+Relic_STONEOFLIFE = xInventory_Relics + 0x1F
+Relic_SWORDOFWIND = xInventory_Relics + 0x20
+Relic_TIDEESSENCE = xInventory_Relics + 0x21
+Relic_TITANRING = xInventory_Relics + 0x22
+Relic_WATERORB = xInventory_Relics + 0x23
+Relic_WISHBONE = xInventory_Relics + 0x24
 
 // Relics that are not obtainable in the base game
-// 33/37 relics are obtainable
+// 32/36 relics are obtainable
 Unobtainable_Relics = [
     Relic_FLAMEAURA, // Removed treasure from Cald Geyser
     Relic_LUCENTBELT,
@@ -204,25 +205,52 @@ Unobtainable_Relics = [
     Relic_TIDEESSENCE
 ]
 
-// xxx
 
-Obtainable_Relics = []
-j = 0
-for i in range(1, 0x24) {
-    if(i != Unobtainable_Relics[j]) {
-        array_push(Obtainable_Relics, i)
-    } else {
-        j = j + 1
-    }
-}
+Obtainable_Relics = [
+    Relic_ARCHAICLEAF,
+    Relic_ARMORORB,
+    Relic_BAGOFBONES,
+    Relic_BARKTHIMBLE,
+    Relic_CHANNELEDGEM,
+    Relic_CORFPEARL,
+    Relic_CRIMSONVOID,
+    Relic_EARTHSAURA,
+    Relic_ENDBRINGER,
+    Relic_ENERGYGEM,
+    Relic_FLAMEESSENCE,
+    Relic_GEMOFNAROOM,
+    Relic_GOLDENCLOVER,
+    Relic_GRAILOFLIFE,
+    Relic_HYRENSCLAW,
+    Relic_LEAFESSENCE,
+    Relic_MAELSTROM,
+    Relic_OMBORSAMULET,
+    Relic_PHANTOMWIND,
+    Relic_PINCHOFLIFE,
+    Relic_RABBAGEFOOT,
+    Relic_RAGESTONE,
+    Relic_SHADOWVEIL,
+    Relic_SHIELDORB,
+    Relic_SKYESSENCE,
+    Relic_SPICEOFLIFE,
+    Relic_STONEESSENCE,
+    Relic_STONEOFDOOM,
+    Relic_SWORDOFWIND,
+    Relic_TITANRING,
+    Relic_WATERORB,
+    Relic_WISHBONE,
+]
+// This loop seems to be causing some sort of memory leak/instability in RA Tools, so we just manually define the obtainable relics
+//Obtainable_Relics = []
+//j = 0
+//for i in range(1, 0x24) {
+//    if(i != Unobtainable_Relics[j]) {
+//        array_push(Obtainable_Relics, i)
+//    } else {
+//        j = j + 1
+//    }
+//}
 
-
-//////////
-// SRAM //
-//////////
-
-// Used as a pointer destination
-xInventory_Relics = 0xA019
 
 //////////
 // WRAM //
@@ -528,16 +556,6 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // We also don't have protection against someone stealing a completed savefile, but again, nothing we can do about it without SRAM access
 
 
-// Checks to see if we are in the Start Menu
-// Prevents triggering on fading music
-function in_menu() =>
-    never(wSound_VolumeSong() != Volume_MainMenu) && repeated(0x11, wSound_VolumeSong() == Volume_MainMenu)
-
-// Check to see if the relic section is open
-// This value is not reset if the user quits the Start Menu, so we need to clear 
-function menu_relic() =>
-    (wMenu_MainMenu_CurrentMenu() == Menu_MainMenu_ID_RELIC)
-
 // Janky check to see if each creature is in any of the 7 positions in the menu
 function own_creature(id) {
     if(id == 0) {
@@ -552,9 +570,9 @@ function own_creatures() =>
 // Janky check to see if each relic is in any of the 5 positions in the menu
 // Unfortunately, we cannot access/read the 2 equipped relics without reading. (Technically we can read the 2nd relic by name (string) only, but that's too janky)
 function own_relic(id) =>
-    once(any_of(range(0, 4), i => word(wMenu_MainMenu_Entry_EntriesPointers + 2*i) == (xInventory_Relics + id)))
+    once(any_of(range(0, 4), i => word(wMenu_MainMenu_Entry_EntriesPointers + 2*i) == id))
 function own_relics() =>
-    measured(tally_of(Obtainable_Relics, 33, id => own_relic(id)), when=(in_menu() && menu_relic()))
+    measured(tally_of(Obtainable_Relics, 32, id => own_relic(id)))
 
 // Forging a dream creature - easy and straightforward
 forge_location = {
