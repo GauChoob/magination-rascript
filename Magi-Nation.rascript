@@ -42,66 +42,9 @@ function bcd_8(number) =>
 
 function changes_from(address, value) => (prev(address) == value) && (address != value)
 
-
-//////////
-// WRAM //
-//////////
-
-// The game has 4 different bytecode scripts running simultaneously, pointed to by these 4 variables,
-// plus each Actor (49 of them) (up to 10 simultaneously) has 1-2 scripts,
-// for a total of 98 different threads, (maximum of 24 simultaneous threads)
-// The large majority of achievements simply track the bytecode script pointers running in the intended thread,
-// as we know with 100% reliability when these will trigger
-function wScript_Master() => tbyte(0xC706)
-function wScript_Scroll() => tbyte(0xC70D)
-function wScript_System() => tbyte(0xC714)
-function wScript_Text() => tbyte(0xC71B)
-
-// Build the wActor array
-wActorState = []
-wActorX = []
-wActorY = []
-wActorScriptA = []
-wActorScriptB = []
-wActor_00 = 0xC1BF
-wActor_Offset_State = 1
-wActor_Offset_X = 5
-wActor_Offset_Y = 6
-wActor_Offset_ScriptA = 10
-wActor_Offset_ScriptB = 17
-wActor_Size = 27
-for i in range(0, 0x2F) {
-    array_push(wActorState, word(wActor_00 + wActor_Size*i + wActor_Offset_State))
-    array_push(wActorX, byte(wActor_00 + wActor_Size*i + wActor_Offset_X))
-    array_push(wActorY, byte(wActor_00 + wActor_Size*i + wActor_Offset_Y))
-    array_push(wActorScriptA, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptA))
-    array_push(wActorScriptB, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptB))
-}
-wActorTony = 0xC189
-function wActorTonyState() => word(wActorTony + wActor_Offset_State)
-function wActorTonyX() => byte(wActorTony + wActor_Offset_X)
-function wActorTonyY() => byte(wActorTony + wActor_Offset_Y)
-function wActorTonyScriptA() => tbyte(wActorTony + wActor_Offset_ScriptA)
-function wActorTonyScriptB() => tbyte(wActorTony + wActor_Offset_ScriptB)
-
-// String buffer for text input
-wText_StringBuffer = 0xC949
-Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
-Battle_Target = wText_StringBuffer + 11
-Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
-// Number buffer for text input
-function wX1() => tbyte(0xC92D) // 8-bit-wide BCD-encoded number (0-999)
-function number_buffer() => wX1()
-
-// Sound is initialized right after WRAM is wiped on reset
-function wSound_SoundInit() => byte(0xC91D)
-Sound_Init_MagicNumber = 0x55
-// Requested SFX
-function wSound_Control_SFX0() => byte(0xC921)
-SFXID_CriticalAttack = 14
-
-// The creature ID is set when a ring is made
-function wScript_RingMadeID() => byte(0xC726)
+///////////////////
+// Lookup Tables //
+///////////////////
 CreatureID_Null = 0xFF
 CreatureID_Abaquist = 0x00
 CreatureID_Agovo = 0x01
@@ -189,6 +132,180 @@ CreatureID_Weebat = 0x52
 CreatureID_Weebo = 0x53
 CreatureID_Xyx = 0x54
 CreatureID_Yvohcna = 0x55
+
+// Creatures that are not obtainable in the base game
+// 77/86 creatures are therefore obtainable
+Unobtainable_Creatures = [
+    CreatureID_Alaban,  // Requires Infused Platheus
+    CreatureID_Borgor,  // Requires Infused Sphor
+    CreatureID_Bolt_Hyren,
+    CreatureID_Core_Hyren,  // Requires Infused ThundrHyrn
+    CreatureID_Platheus,
+    CreatureID_Sphor,
+    CreatureID_ThundrHyrn,
+    CreatureID_Xyx,
+    CreatureID_Yvohcna,  // Requires Infused Platheus
+]
+
+Obtainable_Creatures = []
+j = 0
+for i in range(CreatureID_Abaquist, CreatureID_Yvohcna) {
+    if(i != Unobtainable_Creatures[j]) {
+        array_push(Obtainable_Creatures, i)
+    } else {
+        j = j + 1
+    }
+}
+
+Relic_NULL = 0x00
+Relic_ARCHAICLEAF = 0x01
+Relic_ARMORORB = 0x02
+Relic_BAGOFBONES = 0x03
+Relic_BARKTHIMBLE = 0x04
+Relic_CHANNELEDGEM = 0x05
+Relic_CORFPEARL = 0x06
+Relic_CRIMSONVOID = 0x07
+Relic_EARTHSAURA = 0x08
+Relic_ENDBRINGER = 0x09
+Relic_ENERGYGEM = 0x0A
+Relic_FLAMEAURA = 0x0B
+Relic_FLAMEESSENCE = 0x0C
+Relic_GEMOFNAROOM = 0x0D
+Relic_GOLDENCLOVER = 0x0E
+Relic_GRAILOFLIFE = 0x0F
+Relic_HYRENSCLAW = 0x10
+Relic_LEAFESSENCE = 0x11
+Relic_LUCENTBELT = 0x12
+Relic_MAELSTROM = 0x13
+Relic_OMBORSAMULET = 0x14
+Relic_PHANTOMWIND = 0x15
+Relic_PINCHOFLIFE = 0x16
+Relic_RABBAGEFOOT = 0x17
+Relic_RAGESTONE = 0x18
+Relic_SHADOWVEIL = 0x19
+Relic_SHIELDORB = 0x1A
+Relic_SKYESSENCE = 0x1B
+Relic_SPICEOFLIFE = 0x1C
+Relic_STONEESSENCE = 0x1D
+Relic_STONEOFDOOM = 0x1E
+Relic_STONEOFLIFE = 0x1F
+Relic_SWORDOFWIND = 0x20
+Relic_TIDEESSENCE = 0x21
+Relic_TITANRING = 0x22
+Relic_WATERORB = 0x23
+Relic_WISHBONE = 0x24
+
+// Relics that are not obtainable in the base game
+// 33/37 relics are obtainable
+Unobtainable_Relics = [
+    Relic_FLAMEAURA, // Removed treasure from Cald Geyser
+    Relic_LUCENTBELT,
+    Relic_STONEOFLIFE,
+    Relic_TIDEESSENCE
+]
+
+// xxx
+
+Obtainable_Relics = []
+j = 0
+for i in range(1, 0x24) {
+    if(i != Unobtainable_Relics[j]) {
+        array_push(Obtainable_Relics, i)
+    } else {
+        j = j + 1
+    }
+}
+
+
+//////////
+// SRAM //
+//////////
+
+// Used as a pointer destination
+xInventory_Relics = 0xA019
+
+//////////
+// WRAM //
+//////////
+
+// The game has 4 different bytecode scripts running simultaneously, pointed to by these 4 variables,
+// plus each Actor (49 of them) (up to 10 simultaneously) has 1-2 scripts,
+// for a total of 98 different threads, (maximum of 24 simultaneous threads)
+// The large majority of achievements simply track the bytecode script pointers running in the intended thread,
+// as we know with 100% reliability when these will trigger
+function wScript_Master() => tbyte(0xC706)
+function wScript_Scroll() => tbyte(0xC70D)
+function wScript_System() => tbyte(0xC714)
+function wScript_Text() => tbyte(0xC71B)
+
+// Build the wActor array
+wActorState = []
+wActorX = []
+wActorY = []
+wActorScriptA = []
+wActorScriptB = []
+wActor_00 = 0xC1BF
+wActor_Offset_State = 1
+wActor_Offset_X = 5
+wActor_Offset_Y = 6
+wActor_Offset_ScriptA = 10
+wActor_Offset_ScriptB = 17
+wActor_Size = 27
+for i in range(0, 0x2F) {
+    array_push(wActorState, word(wActor_00 + wActor_Size*i + wActor_Offset_State))
+    array_push(wActorX, byte(wActor_00 + wActor_Size*i + wActor_Offset_X))
+    array_push(wActorY, byte(wActor_00 + wActor_Size*i + wActor_Offset_Y))
+    array_push(wActorScriptA, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptA))
+    array_push(wActorScriptB, tbyte(wActor_00 + wActor_Size*i + wActor_Offset_ScriptB))
+}
+wActorTony = 0xC189
+function wActorTonyState() => word(wActorTony + wActor_Offset_State)
+function wActorTonyX() => byte(wActorTony + wActor_Offset_X)
+function wActorTonyY() => byte(wActorTony + wActor_Offset_Y)
+function wActorTonyScriptA() => tbyte(wActorTony + wActor_Offset_ScriptA)
+function wActorTonyScriptB() => tbyte(wActorTony + wActor_Offset_ScriptB)
+
+// String buffer for text input
+wText_StringBuffer = 0xC949
+Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
+Battle_Target = wText_StringBuffer + 11
+Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
+// Number buffer for text input
+function wX1() => tbyte(0xC92D) // 8-bit-wide BCD-encoded number (0-999)
+function number_buffer() => wX1()
+
+// Sound is initialized right after WRAM is wiped on reset
+function wSound_SoundInit() => byte(0xC91D)
+Sound_Init_MagicNumber = 0x55
+// Requested SFX
+function wSound_Control_SFX0() => byte(0xC921)
+SFXID_CriticalAttack = 14
+
+// The CreatureID is set when a ring is made
+function wScript_RingMadeID() => byte(0xC726)
+
+// The current page the user is on in the Start Menu
+function wMenu_MainMenu_CurrentMenu() => byte(0xCC47)
+Menu_MainMenu_ID_RELIC = 0x06
+// Pointers to the 5 visible entries in the MainMenu or Battle
+// For Items, Spells, Relics only
+wMenu_MainMenu_Entry_EntriesPointers = 0xCC78
+
+ 
+// Array of 7*[CreatureID, CreatureLevel].
+// Initialized to 0 on game boot
+// Unused entries set to CreatureID_Null upon first RingBank load
+wMenu_RingBank_VisibleRings = 0xCD59
+// Number of visible rings - only needed for CreatureID_Abaquist = 0
+function wMenu_RingBank_VisibleRingCount() => byte(0xCD67)
+
+
+// Volume of the music (0x00-0x0F)
+// Usually at 0x0F, but set to 0x06 in the Start Menu
+// The Volume can also fade in/out slowly between 0x00 and 0x0F, but the slowest fade speed is once every 0x10 frames
+function wSound_VolumeSong() => byte(0xC92C)
+Volume_MainMenu = 0x06
+
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
@@ -404,21 +521,56 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 
 //////////
-// Misc //
+// Menu //
 //////////
 
-// Asserts that WRAM has been initialized.
-// (GBC boot ROM seems to only modify WRAM2 and HRAM, so we shouldn't expect the boot ROM to trigger any achievements prior to initialization (or on hard reset))
-function game_init() =>
-    wSound_SoundInit() == Sound_Init_MagicNumber
+// I wish there was a less janky way of verifying all this, unfortunately without direct access to SRAM we are stuck with this dumb verification method
+// We also don't have protection against someone stealing a completed savefile, but again, nothing we can do about it without SRAM access
 
-// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak,
-// which could in rare cases be used to cheat on leaderboards or for specific achievements
-function game_reset() =>
-    i2_logo()
 
-// Treasure chest item
-function get_treasure(name) => _get_treasure() && treasure_name(name)
+// Checks to see if we are in the Start Menu
+// Prevents triggering on fading music
+function in_menu() =>
+    never(wSound_VolumeSong() != Volume_MainMenu) && repeated(0x11, wSound_VolumeSong() == Volume_MainMenu)
+
+// Check to see if the relic section is open
+// This value is not reset if the user quits the Start Menu, so we need to clear 
+function menu_relic() =>
+    (wMenu_MainMenu_CurrentMenu() == Menu_MainMenu_ID_RELIC)
+
+// Janky check to see if each creature is in any of the 7 positions in the menu
+function own_creature(id) {
+    if(id == 0) {
+        once((wMenu_RingBank_VisibleRingCount() != 0) && any_of(range(0, 6), i => byte(wMenu_RingBank_VisibleRings + 2*i) == id)) // Make sure the RingBank has been initialized to not falsely give ID 0
+    } else {
+        once(any_of(range(0, 6), i => byte(wMenu_RingBank_VisibleRings + 2*i) == id))
+    }
+}
+function own_creatures() =>
+    measured(tally_of(Obtainable_Creatures, 77, id => own_creature(id)))
+
+// Janky check to see if each relic is in any of the 5 positions in the menu
+// Unfortunately, we cannot access/read the 2 equipped relics without reading. (Technically we can read the 2nd relic by name (string) only, but that's too janky)
+function own_relic(id) =>
+    once(any_of(range(0, 4), i => word(wMenu_MainMenu_Entry_EntriesPointers + 2*i) == (xInventory_Relics + id)))
+function own_relics() =>
+    measured(tally_of(Obtainable_Relics, 33, id => own_relic(id)), when=(in_menu() && menu_relic()))
+
+// Forging a dream creature - easy and straightforward
+forge_location = {
+    "Naroom": forge_naroom(),
+    "Underneath": forge_underneath(),
+    "Cald": forge_cald(),
+    "Orothe": (forge_orothe_city() || forge_orothe_island()),
+    "Arderial": forge_arderial(),
+    "Core": forge_core()
+}
+function forge(location, creature) =>
+    forge_location[location] && (wScript_RingMadeID() == creature)
+
+///////////////
+// MiniGames //
+///////////////
 
 // Scrub the Brub and Aim for Animite
 function brub_start() => once(minigame_brub()) && never(minigame_archery())
@@ -465,23 +617,30 @@ function archery_count() => measured(tally(0, [
     archery_target_animite(),
 ]))
 
-// Forging a dream creature
-forge_location = {
-    "Naroom": forge_naroom(),
-    "Underneath": forge_underneath(),
-    "Cald": forge_cald(),
-    "Orothe": (forge_orothe_city() || forge_orothe_island()),
-    "Arderial": forge_arderial(),
-    "Core": forge_core()
-}
-function forge(location, creature) =>
-    forge_location[location] && (wScript_RingMadeID() == creature)
+
+//////////
+// Misc //
+//////////
+
+// Asserts that WRAM has been initialized.
+// (GBC boot ROM seems to only modify WRAM2 and HRAM, so we shouldn't expect the boot ROM to trigger any achievements prior to initialization (or on hard reset))
+function game_init() =>
+    wSound_SoundInit() == Sound_Init_MagicNumber
+
+// Used to reset if i2 logo is displayed, as you can do a soft reset by pressing Select-Start-A-B or by formatting game pak,
+// which could in rare cases be used to cheat on leaderboards or for specific achievements
+function game_reset() =>
+    i2_logo()
+
+// Treasure chest item
+function get_treasure(name) => _get_treasure() && treasure_name(name)
 
 // Shadowhold prisoners
 function prisoner(id) =>
     once((wScript_Text() == HldPrisoner_Reward[id]) || (wScript_Text() == HldPrisoner_Thanks[id]))
 function prisoners() =>
     measured(tally_of(range(0,6), 7, id => prisoner(id)))
+
 
 //////////////////
 // Achievements //
@@ -492,9 +651,9 @@ function prisoners() =>
 // Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
 // Refusing to fight Agadon (bad ending)
 // Taking the easy vs hard way with Warrada (doesn't really make much a difference)
-// Saving the Tryn sisters or letting them die (doesn't make a big difference)
+// Saving the Tryn sisters or letting them die (doesn't make a big difference, and you need to save them to get all relics)
 // Note that the Arderial and Core hyrens are unobtainable in the game and so there are no achievements for them
-// We also cannot read which rings are owned so we can't do a catch-them-all achievement
+
 
 // Geysers //
 /////////////
@@ -778,6 +937,18 @@ achievement(
     description = "Visit the Core Ringsmith.",
     id = 404379, badge = "459130",
     trigger = game_init() && greet_coresmith()
+)
+achievement(
+    title = "Gotta Catch 'Em All", points = 100,
+    description = "Forge all 77 forgeable dream creatures, and browse through all of them in the Equip Menu.",
+    id = 0, badge = "0",
+    trigger = game_init() && never(game_reset()) && own_creatures()
+)
+achievement(
+    title = "Archeologist", points = 50,
+    description = "Obtain all 33 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
+    id = 0, badge = "0",
+    trigger = game_init() && never(game_reset()) && own_relics()  // Gotta reset when back in the normal game state to clear out the measured value since we don't have a 100% guaranteed
 )
 
 // Dream Creatures //
