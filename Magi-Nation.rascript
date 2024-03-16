@@ -656,7 +656,7 @@ function prisoners() =>
 
 // The achievement covers pretty much all possible progression and all secrets, except for:
 // All blast urn rooms (requires SRAM ideally, or else the setup is too janky, but we already require 1 room for Jailbreak so I don't think this achievement is necessarily a great idea)
-// Opening all chests in all locations (requires SRAM so not currently doable, and not sure if actually a good achievement idea)
+// Opening all chests in all locations (requires SRAM so not currently doable)
 // Refusing to fight Agadon (bad ending)
 // Taking the easy vs hard way with Warrada (doesn't really make much a difference)
 // Saving Eryn and Karyn vs letting them die (doesn't make a big difference, and you need to save them to get atwice ll relics)
@@ -954,7 +954,7 @@ achievement(
 )
 achievement(
     title = "Archaeologist", points = 50,
-    description = "Obtain all 33 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
+    description = "Obtain all 32 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
     id = 408603, badge = "463339",
     trigger = never(relic_uninitialized()) && relic_wram_revalidate() && own_relics()  // No need for game_init() since it is covered within relic_uninitialized(). Reset to prevent scumming Spice & Pinch of Life
 )
