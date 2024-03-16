@@ -42,6 +42,9 @@ function bcd_8(number) =>
 
 function changes_from(address, value) => (prev(address) == value) && (address != value)
 
+function changes(address) => (prev(address) != address)
+
+
 ///////////////////
 // Lookup Tables //
 ///////////////////
@@ -137,8 +140,8 @@ CreatureID_Yvohcna = 0x55
 // 77/86 creatures are therefore obtainable
 Unobtainable_Creatures = [
     CreatureID_Alaban,  // Requires Infused Platheus
-    CreatureID_Borgor,  // Requires Infused Sphor
     CreatureID_Bolt_Hyren,
+    CreatureID_Borgor,  // Requires Infused Sphor
     CreatureID_Core_Hyren,  // Requires Infused ThundrHyrn
     CreatureID_Platheus,
     CreatureID_Sphor,
@@ -278,19 +281,16 @@ SFXID_CriticalAttack = 14
 // The CreatureID is set when a ring is made
 function wScript_RingMadeID() => byte(0xC726)
 
-
 // Pointers to the 5 visible entries in the MainMenu or Battle
 // For Items, Spells, Relics only
 wMenu_MainMenu_Entry_EntriesPointers = 0xCC78
 
- 
 // Array of 7*[CreatureID, CreatureLevel].
 // Initialized to 0 on game boot
 // Unused entries set to CreatureID_Null upon first RingBank load
 wMenu_RingBank_VisibleRings = 0xCD59
 // Number of visible rings - only needed for CreatureID_Abaquist = 0
 function wMenu_RingBank_VisibleRingCount() => byte(0xCD67)
-
 
 // Volume of the music (0x00-0x0F)
 // Usually at 0x0F, but set to 0x06 in the Start Menu
@@ -526,17 +526,33 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // We also don't have protection against someone stealing a completed savefile, but again, nothing we can do about it without SRAM access
 
 
+// Check if Equip menu has ever been loaded.
+function equip_uninitialized() =>
+    wMenu_RingBank_VisibleRingCount() == 0
+// In the rare case that we can't rely on saved WRAM values because the game has been rebooted but WRAM has not been initialized,
+// wait to detect any change to RingBank, meaning we know that the information has been updated.
+// Very slightly janky as you might have to page back and forth once, but invalid WRAM should be an extremely rare situation (probably only caused by intentional attempts to cheat the achievement)
+function equip_updated() =>
+    changes(dword(wMenu_RingBank_VisibleRings)) //|| changes(dword(wMenu_RingBank_VisibleRings + 4)) || changes(dword(wMenu_RingBank_VisibleRings + 8)) || changes(word(wMenu_RingBank_VisibleRings + 12))
+function equip_wram_revalidate() =>
+    never(always_true() && once(game_reset()) && equip_updated()) && never(always_true() && once(battle_reset()) && equip_updated()) // always_true() to force a different order of the params or else it doesn't work properly
 // Janky check to see if each creature is in any of the 7 positions in the menu
-function own_creature(id) {
-    if(id == 0) {
-        once((wMenu_RingBank_VisibleRingCount() != 0) && any_of(range(0, 6), i => byte(wMenu_RingBank_VisibleRings + 2*i) == id)) // Make sure the RingBank has been initialized to not falsely give ID 0
-    } else {
-        once(any_of(range(0, 6), i => byte(wMenu_RingBank_VisibleRings + 2*i) == id))
-    }
-}
+function own_creature(id) =>
+    once(any_of(range(0, 6), i => byte(wMenu_RingBank_VisibleRings + 2*i) == id))
 function own_creatures() =>
     measured(tally_of(Obtainable_Creatures, 77, id => own_creature(id)))
 
+// Check if wMenu_MainMenu_Entry_EntriesPointers menu has ever been loaded.
+function relic_uninitialized() =>
+    dword(wMenu_MainMenu_Entry_EntriesPointers) == 0
+// In the rare case that we can't rely on saved WRAM values because the game has been rebooted but WRAM has not been initialized,
+// wait to detect any change to wMenu_MainMenu_Entry_EntriesPointers, meaning we know that the information has been updated.
+// Very slightly janky as you might have to page back and forth once, but invalid WRAM should be an extremely rare situation (probably only caused by intentional attempts to cheat the achievement)
+// We use wMenu_MainMenu_Entry_EntriesPointers + 1 because the previous var has an overflow bug that sometimes overwrites the very first byte in wMenu_MainMenu_Entry_EntriesPointers, and we don't want to detect this change
+function relic_updated() =>
+    changes(dword(wMenu_MainMenu_Entry_EntriesPointers + 1)) //|| changes(dword(wMenu_MainMenu_Entry_EntriesPointers + 5)) || changes(byte(wMenu_MainMenu_Entry_EntriesPointers + 9))
+function relic_wram_revalidate() =>
+    never(always_true() && once(game_reset()) && relic_updated()) && never(always_true() && once(battle_reset()) && relic_updated()) // always_true() to force a different order of the params or else it doesn't work properly
 // Janky check to see if each relic is in any of the 5 positions in the menu
 // Unfortunately, we cannot access/read the 2 equipped relics without reading. (Technically we can read the 2nd relic by string only, but that's too janky)
 function own_relic(id) =>
@@ -725,13 +741,13 @@ achievement(
     title = "Brub Scrub", points = 5,
     description = "Score at least 50 points in Scrub the Brub.",
     id = 404354, badge = "459096",
-    trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
+    trigger = never(!game_init()) && brub_start() && brub_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Brub Elite", points = 10,
     description = "Score at least 60 points in Scrub the Brub.",
     id = 404355, badge = "459097",
-    trigger = game_init() && brub_start() && brub_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
+    trigger = never(!game_init()) && brub_start() && brub_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of brub_count() since we only need to check the total score at the end
 )
 leaderboard(
     title = "Scrub the Brub",
@@ -749,13 +765,13 @@ achievement(
     title = "Aim for Tickets", points = 5,
     description = "Score at least 50 points in Aim for Animite.",
     id = 404356, badge = "459102",
-    trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
+    trigger = never(!game_init()) && archery_start() && archery_end() && (number_buffer() >= bcd_8(50)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
 )
 achievement(
     title = "Bullseye", points = 10,
     description = "Score at least 60 points in Aim for Animite.",
     id = 404357, badge = "459103",
-    trigger = game_init() && archery_start() && archery_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
+    trigger = never(!game_init()) && archery_start() && archery_end() && (number_buffer() >= bcd_8(60)) // use number_buffer() instead of archery_count() since we only need to check the total score at the end
 )
 leaderboard(
     title = "Aim for Animite",
@@ -773,13 +789,13 @@ achievement(
     title = "Speedy Tony", points = 5,
     description = "Beat Avoid the Agovos in under 7.7 seconds.", // 7.7*60-1 = 461. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404358, badge = "459093",
-    trigger = game_init() && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
+    trigger = never(!game_init()) && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
 )
 achievement(
     title = "Flash Tony", points = 10,
     description = "Beat Avoid the Agovos in under 7.4 seconds.", // 7.4*60-1 = 443. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404359, badge = "459094",
-    trigger = game_init() && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
+    trigger = never(!game_init()) && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
 )
 leaderboard(
     title = "Avoid the Agovos",
@@ -931,16 +947,16 @@ achievement(
     trigger = game_init() && greet_coresmith()
 )
 achievement(
-    title = "Gotta Catch 'Em All", points = 100,
+    title = "Gotta Catch 'Em All", points = 50,
     description = "Forge all 77 forgeable dream creatures, and browse through all of them in the Equip Menu.",
     id = 0, badge = "0",
-    trigger = game_init() && never(game_reset()) && never(battle_reset()) && own_creatures() // Reset to prevent animite scumming to craft 2 different creatures
+    trigger = never(equip_uninitialized()) && equip_wram_revalidate() && own_creatures() // No need for game_init() since it is covered within equip_uninitialized(). Reset to prevent animite scumming to craft 2 different creatures
 )
 achievement(
     title = "Archaeologist", points = 50,
     description = "Obtain all 33 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
     id = 0, badge = "0",
-    trigger = game_init() && never(game_reset()) && never(battle_reset()) && own_relics()  // Reset to prevent scumming Spice & Pinch of Life
+    trigger = never(relic_uninitialized()) && relic_wram_revalidate() && own_relics()  // No need for game_init() since it is covered within relic_uninitialized(). Reset to prevent scumming Spice & Pinch of Life
 )
 
 // Dream Creatures //
@@ -1052,7 +1068,7 @@ achievement(
     title = "199 Borgors", points = 100,
     description = "Defeat Morag at your first encounter.",
     id = 404392, badge = "459131",
-    trigger = game_init() && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins() // We don't need battle_reset() here as you're locked into the fight
+    trigger = never(!game_init()) && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins() // We don't need battle_reset() here as you're locked into the fight
 )
 achievement(
     title = "Two Stooges", points = 10,
@@ -1064,7 +1080,7 @@ achievement(
     title = "Weebest", points = 25,
     description = "Defeat Salafy at her hardest difficulty.",
     id = 404398, badge = "459121",
-    trigger = game_init() && never(game_reset()) && never(battle_reset()) && never(tony_escapes()) && once(salafy_level4_start()) && salafy_win() // Tony escaping counts as a win, so we need to explicitly guard against this
+    trigger = never(!game_init()) && never(game_reset()) && never(battle_reset()) && never(tony_escapes()) && once(salafy_level4_start()) && salafy_win() // Tony escaping counts as a win, so we need to explicitly guard against this
 )
 
 
