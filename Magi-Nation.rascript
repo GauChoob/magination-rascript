@@ -905,7 +905,7 @@ achievement(
     trigger = game_init() && large_screwdriver()
 )
 achievement(
-    title = "Savior", points = 50,
+    title = "Savior", points = 25,
     description = "Cure Orwin.",
     id = 404375, badge = "459114",
     trigger = game_init() && cure_orwin()
@@ -949,13 +949,13 @@ achievement(
 achievement(
     title = "Gotta Catch 'Em All", points = 50,
     description = "Forge all 77 forgeable dream creatures, and browse through all of them in the Equip Menu.",
-    id = 0, badge = "0",
+    id = 408602, badge = "463338",
     trigger = never(equip_uninitialized()) && equip_wram_revalidate() && own_creatures() // No need for game_init() since it is covered within equip_uninitialized(). Reset to prevent animite scumming to craft 2 different creatures
 )
 achievement(
     title = "Archaeologist", points = 50,
     description = "Obtain all 33 obtainable relics, and browse through all of them, unequipped, in the Start Menu.",
-    id = 0, badge = "0",
+    id = 408603, badge = "463339",
     trigger = never(relic_uninitialized()) && relic_wram_revalidate() && own_relics()  // No need for game_init() since it is covered within relic_uninitialized(). Reset to prevent scumming Spice & Pinch of Life
 )
 
@@ -1022,7 +1022,7 @@ achievement(
     trigger = game_init() && forge("Arderial", CreatureID_Orathan_F)
 )
 achievement(
-    title = "Now THAT is a BIG Mushroom", points = 50,
+    title = "Now THAT is a BIG Mushroom", points = 25,
     description = "Encounter Ormagon.",
     id = 404388, badge = "459125",
     trigger = game_init() && wild_appear("Ormagon   ")
@@ -1078,7 +1078,7 @@ achievement(
 )
 achievement(
     title = "Weebest", points = 25,
-    description = "Defeat Salafy at her hardest difficulty.",
+    description = "Defeat Salafy in her strongest form.",
     id = 404398, badge = "459121",
     trigger = never(!game_init()) && never(game_reset()) && never(battle_reset()) && never(tony_escapes()) && once(salafy_level4_start()) && salafy_win() // Tony escaping counts as a win, so we need to explicitly guard against this
 )
