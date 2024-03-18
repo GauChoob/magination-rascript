@@ -18,7 +18,7 @@
 
 // If ever there would be a translation patch (there definitely never will be due to the game's popularity), it is fairly trivial to check for an alternative name if need be...
 
-// The achievements were developed primarily on Gambatte, but GearBoy, VGA-M and mGBA were all also briefly tested,
+// The achievements were developed primarily on Gambatte, but GearBoy, VGA-M, mGBA and SameBoy were all also briefly tested,
 // and the achievements are expected to work on all 6 cores mentioned above.
 
 // Reference source code: https://github.com/GauChoob/magination
@@ -292,12 +292,6 @@ wMenu_RingBank_VisibleRings = 0xCD59
 // Number of visible rings - only needed for CreatureID_Abaquist = 0
 function wMenu_RingBank_VisibleRingCount() => byte(0xCD67)
 
-// Volume of the music (0x00-0x0F)
-// Usually at 0x0F, but set to 0x06 in the Start Menu
-// The Volume can also fade in/out slowly between 0x00 and 0x0F, but the slowest fade speed is once every 0x10 frames
-function wSound_VolumeSong() => byte(0xC92C)
-Volume_MainMenu = 0x06
-
 
 ////////////////////////////////
 //  Bytecode Script Addresses //
@@ -424,7 +418,7 @@ function battle_lost() =>
 function salafy_level4_start() =>
     wScript_System() == bank_address(0x0589DD) // vash_bat.mgi Line 23, TextIcon(ICON_SALAFY) - triggers on first textbox open during Salafy's level 4 battle
 function salafy_win() =>
-    wScript_Text() == bank_address(0x04D58F) // nrmvash13.mgi Line 139, TextIcon(ICON_SALAFY) - triggers on first textbox open after defeating Salafy (any level)
+    wScript_Text() == bank_address(0x04D58F) // nrmvash13.mgi Line 139, TextIcon(ICON_SALAFY) - triggers on first textbox open after defeating Salafy (any level), or afte running from Salafy
 
 // Chests
 function _get_treasure() =>
