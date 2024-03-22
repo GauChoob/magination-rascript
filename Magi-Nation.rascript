@@ -906,7 +906,7 @@ achievement(
 )
 achievement(
     title = "Jailbreak", points = 50,
-    description = "Rescue all 7 prisoners, and then find them throughout the world, and, without resetting, talk to them all.",
+    description = "Rescue all 7 prisoners, find them throughout the world, and then, without resetting, talk to each of them.",
     id = 406696, badge = "460199",
     trigger = game_init() && prisoners() // We don't care about protecting against game reset
 )
