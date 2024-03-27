@@ -317,6 +317,8 @@ function maelstrom() =>
 
 // Hero Abilities
 // Triggers on textbox close after the ability is obtained
+function translation_bracelet() =>
+    wScript_Text() == bank_address(0x0A82EE) // nrmriver01_txt.mgi Line 139, TextClose()
 function energy_band() =>
     wScript_Text() == bank_address(0x052835) // nrmglade09A_txt.mgi Line 187, TextClose()
 function crystal_gloves() =>
@@ -698,6 +700,12 @@ achievement(
 
 // Hero Abilities //
 ////////////////////
+achievement(
+    title = "Welcome to the Jungle", points = 1,
+    description = "Obtain the Translation Bracelet.",
+    id = 411979, badge = "466856",
+    trigger = game_init() && translation_bracelet()
+)
 achievement(
     title = "You're the Best Around", points = 1,
     description = "Obtain the Energy Band.",
@@ -1084,7 +1092,7 @@ achievement(
 
 // The scene id/menu/battle status isn't directly kept track in any variable but we can reasonably guess it using the loaded hotspots
 // One scene can have multiple different hotspot tables depending on how you get to the specific scene and the game progress
-// Some scenes don't load any hotspots at all in cutscenes, and so old information may be briefly displayed
+// Some scenes don't load any hotspots at all (particularly in cutscenes or scripted locations), and so old information may be briefly displayed
 // For example, the Scrub the Brub minigame doesn't load hotspots so we can't detect it, but at least we can locate the player in the Brub House
 // Hotspot tables are located in bank 0x21
 function wHotspot_Table() => word(0xC6DF)
