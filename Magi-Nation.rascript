@@ -756,7 +756,7 @@ leaderboard(
     description = "Highest points in Scrub the Brub.",
     start = game_init() && minigame_brub(), // We don't need to use once() so we don't need to use brub_start()
     cancel = game_reset(),
-    submit = brub_end(),
+    submit = __ornext(brub_end()),
     value = brub_count(), // use brub_count() instead of number_buffer() so we can keep track of score during the minigame
     format = "VALUE",
     lower_is_better = false,
@@ -803,7 +803,7 @@ leaderboard(
     title = "Avoid the Agovos",
     description = "Fastest time in Avoid the Agovos.",
     start = game_init() && agovo_start(),
-    cancel = agovo_lose() || game_reset(),
+    cancel = __ornext(agovo_lose() || game_reset()),
     submit = agovo_win(),
     value = always_true(),
     format = "FRAMES",
