@@ -1,0 +1,13 @@
+0x40D622 = bank_address(0x0880D6) // Game soft reset script after losing battle
+0x52BC18 = bank_address(0x0612BC) // Scene fading out at end of Geyser4
+0x59E314 = bank_address(0x0519E3) // Scene fading in at start of party
+0x638116 = bank_address(0x05A381) // Textbox open at Avoid the Agovos lose
+0x639316 = bank_address(0x05A393) // Textbox open at Avoid the Agovos win
+0x671026 = bank_address(0x09A710) // Scene fading in at start of Aim for Animite
+0x67A316 = bank_address(0x05A7A3) // Textbox close at Avoid the Agovos start
+0x67F31A = bank_address(0x06A7F3) // Scene fading out at end of Geyser1
+0x6D5113 = bank_address(0x04ED51) // Scene fading out at end of Geyser2
+0x725C2A = bank_address(0x0AB25C) // Splash screen fade in
+0x7A211C = bank_address(0x073A21) // Loaded Scrub the Brub scene
+0x7B091F = bank_address(0x07FB09) // Scene fading out at end of Geyser3
+0x7F5324 = bank_address(0x093F53) // Scene fading out at end of Geyser5

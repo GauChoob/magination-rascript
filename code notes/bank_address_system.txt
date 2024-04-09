@@ -1,0 +1,7 @@
+0x405A22 = bank_address(0x08805A) // Textbox close after opening generic treasure chest
+0x415913 = bank_address(0x04C159) // Textbox close after training door closed
+0x42C41D = bank_address(0x0742C4) // Textbox close at end of poop gag dialogue
+0x49DD16 = bank_address(0x0589DD) // Textbox open during Salafy level 4 battle
+0x5FF01B = bank_address(0x06DFF0) // Textbox close after large screwdriver examined
+0x6A0119 = bank_address(0x066A01) // Textbox close after getting Blurry
+0x7B6219 = bank_address(0x067B62) // Textbox close after getting Agadon's Boots

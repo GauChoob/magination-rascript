@@ -8,7 +8,7 @@ def process_file(file_in, file_out):
         lines = f.readlines()
         with open(file_out, 'w') as g:
             lines.sort(key = lambda line: int(line[2:8], 16))
-            g.write('\n'.join([line.strip() for line in lines))
+            g.write('\n'.join([line.strip() for line in lines]))
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
