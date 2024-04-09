@@ -477,7 +477,7 @@ function greet_coresmith() =>
 
 // Graphics Scripts
 Brub_Squished_Anim = bank_address(0x0472C6) // objects_anim.mgi Line 383, Frame(32,0,0,?Brub_Splat)
-RedBrub_Squished_Anim = bank_address(0x0047327) // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
+RedBrub_Squished_Anim = bank_address(0x047327) // objects_anim.mgi Line 422, Frame(32,0,0,?RedBrub_Splat)
 
 // Prisoner Thanks
 // Prisoner thanking the player once reward has already been received. See also Prisoner Reward
