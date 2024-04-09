@@ -3,12 +3,12 @@
 // md5: 1624f857098ca278b15629914f48352b
 
 // Mapping reference: https://github.com/RetroAchievements/rcheevos/blob/cc854ad75b6533e73cff5eb7a92429c5750c01a3/src/rcheevos/consoleinfo.c#L422
-// Unfortunately, only the first SRAM is mapped, and since the save file swaps between bank 0 and 2, we can't reliably read SRAM at the moment.
+// Unfortunately, only SRAM0 is mapped, and since the save file swaps SRAM0-1 and SRAM2-3, we can't reliably read SRAM at the moment as the data is stale half of the time
 // WRAM0 and 1 are mapped.
 // Gambatte, GearBoy, VGA-M, SameBoy and GBHawk all support WRAM2-7 at 0x10000-0x16000
 // However, mGBA does not, meaning this memory location is core-dependant
-// Therefore the only useable memory for achievements is WRAM0, along with WRAM1 (which only contains MusyX vars)
-// This means that magi and creature stats and count, chests, inventory, spells, relics, glyph status, hero abilities are all not mapped
+// Therefore the only useable memory for achievements is WRAM0, along with WRAM1 (which contains nothing but MusyX internal vars)
+// This means that magi and creature stats, rings, infused animite, animite, chests, inventory, spells, relics, glyph status, hero abilities cannot be directly checked
 // Even with access to WRAM2-7, we don't really gain much. We can read the scene map tiles and also read the battle state
 
 // So basically we are mostly left with a few pointers to data tables and pointers to bytecode scripts
@@ -212,7 +212,7 @@ Unobtainable_Relics = [
 
 Obtainable_Relics = []
 j = 0
-for i in range(1, 0x24) {
+for i in range(Relic_ARCHAICLEAF, Relic_WISHBONE) {
     if(i != Unobtainable_Relics[j]) {
         array_push(Obtainable_Relics, i)
     } else {
