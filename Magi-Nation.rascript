@@ -347,10 +347,6 @@ function geyser5() =>
     wScript_Master() == bank_address(0x093F53) // ardgeyser28.mgi Line 50, PalFade(0,15,32,0)
 
 // Boss fights
-function morag_underneath_start() =>
-    wScript_Text() == bank_address(0x088DAE) // undtown01_txt.mgi Line 380, TextClose() - Triggers on textbox close right before battle starts
-function morag_underneath_end() =>
-    wScript_Text() == bank_address(0x088DB2) // undtown01_txt.mgi Line 386, TextIcon(ICON_MORAG) - Triggers on textbox open right after battle ends
 function zet_end() =>
     wScript_Text() == bank_address(0x09AD56) // cregate01_txt.mgi Line 66, TextClose() - Triggers on textbox close right after Zet's last dialogue
 function agram_end() =>
@@ -623,7 +619,7 @@ function archery_count() => measured(tally(0, [
 //////////
 
 // Asserts that WRAM has been initialized.
-// (GBC boot ROM seems to only modify WRAM2 and HRAM, so we shouldn't expect the boot ROM to trigger any achievements prior to initialization (or on hard reset))
+// (GBC boot ROM seems to only modify WRAM2 and HRAM, so we shouldn't expect the boot ROM to trigger any achievements prior to initialization (nor on hard reset))
 function game_init() =>
     wSound_SoundInit() == Sound_Init_MagicNumber
 
@@ -913,7 +909,7 @@ achievement(
     trigger = game_init() && cure_orwin()
 )
 achievement(
-    title = "Jailbreak", points = 50,
+    title = "Jailbreak", points = 25,
     description = "Rescue all 7 prisoners, find them throughout the world, and then, without resetting, talk to each of them.",
     id = 406696, badge = "460199",
     trigger = game_init() && prisoners() // We don't care about protecting against game reset
@@ -943,7 +939,7 @@ achievement(
     trigger = game_init() && new_game_plus()
 )
 achievement(
-    title = "Dark Side", points = 50,
+    title = "Dark Side", points = 25,
     description = "Visit the Core Ringsmith.",
     id = 404379, badge = "459130",
     trigger = game_init() && greet_coresmith()
@@ -964,61 +960,61 @@ achievement(
 // Dream Creatures //
 /////////////////////
 achievement(
-    title = "Leaves that Cut", points = 10,
+    title = "Leaves that Cut", points = 5,
     description = "Forge Leaf Hyren.",
     id = 404380, badge = "459132",
     trigger = game_init() && forge("Naroom", CreatureID_Leaf_Hyren)
 )
 achievement(
-    title = "Tree Power", points = 10,
+    title = "Tree Power", points = 5,
     description = "Forge Timber Hyren.",
     id = 404394, badge = "459133",
     trigger = game_init() && forge("Naroom", CreatureID_TimberHyrn)
 )
 achievement(
-    title = "Pummel Party", points = 10,
+    title = "Pummel Party", points = 5,
     description = "Forge Mush Hyren.",
     id = 404381, badge = "459134",
     trigger = game_init() && forge("Underneath", CreatureID_Mush_Hyren)
 )
 achievement(
-    title = "Bury Your Foes", points = 10,
+    title = "Bury Your Foes", points = 5,
     description = "Forge Cave Hyren.",
     id = 404382, badge = "459135",
     trigger = game_init() && forge("Underneath", CreatureID_Cave_Hyren)
 )
 achievement(
-    title = "Flightless Wings", points = 10,
+    title = "Flightless Wings", points = 5,
     description = "Forge Magma Hyren.",
     id = 404383, badge = "459136",
     trigger = game_init() && forge("Cald", CreatureID_MagmaHyren)
 )
 achievement(
-    title = "Purifying Flame", points = 10,
+    title = "Purifying Flame", points = 5,
     description = "Forge Flame Hyren.",
     id = 404384, badge = "459137",
     trigger = game_init() && forge("Cald", CreatureID_FlameHyren)
 )
 achievement(
-    title = "Sitting Pretty", points = 10,
+    title = "Sitting Pretty", points = 5,
     description = "Forge Coral Hyren.",
     id = 404385, badge = "459138",
     trigger = game_init() && forge("Orothe", CreatureID_CoralHyren)
 )
 achievement(
-    title = "Ruler of the Depths", points = 10,
+    title = "Ruler of the Depths", points = 5,
     description = "Forge Deep Hyren.",
     id = 404395, badge = "459139",
     trigger = game_init() && forge("Orothe", CreatureID_Deep_Hyren)
 )
 achievement(
-    title = "Beast of the Sea", points = 10,
+    title = "Beast of the Sea", points = 5,
     description = "Forge Megathan.",
     id = 404386, badge = "459140",
     trigger = game_init() && forge("Orothe", CreatureID_Megathan)
 )
 achievement(
-    title = "Wind Fish", points = 10,
+    title = "Wind Fish", points = 5,
     description = "Forge Orathan F.",
     id = 404387, badge = "459141",
     trigger = game_init() && forge("Arderial", CreatureID_Orathan_F)
@@ -1067,12 +1063,6 @@ achievement(
 // Battles //
 /////////////
 achievement(
-    title = "199 Borgors", points = 100,
-    description = "Defeat Morag at your first encounter.",
-    id = 404392, badge = "459131",
-    trigger = never(!game_init()) && never(game_reset()) && once(morag_underneath_start()) && never(morag_underneath_end()) && tony_wins() // We don't need battle_reset() here as you're locked into the fight
-)
-achievement(
     title = "Two Stooges", points = 10,
     description = "Defeat Korg and Zet.", // Avoid spoilers
     id = 404393, badge = "459119",
@@ -1092,8 +1082,7 @@ achievement(
 
 // The scene id/menu/battle status isn't directly kept track in any variable but we can reasonably guess it using the loaded hotspots
 // One scene can have multiple different hotspot tables depending on how you get to the specific scene and the game progress
-// Some scenes don't load any hotspots at all (particularly in cutscenes or scripted locations), and so old information may be briefly displayed
-// For example, the Scrub the Brub minigame doesn't load hotspots so we can't detect it, but at least we can locate the player in the Brub House
+// Some scenes don't load any hotspots at all (particularly in cutscenes or scripted locations), and so stale information may be briefly displayed, but it should be quite minimal
 // Hotspot tables are located in bank 0x21
 function wHotspot_Table() => word(0xC6DF)
 // Autogenerated from hotspot_parser.py
