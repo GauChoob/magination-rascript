@@ -266,7 +266,7 @@ function wActorTonyScriptB() => tbyte(wActorTony + wActor_Offset_ScriptB)
 wText_StringBuffer = 0xC949
 Battle_Source = wText_StringBuffer + 0 // Battle action source and targets
 Battle_Target = wText_StringBuffer + 11
-Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which usually is an item icon, for simplicity
+Treasure_Name = wText_StringBuffer + 1 // Starts at 0, but skip the first char which often isn't ASCII, for simplicity
 // Number buffer for text input
 function wX1() => tbyte(0xC92D) // 8-bit-wide BCD-encoded number (0-999)
 function number_buffer() => wX1()
