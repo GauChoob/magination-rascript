@@ -435,11 +435,11 @@ function minigame_archery() =>
 function archery_target_animite() =>
     wScript_Scroll() == bank_address(0x09A7EF) // nrmvash24.mgi Line 117, ScrollMap(2,2,0), (Frame-perfect) - triggers when screen starts to shake after animite is hit
 function archery_target_slow() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x09A877)) // nrmvash24.mgi Line 161, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 function archery_target_medium() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x09A8B5)) // nrmvash24.mgi Line 176, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 function archery_target_fast() =>
-    changes_from(wScript_Scroll(), bank_address(0x9A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
+    changes_from(wScript_Scroll(), bank_address(0x09A8F3)) // nrmvash24.mgi Line 191, Delay(10) (end, Frame-perfect) - triggers when target resets from destroyed state. Also works with bug where actor stays in permanent destroyed state
 
 function agovo_start() =>
     wScript_Master() == bank_address(0x05A7A3) // nrmvash02.mgi Line 368, TextClose() - triggers on textbox close right when Tony's state becomes AI_Hero and gains control of his character in the Agovo room
