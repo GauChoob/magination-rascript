@@ -5,10 +5,10 @@
 |   |   |
 |:--|:--|
 |Set Difficulty|6|
-|Approximate time to master|60 hours|
+|Approximate time to master|40 hours|
 |Minimum numbers of playthroughs needed|2|
-|Number of missable achievements|28|
-|Hardest achievement of the set|199 Borgors|
+|Number of missable achievements|27|
+|Hardest achievement of the set|Gotta Catch 'Em All|
 
 # 2) Introduction
 Magi-Nation is a well-received Game Boy Color game that had the flaw of being released late in the console's life cycle and so was not as well known as other big titles. It was developed in Seattle by a small team of developers that had many sleepless nights to meet deadlines to release the game on time. The current achievement set includes all of the accessible hidden content in the game, including some secrets discovered as late as 2024!
@@ -262,10 +262,3 @@ As the infused animite of the above Dream Creatures cannot be obtained, the foll
 * Borgor
 * Core Hyren
 * Yvohcna
-
-***
-
-![](https://media.retroachievements.org/Badge/459131.png) [199 Borgors (100)](https://retroachievements.org/achievement/)   
-_Defeat Morag at your first encounter._
-
-Defeat Morag in the Underneath. Morag starts with 39,935 energy, which is enough to summon 199 Borgors. There are two strategies to defeat him. Without defeating his Koil, use Thrust from a Tusk Bwisp to whittle down his energy to zero before defeating the Koil. Alternatively, a maxed-out team of Ormagons using Consume can defeat all the Borgors, assuming you don't run into bad RNG.
