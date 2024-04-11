@@ -1,0 +1,6 @@
+md5sum "Magi Nation - Combat Rebalanced (v3) (Biscuit).gbc"
+a990d69d7dd73a7110aa6d9b95dce3a6 *Magi Nation - Combat Rebalanced (v3) (Biscuit).gbc
+md5sum "Magi Nation - Add Missing Creatures (v2) (Aplier).gbc"
+8415b4e07b327b60c4a3323dbe85080a *Magi Nation - Add Missing Creatures (v2) (Aplier).gbc
+md5sum "Magi Nation (USA).gbc"
+1624f857098ca278b15629914f48352b *Magi Nation (USA).gbc
