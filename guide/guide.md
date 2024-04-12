@@ -44,105 +44,105 @@ Here are the steps you must take to complete the Ormagon Quest:
 
 # 5) Achievement Guide
 
-![](https://media.retroachievements.org/Badge/459087.png) [Great Furok (5)]()   
+![](https://media.retroachievements.org/Badge/459087.png) [Great Furok](https://retroachievements.org/achievement/404371)   
 _Obtain a Great Furok by almost escaping the Tavel Gorge caves._
 
 The Tavel Gorge caves have 3 different maps associated with them. After taking the crystal, you must run all the way back to the very first map before falling down into a chasm. After that, Pruitt will automatically give you a great Furok (level 5), as opposed to a normal or good Furok (level 2 or 3).
 
 ***
 
-![](https://media.retroachievements.org/Badge/459090.png) [Throwing Healing at Friends (1)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459090.png) [Throwing Healing at Friends](https://retroachievements.org/achievement/404361)   
 _Obtain Grow in Naroom._
 
 Found in the Seer's House.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459094.png) [Flash Tony (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459094.png) [Flash Tony](https://retroachievements.org/achievement/404359)   
 _Beat Avoid the Agovos in under 7.4 seconds._
 
 The minigame unlocks in Vash Naroom after beating the first Shadow Geyser.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459097.png) [Brub Elite (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459097.png) [Brub Elite](https://retroachievements.org/achievement/404355)   
 _Score at least 60 points in Scrub the Brub._
 
 This game can be played in the Underneath or in the Cald.
 
 ***
 
-![](https://media.retroachievements.org/Badge/458598.png) [Acquired Taste (3)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/458598.png) [Acquired Taste](https://retroachievements.org/achievement/404389)   
 _Eat 20 mushrooms._
 
 Before completing the second Shadow Geyser, learn about mushrooms from one of the town's inhabitants, then go in Motash the elder's house and eat 20 mushrooms. This Easter egg was only discovered in 2024!
 
 ***
 
-![](https://media.retroachievements.org/Badge/459101.png) [Solo Operative (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459101.png) [Solo Operative](https://retroachievements.org/achievement/404372)   
 _Obtain Maelstrom by defeating all the ShadowMagi without any help._
 
 After getting to the Cald, defeat the first ShadowMagi on the bridge, then head southeast for a few seconds to fight the ShadowMagi that is standing around. After that, work your way counter-clockwise around the map, fighting a total of 7 ShadowMagi. Valkan should not help at all. Talk to Valkan later to receive your reward.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459103.png) [Bullseye (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459103.png) [Bullseye](https://retroachievements.org/achievement/404357)   
 _Score at least 60 points in Aim for Animite._
 
 You must obtain Wence's arrow from the Underneath to be able to play this minigame in the Cald. Note that the targets and animite give 1, 2, 3 and 5 points respectively, even though the boy tells you they are worth more than that.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459104.png) [Have Some Flame (5)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459104.png) [Have Some Flame](https://retroachievements.org/achievement/404364)   
 _Obtain Fireball in the Cald._
 
 A secret passage exists on the pathway to the Ferry in the Cald. By running around in front of a specific one of the paintings on the wall, the painting will swallow you and bring you into the secret passage.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459106.png) [So That's Where Soap Comes From (1)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459106.png) [So That's Where Soap Comes From](https://retroachievements.org/achievement/404390)   
 _Tell Eidon about Oflardt's stories._
 
 Refuse to pay the Ferryman after going to Orothe. On your way back from Orothe, talk to Eidon. Note that refusing to pay the Ferryman will lock you out from getting Ormagon, so make an extra save state before talking to the Ferryman, or simply do not save the game and reset.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459107.png) [Skeleton Key (5)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459107.png) [Skeleton Key](https://retroachievements.org/achievement/404373)   
 _Find the Channeled Gem using Ashgar's Key._
 
 The locked door is located in the Weave.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459108.png) [Bargainer (3)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459108.png) [Bargainer](https://retroachievements.org/achievement/404391)   
 _Haggle the ferryman down to his lowest price._
 
 Refuse to pay the Ferryman after going to Orothe. Once back on mainland, head back to the Dock in the Cald. Note that refusing to pay the Ferryman will lock you out from getting Ormagon, so make an extra save state before talking to the Ferryman, or simply do not save the game and reset.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459109.png) [Gentleman Thief (5)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459109.png) [Gentleman Thief](https://retroachievements.org/achievement/404397)   
 _Close the training equipment door after opening it._
 
 As part of the Ormagon quest, the training equipment door is unlocked by running 5 times around the statue counter-clockwise. After unlocking the door, run 5 times around the statue clockwise, and interact with the empty eye to lock the door again. This was only discovered in 2024!
 
 ***
 
-![](https://media.retroachievements.org/Badge/459112.png) [Second Largest Screwdriver (25)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459112.png) [Second Largest Screwdriver](https://retroachievements.org/achievement/404374)   
 _Examine the large screwdriver near some Jingjacks._
 
 Found at the end of the Shadowhold.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459114.png) [Savior (25)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459114.png) [Savior](https://retroachievements.org/achievement/404375)   
 _Cure Orwin._
 
 Get the Cloud Frond from the Shadowhold and bring it to the Seer. Note that healing Orwin will lock you out of the Ormagon quest, unless Orwin is healed after getting the Hollow Stool.
 
 ***
 
-![](https://media.retroachievements.org/Badge/460199.png) [Jailbreak (50)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/460199.png) [Jailbreak](https://retroachievements.org/achievement/406696)   
 _Rescue all 7 prisoners and then find them throughout the world._
 
 Fully complete the Shadowhold by rescuing all 7 prisoners. After escaping from the Shadowhold, the prisoners can be found at the following locations:
@@ -156,49 +156,49 @@ Fully complete the Shadowhold by rescuing all 7 prisoners. After escaping from t
 
 ***
 
-![](https://media.retroachievements.org/Badge/459114.png) [Now THAT is a BIG Mushroom (25)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459125.png) [Now THAT is a BIG Mushroom](https://retroachievements.org/achievement/404388)   
 _Encounter Ormagon._
 
 Complete the Ormagon Quest.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459150.png) [Funeral (5)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459150.png) [Funeral](https://retroachievements.org/achievement/405828)   
 _After defeating Agram, attend a funeral instead of going home._
 
 Instead of going back home after defeating Agram, try to head back 3 times. This ending triggers if Orwin was not healed.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459127.png) [Spoiled Kyros (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459127.png) [Spoiled Kyros](https://retroachievements.org/achievement/404376)   
 _After defeating Agram, attend the party instead of going home._
 
 Instead of going back home after defeating Agram, try to head back 3 times. This ending triggers if Orwin was healed.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459128.png) [Simpsons Homage (10)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459128.png) [Simpsons Homage](https://retroachievements.org/achievement/404377)   
 _Do everything at the Naroom party before leaving._
 
 At the party, talk to Blu, Pruitt, Salafy, Yaki, Eidon and Valkan. Help Evu via Poad, reunite Gruk, Ulk and Gogor, help Logan, and complete Orlon's and the Seer's challenges without cheating.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459129.png) [The Third Door (5)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459129.png) [The Third Door](https://retroachievements.org/achievement/404378)   
 _Unlock New Game Plus._
 
 After the credits have rolled, without resetting the game, find the secret passage in the starting room.
 
 ***
 
-![](https://media.retroachievements.org/Badge/459130.png) [Dark Side (50)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/459130.png) [Dark Side](https://retroachievements.org/achievement/404379)   
 _Visit the Core Ringsmith._
 
 After starting a New Game Plus, bring a Star key to the secret passage between the Naroom cave and Gruk's Mushroom Farm.
 
 ***
 
-![](https://media.retroachievements.org/Badge/463339.png) [Archaeologist (50)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/463339.png) [Archaeologist](https://retroachievements.org/achievement/408603)   
 _Obtain all 32 obtainable relics, and browse though all of them, unequipped, in the Start Menu._
 
 Naroom Relics:
@@ -247,7 +247,7 @@ Shadowhold Relics:
 
 ***
 
-![](https://media.retroachievements.org/Badge/463338.png) [Gotta Catch 'Em All (50)](https://retroachievements.org/achievement/)   
+![](https://media.retroachievements.org/Badge/463338.png) [Gotta Catch 'Em All](https://retroachievements.org/achievement/408602)   
 _Forge all 77 forgeable dream creatures, and browse through all of them in the Equip Menu._
 
 These following Dream Creatures cannot be encountered without using a patch, and are therefore not included in the achievement:
