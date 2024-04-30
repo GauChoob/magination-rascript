@@ -406,6 +406,13 @@ function tony_wins() =>
     wScript_Text() == bank_address(0x130B69) // battle_txt.mgi Line 1016, TextClose()
 function tony_escapes() =>
     wScript_Text() == bank_address(0x130A28) // battle_txt.mgi Line 882, TextClose()
+function terminates() =>
+    wScript_Text() == bank_address(0x13046C) // battle_txt.mgi Line 405, TextClose()
+function hiccups_cured() =>
+    wScript_Text() == bank_address(0x130447) // battle_txt.mgi Line 334, TextClose()
+function plague_cured() =>
+    wScript_Text() == bank_address(0x130841) // battle_txt.mgi Line 707, TextClose()
+NumberBounce_Anim = bank_address(0x10707F) // spellFX_anim.mgi Line 184, Frame(64,0,0,?BOUNCE15) - Bouncy numbers when damage is dealt
 
 // Code before booting the player back to the starting room. Excludes scripted losing to Morag, Salafy
 function battle_lost() =>
@@ -506,6 +513,10 @@ function treasure_name(name) => ascii_string_equals(Treasure_Name, name) // The 
 function tony_summon(creature) => _tony_summon() && battle_target(creature)
 function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature)
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
+
+// If any of the 4 enemy dream creatures, or enemy magi, gets a damage pop-up of 100 or more
+function enemy_number_popup() =>
+    any_of(range(5, 9), actorid => wActorScriptA[actorid] == NumberBounce_Anim) //id 4-8 = enemy dream creatures, id 9 = enemy magi
 
 
 //////////
@@ -1072,6 +1083,32 @@ achievement(
     trigger = never(!game_init()) && never(game_reset()) && never(battle_reset()) && never(tony_escapes()) && once(salafy_level4_start()) && salafy_win() // Tony escaping counts as a win, so we need to explicitly guard against this
 )
 
+// Battle Moves //
+//////////////////
+achievement(
+    title = "Drink Water", points = 5,
+    description = "Cure Hiccups by using a Water attack on an afflicted Dream Creature",
+    id = 422151, badge = "476817",
+    trigger = game_init() && hiccups_cured()
+)
+achievement(
+    title = "Fever Dream", points = 5,
+    description = "Cure Plague by using a Fire attack on an afflicted Dream Creature",
+    id = 422152, badge = "476818",
+    trigger = game_init() && plague_cured()
+)
+achievement(
+    title = "One-Hit KO", points = 1,
+    description = "Witness a terminating attack",
+    id = 422153, badge = "476819",
+    trigger = game_init() && terminates()
+)
+achievement(
+    title = "Mauled to Death", points = 5,
+    description = "Deal 100 or more damage in one attack",
+    id = 422154, badge = "476820",
+    trigger = game_init() && (number_buffer() >= bcd_8(100)) && enemy_number_popup()
+)
 
 ///////////////////
 // Rich Presence //
