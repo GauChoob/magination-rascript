@@ -596,7 +596,6 @@ function brub_count() => measured(tally(0, [
     brub_squish_red(2),
     brub_squish_red(2),
 ]))
-// Perhaps there's a chance of giving an unecessary point for a slow/medium/fast target hit within 10 frames of the scene ending, but I don't think it is possible.
 function archery_count() => measured(tally(0, [
     archery_target_slow(),
     archery_target_medium(),
