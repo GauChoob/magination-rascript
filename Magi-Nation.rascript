@@ -516,7 +516,7 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
 // If any of the 4 enemy dream creatures, or enemy magi, gets a damage pop-up of 100 or more
 function enemy_number_popup() =>
-    any_of(range(5, 9), actorid => wActorScriptA[actorid] == NumberBounce_Anim) //id 4-8 = enemy dream creatures, id 9 = enemy magi
+    any_of(range(5, 9), actorid => wActorScriptA[actorid] == NumberBounce_Anim) //id 5-8 = enemy dream creatures, id 9 = enemy magi
 
 
 //////////
