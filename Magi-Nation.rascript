@@ -514,9 +514,10 @@ function tony_summon(creature) => _tony_summon() && battle_target(creature)
 function magi_summon(magi, creature) => _magi_summon() && battle_source(magi) && battle_target(creature)
 function wild_appear(creature) => _wild_appear() && battle_target(creature)
 
-// If any of the 4 enemy dream creatures, or enemy magi, gets a damage pop-up of 100 or more
-function enemy_number_popup() =>
-    any_of(range(5, 9), actorid => wActorScriptA[actorid] == NumberBounce_Anim) //id 5-8 = enemy dream creatures, id 9 = enemy magi
+// Triggers when any of the selected cards display damage:
+// 0 = Tony, 1-4 = Ally0-3, 5-8 = Enemy0-3, 9 = Magi
+function cardscene_number_popup(actorids) =>
+    any_of(actorids, actorid => wActorScriptA[actorid] == NumberBounce_Anim)
 
 
 //////////
@@ -1107,7 +1108,13 @@ achievement(
     title = "Mauled to Death", points = 5,
     description = "Deal 100 or more damage in one attack",
     id = 422154, badge = "476820",
-    trigger = game_init() && (number_buffer() >= bcd_8(100)) && enemy_number_popup()
+    trigger = game_init() && (number_buffer() >= bcd_8(100)) && cardscene_number_popup(range(5, 9)) // Enemy creatures + Magi
+)
+achievement(
+    title = "Did the Developers Even Test This?", points = 10,
+    description = "Deal \"255\" damage in one attack by using an Earth attack on a Dream Creature afflicted with the Stone status - the Stone status is obtainable by using a Crescent or Gibbous Gem on a Dream Creature with Plague or Hiccups respectively",
+    id = 422698, badge = "477367",
+    trigger = game_init() && (number_buffer() == bcd_8(255)) && cardscene_number_popup(range(1, 8)) // Any dream creature
 )
 
 ///////////////////
