@@ -198,7 +198,7 @@ After starting a New Game Plus, bring a Star key to the secret passage between t
 
 ***
 
-![](https://media.retroachievements.org/Badge/477367.png) [Did the Developers Even Test This?](https://retroachievements.org/achievement/422698)   
+![](https://media.retroachievements.org/Badge/477368.png) [Did the Developers Even Test This?](https://retroachievements.org/achievement/422698)   
 _Deal "255" damage in one attack by using an Earth attack on a Dream Creature afflicted with the Stone status_
 
 Any Earth attack on an allied or enemy creature afflicted with Stone will appear to receive 255 damage, but will actually receive the normal amount of damage. In order to get a creature with the Stone status, it must be first afflicted with Plague, and then a Crescent Gem must be used on it. This will change the creature's status from Plague to Stone. Alternatively, you can use a Gibbous Gem on a creature afflicted with Hiccups, which will change the creature's status from Hiccups to Stone.
