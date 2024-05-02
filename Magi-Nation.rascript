@@ -313,8 +313,8 @@ HS_HDNLOAD01 = 0x5052
 // Triggers on textbox close after the spell is obtained
 function leaf_cut() =>
     wScript_Text() == bank_address(0x0AC508) // nrmvash12_txt.mgi Line 109, TextClose()
-function blurry_scroll() =>
-    wScript_System() == bank_address(0x066A01) // ororuins02_dr.mgi Line 22, TextClose()
+function dispel_x() =>
+    wScript_Text() == bank_address(0x062E2A) // ororuins04_txt.mgi Line 261, TextClose()
 
 // Relics
 // Triggers on textbox close after the relic is obtained
@@ -874,10 +874,10 @@ achievement(
     trigger = game_init() && get_treasure("Entangle    ")
 )
 achievement(
-    title = "Not What You Expect", points = 1,
-    description = "Obtain the Blurry Scroll in Orothe",
+    title = "Where Are My Glasses?", points = 1,
+    description = "Decipher the Blurry Scroll in Orothe",
     id = 404367, badge = "459115",
-    trigger = game_init() && blurry_scroll()
+    trigger = game_init() && dispel_x()
 )
 achievement(
     title = "Bend Water to Your Will", points = 3,
