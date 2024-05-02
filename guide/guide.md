@@ -7,7 +7,7 @@
 |Set Difficulty|6|
 |Approximate time to master|40 hours|
 |Minimum numbers of playthroughs needed|2|
-|Number of missable achievements|27|
+|Number of missable achievements|25|
 |Hardest achievement of the set|Gotta Catch 'Em All|
 
 # 2) Introduction
