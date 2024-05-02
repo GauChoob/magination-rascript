@@ -868,7 +868,7 @@ achievement(
     trigger = game_init() && get_treasure("Flame Geyser")
 )
 achievement(
-    title = "Abracadableeeerrrgh!", points = 1,
+    title = "Bogged Down by Seaweed", points = 1,
     description = "Obtain Entangle in Orothe",
     id = 404366, badge = "459116",
     trigger = game_init() && get_treasure("Entangle    ")
