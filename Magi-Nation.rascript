@@ -525,7 +525,7 @@ function wild_appear(creature) => _wild_appear() && battle_target(creature)
 // Triggers when any of the selected cards display damage:
 // 0 = Tony, 1-4 = Ally0-3, 5-8 = Enemy0-3, 9 = Magi
 function cardscene_number_popup(actorids) =>
-    any_of(actorids, actorid => wActorScriptA[actorid] == NumberBounce_Anim)
+    __ornext(any_of(actorids, actorid => wActorScriptA[actorid] == NumberBounce_Anim))
 
 
 //////////
@@ -1124,7 +1124,7 @@ achievement(
     trigger = game_init() && (number_buffer() >= bcd_8(100)) && cardscene_number_popup(range(5, 9)) // Enemy creatures + Magi
 )
 achievement(
-    title = "Did the Developers Even Test This?", points = 10,
+    title = "Damage Not Applied", points = 10,
     description = "Deal \"255\" damage in one attack by using an Earth attack on a Dream Creature afflicted with the Stone status",
     id = 422698, badge = "477368",
     trigger = game_init() && (number_buffer() == bcd_8(255)) && cardscene_number_popup(range(1, 8)) // Any dream creature
