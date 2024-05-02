@@ -1112,7 +1112,7 @@ achievement(
 )
 achievement(
     title = "Did the Developers Even Test This?", points = 10,
-    description = "Deal \"255\" damage in one attack by using an Earth attack on a Dream Creature afflicted with the Stone status - the Stone status is obtainable by using a Crescent or Gibbous Gem on a Dream Creature with Plague or Hiccups respectively",
+    description = "Deal \"255\" damage in one attack by using an Earth attack on a Dream Creature afflicted with the Stone status",
     id = 422698, badge = "477367",
     trigger = game_init() && (number_buffer() == bcd_8(255)) && cardscene_number_popup(range(1, 8)) // Any dream creature
 )
