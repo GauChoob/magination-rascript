@@ -1,0 +1,16 @@
+0x562D1C = bank_address(0x07162D) // Textbox close after historian says: Jump high
+0x56641C = bank_address(0x071664) // Textbox close after historian says: Weakens purple
+0x56A51C = bank_address(0x0716A5) // Textbox close after historian says: Climb trees
+0x57301C = bank_address(0x071730) // Textbox close after historian says: Can't tell
+0x575B1C = bank_address(0x07175B) // Textbox close after historian says: Useless
+0x57A31C = bank_address(0x0717A3) // Textbox close after historian says: Looks at you
+0x57EB1C = bank_address(0x0717EB) // Textbox close after historian says: Mushroom to elixir
+0x58351C = bank_address(0x071835) // Textbox close after historian says: More rings
+0x58741C = bank_address(0x071874) // Textbox close after historian says: Inside out
+0x58C51C = bank_address(0x0718C5) // Textbox close after historian says: Mother's
+0x58F71C = bank_address(0x0718F7) // Textbox close after historian says: Worveline
+0x59211C = bank_address(0x071921) // Textbox close after historian says: Grow horn
+0x598A1C = bank_address(0x07198A) // Textbox close after historian says: Evil Dream Creature
+0x59B91C = bank_address(0x0719B9) // Textbox close after historian says: Causes blindness
+0x5A1C1C = bank_address(0x071A1C) // Textbox close after historian says: Cat to weebo
+0x5A451C = bank_address(0x071A45) // Textbox close after historian says: Blue face

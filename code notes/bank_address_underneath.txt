@@ -1,0 +1,16 @@
+    bank_address(0x07162D), // undtown04_txt.mgi Line 71, TextClose() Jump high
+    bank_address(0x071664), // undtown04_txt.mgi Line 79, TextClose() Weakens purple
+    bank_address(0x0716A5), // undtown04_txt.mgi Line 88, TextClose() Climb trees
+    bank_address(0x071730), // undtown04_txt.mgi Line 102, TextClose() Can't tell
+    bank_address(0x07175B), // undtown04_txt.mgi Line 109, TextClose() Useless
+    bank_address(0x0717A3), // undtown04_txt.mgi Line 118, TextClose() Looks at you
+    bank_address(0x0717EB), // undtown04_txt.mgi Line 127, TextClose() Mushroom to elixir
+    bank_address(0x071835), // undtown04_txt.mgi Line 136, TextClose() More rings
+    bank_address(0x071874), // undtown04_txt.mgi Line 145, TextClose() Inside out
+    bank_address(0x0718C5), // undtown04_txt.mgi Line 156, TextClose() Mother's
+    bank_address(0x0718F7), // undtown04_txt.mgi Line 164, TextClose() Worveline
+    bank_address(0x071921), // undtown04_txt.mgi Line 171, TextClose() Grow horn
+    bank_address(0x07198A), // undtown04_txt.mgi Line 183, TextClose() Evil Dream Creature
+    bank_address(0x0719B9), // undtown04_txt.mgi Line 190, TextClose() Causes blindness
+    bank_address(0x071A1C), // undtown04_txt.mgi Line 201, TextClose() Cat to weebo
+    bank_address(0x071A45), // undtown04_txt.mgi Line 208, TextClose() Blue face

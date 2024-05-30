@@ -505,6 +505,37 @@ HldPrisoner_Thanks = [
     // 8 only accessible by hacking ardgarden04.mgi
 ]
 
+Underneath_Historian = [
+    bank_address(0x07162D), // undtown04_txt.mgi Line 71, TextClose() Jump high
+    bank_address(0x071664), // undtown04_txt.mgi Line 79, TextClose() Weakens purple
+    bank_address(0x0716A5), // undtown04_txt.mgi Line 88, TextClose() Climb trees
+    bank_address(0x071730), // undtown04_txt.mgi Line 102, TextClose() Can't tell
+    bank_address(0x07175B), // undtown04_txt.mgi Line 109, TextClose() Useless
+    bank_address(0x0717A3), // undtown04_txt.mgi Line 118, TextClose() Looks at you
+    bank_address(0x0717EB), // undtown04_txt.mgi Line 127, TextClose() Mushroom to elixir
+    bank_address(0x071835), // undtown04_txt.mgi Line 136, TextClose() More rings
+    bank_address(0x071874), // undtown04_txt.mgi Line 145, TextClose() Inside out
+    bank_address(0x0718C5), // undtown04_txt.mgi Line 156, TextClose() Mother's
+    bank_address(0x0718F7), // undtown04_txt.mgi Line 164, TextClose() Worveline
+    bank_address(0x071921), // undtown04_txt.mgi Line 171, TextClose() Grow horn
+    bank_address(0x07198A), // undtown04_txt.mgi Line 183, TextClose() Evil Dream Creature
+    bank_address(0x0719B9), // undtown04_txt.mgi Line 190, TextClose() Causes blindness
+    bank_address(0x071A1C), // undtown04_txt.mgi Line 201, TextClose() Cat to weebo
+    bank_address(0x071A45), // undtown04_txt.mgi Line 208, TextClose() Blue face
+    // So it turns out the RandJump command is only able to randomly select from the
+    // first 16 entries, so the last 8 dialogues are inaccessible in the game.
+    //bank_address(0x071A76), // undtown04_txt.mgi Line 216, TextClose() Sets on fire
+    //bank_address(0x071AAE), // undtown04_txt.mgi Line 224, TextClose() Cooks
+    //bank_address(0x071ACA), // undtown04_txt.mgi Line 230, TextClose() Itching
+    //bank_address(0x071B35), // undtown04_txt.mgi Line 243, TextClose() Brub vomit
+    //bank_address(0x071B72), // undtown04_txt.mgi Line 252, TextClose() Allergic Orwin
+    //bank_address(0x071B9D), // undtown04_txt.mgi Line 259, TextClose() Jink Root
+    //bank_address(0x071BD6), // undtown04_txt.mgi Line 269, TextClose() Parasites on continent
+    //bank_address(0x071C18), // undtown04_txt.mgi Line 278, TextClose() Overworld
+]
+function underneath_historian() =>
+    any_of(Underneath_Historian, dialogue => wScript_Text() == dialogue)
+
 ///////////////////
 // String Buffer //
 ///////////////////
@@ -809,13 +840,13 @@ achievement(
     title = "Speedy Tony", points = 5,
     description = "Beat Avoid the Agovos in under 7.7 seconds", // 7.7*60-1 = 461. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404358, badge = "459093",
-    trigger = never(!game_init()) && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
+    trigger = game_init() && disable_when(repeated(461, always_true()), until=agovo_start()) && agovo_win()
 )
 achievement(
     title = "Flash Tony", points = 10,
     description = "Beat Avoid the Agovos in under 7.4 seconds", // 7.4*60-1 = 443. Subtract 1 to correspond frame-perfectly with the leaderboard (empirically tested)
     id = 404359, badge = "459094",
-    trigger = never(!game_init()) && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
+    trigger = game_init() && disable_when(repeated(443, always_true()), until=agovo_start()) && agovo_win()
 )
 leaderboard(
     title = "Avoid the Agovos",
@@ -1079,6 +1110,12 @@ achievement(
     description = "Close the training equipment door after opening it",
     id = 404397, badge = "459109",
     trigger = game_init() && close_training_door()
+)
+achievement(
+    title = "Too Many Mushrooms", points = 1,
+    description = "Ask the Underneath Historian to identify an item",
+    id = 432993, badge = "488819",
+    trigger = game_init() && __ornext(underneath_historian())
 )
 
 
