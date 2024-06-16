@@ -1557,8 +1557,9 @@ hotspot_lookup = {
 // As stated above, we cannot reliably use SRAM with the current memory mapping and game design for achievements.
 // However we can conditionally use it in Rich Presence when available.
 function wBattery_ActiveSavefileBaseBank() => byte(0xC727)
+function xDeadbeef() => dword(0xA002) // We need to verify the string for DEADBEEF because RAV-BA actually uses paged SRAM
 function sram_valid() =>
-    wBattery_ActiveSavefileBaseBank() == 0
+    wBattery_ActiveSavefileBaseBank() == 0 && xDeadbeef() == 0xBEEFDEAD
 
 // Tracks overall progress
 function xGameCount() => word(0xA123)
